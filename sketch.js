@@ -309,6 +309,9 @@ player = {
   level: "safe_shore",
   area: 0,
 
+  skillDirectionX: 1,
+  skillDirectionY: 0,
+
   skill1cooldown: 0,
   skill2cooldown: 0,
 
@@ -360,18 +363,45 @@ function doPlayerInput(){
     if (keyIsDown(16)){
       speedModifier *= 0.5
     }
+    oldSkillDirectionX = player.skillDirectionX;
+    oldSkillDirectionY = player.skillDirectionY;
+    player.skillDirectionX = 0;
+    player.skillDirectionY = 0;
     if ((keyIsDown(LEFT_ARROW) || keyIsDown(65)) && options.mikeyMode === -1){
       player.x -= player.speed * speedModifier;
+      player.skillDirectionX = -1;
     }
     if (keyIsDown(RIGHT_ARROW) || keyIsDown(68) || options.mikeyMode === 1){
       player.x += player.speed * speedModifier;
+      player.skillDirectionX = 1;
     }
     if (keyIsDown(UP_ARROW) || keyIsDown(87)){
       player.y -= player.speed * speedModifier;
+      player.skillDirectionY = -1;
     }
     if (keyIsDown(DOWN_ARROW) || keyIsDown(83)){
       player.y += player.speed * speedModifier;
+      player.skillDirectionY = 1;
     }
+    //if the player does not make any inputs in a frame, their direction stays the same.
+    if (player.skillDirectionX === 0 && player.skillDirectionY === 0){
+      player.skillDirectionX = oldSkillDirectionX;
+      player.skillDirectionY = oldSkillDirectionY;
+    } else {
+      //tempSkillDirectionX = player.skillDirectionX;
+      //tempSkillDirectionY = player.skillDirectionY;
+
+      //normalize
+      if (abs(player.skillDirectionX) + abs(player.skillDirectionY) > 1){
+        player.skillDirectionX /= sqrt(2);
+        player.skillDirectionY /= sqrt(2);
+      }
+
+    }
+
+  }
+
+
     //loop through all map tiles in the current area, and get the corners of all
     //of them in order to do collision detection.
     minXboundary = 99999;
@@ -453,7 +483,7 @@ function doPlayerInput(){
     //move the camera
     camX = player.x * -1
     camY = player.y * -1
-  }
+  
 }
 
 function checkForTeleport(){
@@ -512,6 +542,8 @@ function setup() {
 }
 
 function draw() {
+
+  
 
   //cool down the cooldowns
   if (skills[heroes[player.hero].skill1].cooldownDecreasesOverTime){

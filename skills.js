@@ -94,6 +94,8 @@ function setupSkills(){
       energyCost: 5,
       cooldown: 18,
       patternType: "instant",
+      cooldownDecreasesOverTime: true,
+      pelletsDecreaseCooldown: false,
       effects: [
         {
           effect: "movePlayer",
@@ -520,10 +522,9 @@ function doEffect(effectProperties, skillName, skillSlot){
       }
       switch (effectProperties.y) {
         case "playerPosition":
-          effectY = player.y;
-          break;
         case "stickToPlayer":
           effectY = player.y;
+          break;
         default:
           effectY = effectProperties.y;
           break;
@@ -535,6 +536,13 @@ function doEffect(effectProperties, skillName, skillSlot){
           }
         }
       }
+      break;
+    case "movePlayer":
+      if (effectProperties.moveType = "directional"){
+        player.x += player.skillDirectionX * getSkillValue(effectProperties.distance,skillSlot,false);
+        player.y += player.skillDirectionY * getSkillValue(effectProperties.distance,skillSlot,false);
+      }
+      break;
     default:
       break;
   }
