@@ -6,6 +6,7 @@ function setupSkills(){
     //here i have paralysis a the first in the list as a tutorial type thing, to explain what each thing does in the skill codes.
     //internal name of the skill.
     paralysis: {
+      usableWhileDead: false,
       //energy cost is the cost of the thing.
       energyCost: 15,
       //cooldown is the cooldown, in frames.
@@ -89,6 +90,7 @@ function setupSkills(){
     },
 
     warp:{
+      usableWhileDead: false,
       energyCost: 5,
       cooldown: 18,
       patternType: "instant",
@@ -108,6 +110,7 @@ function setupSkills(){
     },
 
     energyDrain1: {
+      usableWhileDead: false,
       energyCost: [1,2,3,4,5],
       cooldown: [240,120,60,30,15],
       cooldownDecreasesOverTime: true,
@@ -128,6 +131,7 @@ function setupSkills(){
     },
 
     energyDrain2: {
+      usableWhileDead: false,
       energyCost: 10,
       cooldown: [480, 240, 120, 60, 30],
       cooldownDecreasesOverTime: true,
@@ -151,181 +155,217 @@ function setupSkills(){
     },
     //placeholders for now, so the game doesn't immediately crash.
     flow: {
+      usableWhileDead: false,
       cooldown: 100,
       cooldownDecreasesOverTime: true,
       pelletsDecreaseCooldown: false,
     },
     harden:{
+      usableWhileDead: false,
       cooldown: [240,120,60,30,15],
       cooldownDecreasesOverTime: true,
       pelletsDecreaseCooldown: false,
     },
     reverse: {
+      usableWhileDead: false,
       cooldown: 100,
       cooldownDecreasesOverTime: true,
       pelletsDecreaseCooldown: false,
     },
     minimize:{
+      usableWhileDead: false,
       cooldown: [240,120,60,30,15],
       cooldownDecreasesOverTime: true,
       pelletsDecreaseCooldown: false,
     },
     distort: {
+      usableWhileDead: false,
       cooldown: 100,
       cooldownDecreasesOverTime: true,
       pelletsDecreaseCooldown: false,
     },
     energize:{
+      usableWhileDead: false,
       cooldown: [240,120,60,30,15],
       cooldownDecreasesOverTime: true,
       pelletsDecreaseCooldown: false,
     },
     resurrection: {
+      usableWhileDead: false,
       cooldown: 100,
       cooldownDecreasesOverTime: true,
       pelletsDecreaseCooldown: false,
     },
     reanimate:{
+      usableWhileDead: false,
       cooldown: [240,120,60,30,15],
       cooldownDecreasesOverTime: true,
       pelletsDecreaseCooldown: false,
     },
     stomp: {
+      usableWhileDead: false,
       cooldown: 100,
       cooldownDecreasesOverTime: true,
       pelletsDecreaseCooldown: false,
     },
     vigor:{
+      usableWhileDead: false,
       cooldown: [240,120,60,30,15],
       cooldownDecreasesOverTime: true,
       pelletsDecreaseCooldown: false,
     },
     barrier: {
+      usableWhileDead: false,
       cooldown: 100,
       cooldownDecreasesOverTime: true,
       pelletsDecreaseCooldown: false,
     },
     stream:{
+      usableWhileDead: false,
       cooldown: [240,120,60,30,15],
       cooldownDecreasesOverTime: true,
       pelletsDecreaseCooldown: false,
     },
     night: {
+      usableWhileDead: false,
       cooldown: 100,
       cooldownDecreasesOverTime: true,
       pelletsDecreaseCooldown: false,
     },
     vengeance:{
+      usableWhileDead: false,
       cooldown: [240,120,60,30,15],
       cooldownDecreasesOverTime: true,
       pelletsDecreaseCooldown: false,
     },
     blackhole: {
+      usableWhileDead: false,
       cooldown: 100,
       cooldownDecreasesOverTime: true,
       pelletsDecreaseCooldown: false,
     },
     orbit:{
+      usableWhileDead: false,
       cooldown: [240,120,60,30,15],
       cooldownDecreasesOverTime: true,
       pelletsDecreaseCooldown: false,
     },
     backtrack: {
+      usableWhileDead: false,
       cooldown: 100,
       cooldownDecreasesOverTime: true,
       pelletsDecreaseCooldown: false,
     },
     rewind:{
+      usableWhileDead: false,
       cooldown: [240,120,60,30,15],
       cooldownDecreasesOverTime: true,
       pelletsDecreaseCooldown: false,
     },
     atonement: {
+      usableWhileDead: false,
       cooldown: 100,
       cooldownDecreasesOverTime: true,
       pelletsDecreaseCooldown: false,
     },
     depart:{
+      usableWhileDead: false,
       cooldown: [240,120,60,30,15],
       cooldownDecreasesOverTime: true,
       pelletsDecreaseCooldown: false,
     },
     bandages: {
+      usableWhileDead: false,
       cooldown: 100,
       cooldownDecreasesOverTime: true,
       pelletsDecreaseCooldown: false,
     },
     latch:{
+      usableWhileDead: false,
       cooldown: [240,120,60,30,15],
       cooldownDecreasesOverTime: true,
       pelletsDecreaseCooldown: false,
     },
     spark: {
+      usableWhileDead: false,
       cooldown: 100,
       cooldownDecreasesOverTime: true,
       pelletsDecreaseCooldown: false,
     },
     charge:{
+      usableWhileDead: false,
       cooldown: [240,120,60,30,15],
       cooldownDecreasesOverTime: true,
       pelletsDecreaseCooldown: false,
     },
     shriek: {
+      usableWhileDead: false,
       cooldown: 100,
       cooldownDecreasesOverTime: true,
       pelletsDecreaseCooldown: false,
     },
     shadow:{
+      usableWhileDead: false,
       cooldown: [240,120,60,30,15],
       cooldownDecreasesOverTime: true,
       pelletsDecreaseCooldown: false,
     },
     fusion: {
+      usableWhileDead: false,
       cooldown: 100,
       cooldownDecreasesOverTime: true,
       pelletsDecreaseCooldown: false,
     },
     mortar:{
+      usableWhileDead: false,
       cooldown: [240,120,60,30,15],
       cooldownDecreasesOverTime: true,
       pelletsDecreaseCooldown: false,
     },
     decay: {
+      usableWhileDead: false,
       cooldown: 100,
       cooldownDecreasesOverTime: true,
       pelletsDecreaseCooldown: false,
     },
     shatter:{
+      usableWhileDead: false,
       cooldown: [240,120,60,30,15],
       cooldownDecreasesOverTime: true,
       pelletsDecreaseCooldown: false,
     },
     sugarrush: {
+      usableWhileDead: false,
       cooldown: 100,
       cooldownDecreasesOverTime: true,
       pelletsDecreaseCooldown: false,
     },
     sweettooth:{
+      usableWhileDead: false,
       cooldown: [240,120,60,30,15],
       cooldownDecreasesOverTime: true,
       pelletsDecreaseCooldown: false,
     },
     shift: {
+      usableWhileDead: false,
       cooldown: 100,
       cooldownDecreasesOverTime: true,
       pelletsDecreaseCooldown: false,
     },
     obscure:{
+      usableWhileDead: false,
       cooldown: [240,120,60,30,15],
       cooldownDecreasesOverTime: true,
       pelletsDecreaseCooldown: false,
     },
     crumble: {
+      usableWhileDead: false,
       cooldown: 100,
       cooldownDecreasesOverTime: true,
       pelletsDecreaseCooldown: false,
     },
     earthquake:{
+      usableWhileDead: false,
       cooldown: [240,120,60,30,15],
       cooldownDecreasesOverTime: true,
       pelletsDecreaseCooldown: false,

@@ -805,13 +805,13 @@ function keyPressed() {
     //JK/ZX attempt to do a skill.
     case 74:
     case 90:
-      if (player.skill1level > 0 && player.skill1cooldown < 1){
+      if (player.skill1level > 0 && player.skill1cooldown < 1 && (player.dead === false || skills[heroes[player.hero].skill1].usableWhileDead)){
         attemptSkillActivation(heroes[player.hero].skill1, 1);
       }
       break;
     case 88:
     case 75:
-      if (player.skill2level > 0 && player.skill2cooldown < 1){
+      if (player.skill2level > 0 && player.skill2cooldown < 1 && (player.dead === false || skills[heroes[player.hero].skill2].usableWhileDead)){
         attemptSkillActivation(heroes[player.hero].skill2, 2);
       }
       break;
