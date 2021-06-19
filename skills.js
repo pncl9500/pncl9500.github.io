@@ -100,7 +100,7 @@ function setupSkills(){
         {
           effect: "movePlayer",
           moveType: "directional",
-          distance: [80, 100, 120, 140, 160],
+          distance: [40, 50, 60, 70, 80],
         },
         {
           effect: "reduceEnergy",
