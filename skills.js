@@ -686,20 +686,18 @@ function doEffect(effectProperties, skillName, skillSlot){
       switch (skillSlot) {
         case 1:
           if (player.skill2updownToggle === "up"){
-            console.log(`skill 2 attmpted to be interupt`);
             player.skill2updownToggle = "down";
             skills[heroes[player.hero].skill2].interruptEffects.forEach(element => {
-              doEffect(element, skillName, 2);
+              doEffect(element, heroes[player.hero].skill2, 2);
             });
             break;
           }
           break;
         case 2:
           if (player.skill1updownToggle === "up"){
-            console.log(`skill 1 attmpted to be interupt`);
             player.skill1updownToggle = "down";
             skills[heroes[player.hero].skill1].interruptEffects.forEach(element => {
-              doEffect(element, skillName, 1);
+              doEffect(element, heroes[player.hero].skill1, 1);
             });
           }
           break;
