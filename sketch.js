@@ -657,6 +657,8 @@ function draw() {
   
   //player draw time
   noStroke();
+  fill(playerColor);
+  ellipse(player.x + camX + camOffsetX, player.y + camY + camOffsetY, player.w, player.h);
   if (player.dead){
     if (options.autoRespawn === 1){
       player.x = player.respawnPointX;
@@ -691,8 +693,7 @@ function draw() {
   } else {
     playerColor.setAlpha(255);
   }
-  fill(playerColor);
-  ellipse(player.x + camX + camOffsetX, player.y + camY + camOffsetY, player.w, player.h);
+  
 
   //draw fields.
   for (f = 0; f < fields.length; f++){
