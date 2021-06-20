@@ -485,7 +485,6 @@ function intteruptSkill(skillName, skillSlot){
 }
 
 function attemptSkillActivation(skillName, skillSlot){
-  console.log("weed");
   switch (skills[skillName].patternType) {
     case "updown":
       switch (skillSlot) {
@@ -493,18 +492,21 @@ function attemptSkillActivation(skillName, skillSlot){
           if (player.skill1updownToggle === "down"){
             if (skills[skillName].needEnergyForUp === false || (player.energy >= getSkillValue(skills[skillName].energyCost, 1, false))){
               player.skill1updownToggle = "up"
-              for (e = 0; e < skills[skillName].upEffects.length; e++){
-                doEffect(skills[skillName].upEffects[e], skillName, skillSlot);
-              }
+              skills[skillName].upEffects.forEach(element => {
+                doEffect(element, skillName, skillSlot);
+              });
+              // for (e = 0; e < skills[skillName].upEffects.length; e++){
+              //   doEffect(skills[skillName].upEffects[e], skillName, skillSlot);
+              // }
               return;
             }
           }
           if (player.skill1updownToggle === "up"){
             if (player.energy >= skills[skillName].energyCost){
               player.skill1updownToggle = "down"
-              for (e = 0; e < skills[skillName].downEffects.length; e++){
-                doEffect(skills[skillName].downEffects[e], skillName, skillSlot);
-              }
+              skills[skillName].downEffects.forEach(element => {
+                doEffect(element, skillName, skillSlot);
+              });
               return;
             }
           }
@@ -513,19 +515,18 @@ function attemptSkillActivation(skillName, skillSlot){
           if (player.skill2updownToggle === "down"){
             if (skills[skillName].needEnergyForUp === false || (player.energy >= getSkillValue(skills[skillName].energyCost, 2, false))){
               player.skill2updownToggle = "up"
-              for (e = 0; e < skills[skillName].upEffects.length; e++){
-                //THERE MAY BE PROBLEMS HERE. BECAUSE OF e. e MIGHT BE CHANGED IN doEffect() FUCKING UP THE LOOP
-                doEffect(skills[skillName].upEffects[e], skillName, skillSlot);
-              }
+              skills[skillName].upEffects.forEach(element => {
+                doEffect(element, skillName, skillSlot);
+              });
               return;
             }
           }
           if (player.skill2updownToggle === "up"){
             if (player.energy >= getSkillValue(skills[skillName].energyCost, 2, false)){
               player.skill2updownToggle = "down"
-              for (e = 0; e < skills[skillName].downEffects.length; e++){
-                doEffect(skills[skillName].downEffects[e], skillName, skillSlot);
-              }
+              skills[skillName].downEffects.forEach(element => {
+                doEffect(element, skillName, skillSlot);
+              });
               return;
             }
           }
@@ -536,17 +537,17 @@ function attemptSkillActivation(skillName, skillSlot){
       switch (skillSlot) {
         case 1:
           if (player.energy >= getSkillValue(skills[skillName].energyCost, 1, false)){
-            for (e = 0; e < skills[skillName].effects.length; e++){
-              doEffect(skills[skillName].effects[e], skillName, skillSlot);
-            }
+            skills[skillName].effects.forEach(element => {
+              doEffect(element, skillName, skillSlot);
+            });
             return;
           }
           break;
         case 2:
           if (player.energy >= getSkillValue(skills[skillName].energyCost, 2, false)){
-            for (e = 0; e < skills[skillName].effects.length; e++){
-              doEffect(skills[skillName].effects[e], skillName, skillSlot);
-            }
+            skills[skillName].effects.forEach(element => {
+              doEffect(element, skillName, skillSlot);
+            });
             return;
           }
           break;
