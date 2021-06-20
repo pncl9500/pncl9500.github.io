@@ -168,15 +168,69 @@ function setupSkills(){
     //placeholders for now, so the game doesn't immediately crash.
     flow: {
       usableWhileDead: false,
-      cooldown: 100,
+      interruptedOnDeath: true,
+      energyCost: 0,
+      cooldown: 1,
       cooldownDecreasesOverTime: true,
       pelletsDecreaseCooldown: false,
+      patternType: "updown",
+      upEffects: [
+        {
+          effect: "addPlayerSpeed",
+          speed: [2, 3, 4, 5, 6],
+        },
+      ],
+      downEffects: [
+        {
+          effect: "addPlayerSpeed",
+          speed: [-2, -3, -4, -5, -6],
+        }
+      ],
+      interruptEffects: [
+        {
+          effect: "addPlayerSpeed",
+          speed: [-2, -3, -4, -5, -6],
+        }
+      ]
     },
     harden:{
       usableWhileDead: false,
-      cooldown: [240,120,60,30,15],
+      interruptedOnDeath: true,
+      energyCost: 0,
+      cooldown: [150,120,90,60,30],
       cooldownDecreasesOverTime: true,
       pelletsDecreaseCooldown: false,
+      patternType: "updown",
+      upEffects: [
+        {
+          effect: "makePlayerInvincible",
+        },
+        {
+          effect: "makePlayerImmobile",
+        },
+      ],
+      downEffects: [
+        {
+          effect: "makePlayerVulnerable",
+        },
+        {
+          effect: "makePlayerMobile",
+        },
+        {
+          effect: "cooldown",
+        },
+      ],
+      interruptEffects: [
+        {
+          effect: "makePlayerVulnerable",
+        },
+        {
+          effect: "makePlayerMobile",
+        },
+        {
+          effect: "cooldown",
+        },
+      ]
     },
     reverse: {
       usableWhileDead: false,
@@ -407,6 +461,7 @@ function intteruptSkill(skillName, skillSlot){
 }
 
 function attemptSkillActivation(skillName, skillSlot){
+  console.log("weed");
   switch (skills[skillName].patternType) {
     case "updown":
       switch (skillSlot) {
@@ -571,6 +626,21 @@ function doEffect(effectProperties, skillName, skillSlot){
         player.x += player.skillDirectionX * getSkillValue(effectProperties.distance,skillSlot,false);
         player.y += player.skillDirectionY * getSkillValue(effectProperties.distance,skillSlot,false);
       }
+      break;
+    case "addPlayerSpeed":
+      player.bonusSkillSpeed += getSkillValue(effectProperties.speed, skillSlot, false);
+      break;
+    case "makePlayerInvincible":
+      player.invincible = true;
+      break;
+    case "makePlayerVulnerable":
+      player.invincible = false;
+      break;
+    case "makePlayerImmobile":
+      player.immobile = true;
+      break;
+    case "makePlayerMobile":
+      player.immobile = false;
       break;
     default:
       break;

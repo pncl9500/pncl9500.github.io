@@ -252,14 +252,16 @@ class Enemy{
 }
 
 function killPlayer(){
-  player.dead = true;
-  player.deathTick = 0;
-  player.deathTimer = deathTimerLengths[player.area];
-  if (player.skill1updownToggle === "up" && skills[heroes[player.hero].skill1].interruptedOnDeath){
-    intteruptSkill(heroes[player.hero].skill1, 1);
-  }
-  if (player.skill2updownToggle === "up" && skills[heroes[player.hero].skill2].interruptedOnDeath){
-    intteruptSkill(heroes[player.hero].skill2, 2);
+  if (!(player.invincible)){
+    player.dead = true;
+    player.deathTick = 0;
+    player.deathTimer = deathTimerLengths[player.area];
+    if (player.skill1updownToggle === "up" && skills[heroes[player.hero].skill1].interruptedOnDeath){
+      intteruptSkill(heroes[player.hero].skill1, 1);
+    }
+    if (player.skill2updownToggle === "up" && skills[heroes[player.hero].skill2].interruptedOnDeath){
+      intteruptSkill(heroes[player.hero].skill2, 2);
+    }
   }
 }
 
@@ -344,6 +346,10 @@ player = {
 
   respawnPointX: 0,
   respawnPointY: 0,
+
+  immobile: false,
+  invincible: false,
+  bonusSkillSpeed: 0,
 };
 
 
@@ -369,28 +375,31 @@ function doPlayerInput(){
     player.x += mouseMovement.x * speedModifier;
     player.y += mouseMovement.y * speedModifier;
   } else {
-    speedModifier = 0.25
+    speedModifier = 0.25;
     if (keyIsDown(16)){
-      speedModifier *= 0.5
+      speedModifier *= 0.5;
     }
     oldSkillDirectionX = player.skillDirectionX;
     oldSkillDirectionY = player.skillDirectionY;
     player.skillDirectionX = 0;
     player.skillDirectionY = 0;
+    if (player.immobile){
+      speedModifier = 0;
+    }
     if ((keyIsDown(LEFT_ARROW) || keyIsDown(65)) && options.mikeyMode === -1){
-      player.x -= player.speed * speedModifier;
+      player.x -= (player.speed + player.bonusSkillSpeed) * speedModifier;
       player.skillDirectionX = -1;
     }
     if (keyIsDown(RIGHT_ARROW) || keyIsDown(68) || options.mikeyMode === 1){
-      player.x += player.speed * speedModifier;
+      player.x += (player.speed + player.bonusSkillSpeed) * speedModifier;
       player.skillDirectionX = 1;
     }
     if (keyIsDown(UP_ARROW) || keyIsDown(87)){
-      player.y -= player.speed * speedModifier;
+      player.y -= (player.speed + player.bonusSkillSpeed) * speedModifier;
       player.skillDirectionY = -1;
     }
     if (keyIsDown(DOWN_ARROW) || keyIsDown(83)){
-      player.y += player.speed * speedModifier;
+      player.y += (player.speed + player.bonusSkillSpeed) * speedModifier;
       player.skillDirectionY = 1;
     }
     //if the player does not make any inputs in a frame, their direction stays the same.
