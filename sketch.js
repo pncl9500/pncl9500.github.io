@@ -245,11 +245,21 @@ class Enemy{
     //test for collision with player
     if (Math.sqrt((this.x - player.x) * (this.x - player.x) + (this.y - player.y) * (this.y - player.y)) < player.w/2 + this.size/2){
       if (player.dead === false){
-        player.dead = true;
-        player.deathTick = 0;
-        player.deathTimer = deathTimerLengths[player.area];
+        killPlayer();
       }
     }
+  }
+}
+
+function killPlayer(){
+  player.dead = true;
+  player.deathTick = 0;
+  player.deathTimer = deathTimerLengths[player.area];
+  if (player.skill1updownToggle === "up" && skills[heroes[player.hero].skill1].interruptedOnDeath){
+    intteruptSkill(heroes[player.hero].skill1, 1);
+  }
+  if (player.skill2updownToggle === "up" && skills[heroes[player.hero].skill2].interruptedOnDeath){
+    intteruptSkill(heroes[player.hero].skill2, 2);
   }
 }
 

@@ -6,6 +6,7 @@ function setupSkills(){
     //here i have paralysis a the first in the list as a tutorial type thing, to explain what each thing does in the skill codes.
     //internal name of the skill.
     paralysis: {
+      interruptedOnDeath: true,
       usableWhileDead: false,
       //energy cost is the cost of the thing.
       energyCost: 15,
@@ -76,6 +77,15 @@ function setupSkills(){
             fieldName: "freezeField"
           },
           //here is where i would have a cooldown... but paralysis doesn't have one.
+        ],
+        //interrupt effects are called in an updown when the player dies while the ability is up, as well as setting the ability to down.
+        interruptEffects: [
+          {
+            //removes the cosmetic cyan field.
+            effect: "killField",
+            //name of field to remove.
+            fieldName: "freezeField"
+          },
         ],
         //Some updowns automatically down after a certain number of time.
         //Not this one, so it's false.
@@ -375,6 +385,25 @@ function setupSkills(){
 
   }
 
+}
+
+
+
+function intteruptSkill(skillName, skillSlot){
+  switch (skillSlot){
+    case 1:
+      player.skill1updownToggle = "down"
+      for (e = 0; e < skills[skillName].interruptEffects.length; e++){
+        doEffect(skills[skillName].interruptEffects[e], skillName, skillSlot);
+      }
+      break;
+    case 2:
+      player.skill2updownToggle = "down"
+      for (e = 0; e < skills[skillName].interruptEffects.length; e++){
+        doEffect(skills[skillName].interruptEffects[e], skillName, skillSlot);
+      }
+      break;
+  }
 }
 
 function attemptSkillActivation(skillName, skillSlot){
