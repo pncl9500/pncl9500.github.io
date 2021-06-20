@@ -350,6 +350,13 @@ player = {
   immobile: false,
   invincible: false,
   bonusSkillSpeed: 0,
+
+  skillPaletteActive: false,
+  skillPalette: {
+    r: 0,
+    g: 0,
+    b: 0,
+  }
 };
 
 
@@ -658,6 +665,9 @@ function draw() {
   //player draw time
   noStroke();
   fill(playerColor);
+  if (player.skillPaletteActive){
+    fill(player.skillPalette.r,player.skillPalette.g,player.skillPalette.b);
+  }
   ellipse(player.x + camX + camOffsetX, player.y + camY + camOffsetY, player.w, player.h);
   if (player.dead){
     if (options.autoRespawn === 1){

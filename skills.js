@@ -179,18 +179,30 @@ function setupSkills(){
           effect: "addPlayerSpeed",
           speed: [2, 3, 4, 5, 6],
         },
+        {
+          effect: "changePlayerPalette",
+          r: 252,
+          g: 81,
+          b: 34,
+        },
       ],
       downEffects: [
         {
           effect: "addPlayerSpeed",
           speed: [-2, -3, -4, -5, -6],
-        }
+        },
+        {
+          effect: "resetPlayerPalette",
+        },
       ],
       interruptEffects: [
         {
           effect: "addPlayerSpeed",
           speed: [-2, -3, -4, -5, -6],
-        }
+        },
+        {
+          effect: "resetPlayerPalette",
+        },
       ]
     },
     harden:{
@@ -208,6 +220,12 @@ function setupSkills(){
         {
           effect: "makePlayerImmobile",
         },
+        {
+          effect: "changePlayerPalette",
+          r: 198,
+          g: 71,
+          b: 22,
+        },
       ],
       downEffects: [
         {
@@ -219,6 +237,9 @@ function setupSkills(){
         {
           effect: "cooldown",
         },
+        {
+          effect: "resetPlayerPalette",
+        },
       ],
       interruptEffects: [
         {
@@ -229,6 +250,9 @@ function setupSkills(){
         },
         {
           effect: "cooldown",
+        },
+        {
+          effect: "resetPlayerPalette",
         },
       ]
     },
@@ -641,6 +665,15 @@ function doEffect(effectProperties, skillName, skillSlot){
       break;
     case "makePlayerMobile":
       player.immobile = false;
+      break;
+    case "changePlayerPalette":
+      player.skillPaletteActive = true;
+      player.skillPalette.r = effectProperties.r;
+      player.skillPalette.g = effectProperties.g;
+      player.skillPalette.b = effectProperties.b;
+      break;
+    case "resetPlayerPalette":
+      player.skillPaletteActive = false;
       break;
     default:
       break;
