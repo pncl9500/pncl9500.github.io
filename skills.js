@@ -48,6 +48,11 @@ function setupSkills(){
             //if you want to have the effect come from another effect, like a bullet or something, you'll have to use triggers/timers.
             x: "stickToPlayer",
             y: "stickToPlayer",
+            direction: "stickToPlayer",
+            hasDeathTimer: false,
+            movement: {
+              hasMovement: false,
+            }
           },
         ],
 

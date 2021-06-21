@@ -68,7 +68,7 @@ class MapTile{
     this.tpoffsetY = tpoffsetY;
     this.enemies = enemies;
     this.pelletCount = pelletCount;
-    this.pal = {}
+    this.pal = {};
     this.pal.r = r;
     this.pal.g = g;
     this.pal.b = b;
@@ -99,8 +99,20 @@ world = {
         new MapTile(102, -7, 8, 15, "safezone", 0, 0, [], 0, 195, 195, 195),
         new MapTile(110, -7, 80, 15, "normal", 0, 0, [{type: "normal", count: 6, size: 20, speed: 6}], 25, 255, 255, 255),
         new MapTile(190, -7, 8, 15, "safezone", 0, 0, [], 0, 195, 195, 195),
+        new MapTile(198, -7, 2, 15, "teleport", 12, 0, [], 0, 254, 242, 118),
       ],
-    }
+    },
+    //safe shore 3 (2)
+    {
+      name: "Bizzare Beaches: Area 1",
+      visited: false,
+      tiles:[
+        new MapTile(204, -7, 2, 15, "teleport", -12, 0, [], 0, 254, 242, 118),
+        new MapTile(206, -7, 8, 15, "safezone", 0, 0, [], 0, 244, 174, 144),
+        new MapTile(214, -7, 80, 15, "normal", 0, 0, [{type: "wave", count: 80, size: 16, speed: 3, startX: 214, startY: 128, offsetX: 16, offsetT: -6, pattern:[{movement:"still",for:80},{movement:"up",for:100},{movement:"still",for:80},{movement:"down",for:100}]}], 25, 250, 223, 210),
+        new MapTile(294, -7, 8, 15, "safezone", 0, 0, [], 0, 244, 174, 144),
+      ],
+    },
   ]
 }
 
@@ -157,7 +169,7 @@ class Pellet{
 
 enemies = [];
 class Enemy{
-  constructor(type, speed, size, minX, minY, maxX, maxY, direction, x, y, pattern){
+  constructor(type, speed, size, minX, minY, maxX, maxY, direction, x, y, pattern, timer){
     this.type = type;
     this.speed = speed;
     this.size = size;
@@ -168,6 +180,8 @@ class Enemy{
     this.minY = minY;
     this.maxX = maxX;
     this.maxY = maxY;
+    this.timer = timer;
+    //console.log(timer);
     if (x === "randomized"){
       this.x = random(minX, maxX);
     } else {
@@ -184,16 +198,43 @@ class Enemy{
     //bullet pattern of frost giants.
     this.pattern = pattern;
 
-    this.pal = {
-      r: 158,
-      g: 158,
-      b: 158,
+    switch (this.type) {
+      case "normal":
+        this.pal = {
+          r: 158,
+          g: 158,
+          b: 158,
+        }
+        break;
+      case "wave":
+        this.pal = {
+          r: 255,
+          g: 160,
+          b: 0,
+        }
+        break;
+      default:
+        break;
     }
 
     this.immune = false;
 
     //movemovmeomveomveomve
-    this.movementPattern = "normal";
+    switch (this.type) {
+      case "normal":
+        this.movementPattern = "normal";
+        break;
+      case "wave":
+        this.movementPattern = "wave";
+        //get the length of the wave cycle
+        this.cycleLength = 0;
+          for (p = 0; p < this.pattern.length; p++){
+            this.cycleLength += this.pattern[p].for;
+          }
+        break;
+      default:
+        break;
+    }
 
     //for getting frozen via skills and stuff.
     this.freezeTimer = 0;
@@ -235,6 +276,47 @@ class Enemy{
             this.direction = this.direction * -1 % 360;
           }
           
+          break;
+        case "wave":
+          this.timer += 1;
+          this.timer %= this.cycleLength;
+          //i have no idea what im doing here
+          //pain
+          this.currentFor = 0;
+          this.waveState = "";
+          //console.log(this.timer);
+          //console.log(this.pattern);
+          for (p = 0; p < this.pattern.length; p++){
+            //get what state the wave enemy should currently be in
+            if (this.timer >= this.currentFor && this.timer < this.currentFor + this.pattern[p].for){
+              this.waveState = this.pattern[p].movement;
+            }
+            this.currentFor += this.pattern[p].for;
+          }
+          //console.log(this.waveState);
+          switch (this.waveState) {
+            case "up":
+              this.y -= this.speed;
+              break;
+            case "down":
+              this.y += this.speed;
+              break;
+            default:
+              break;
+          }
+          //collide with walls and stuff
+          if (this.x > this.maxX - this.size/2){
+            this.x = this.maxX - this.size/2;
+          }
+          if (this.x < this.minX + this.size/2){
+            this.x = this.minX + this.size/2;
+          }
+          if (this.y > this.maxY - this.size/2){
+            this.y = this.maxY - this.size/2;
+          }
+          if (this.y < this.minY + this.size/2){
+            this.y = this.minY + this.size/2;
+          }
           break;
         default:
           break;
@@ -280,6 +362,17 @@ function loadArea(){
     //get groups of enemies
     for (g = 0; g < world[player.level][player.area].tiles[l].enemies.length; g++){
       //load the enemies that are in the group
+      switch (world[player.level][player.area].tiles[l].enemies[g].type) {
+        case "wave":
+          for (e = 0; e < world[player.level][player.area].tiles[l].enemies[g].count; e++){
+            enemies.push(new Enemy("wave", world[player.level][player.area].tiles[l].enemies[g].speed, world[player.level][player.area].tiles[l].enemies[g].size,
+              world[player.level][player.area].tiles[l].x * 16,world[player.level][player.area].tiles[l].y * 16,(world[player.level][player.area].tiles[l].x+world[player.level][player.area].tiles[l].w) * 16,(world[player.level][player.area].tiles[l].y+world[player.level][player.area].tiles[l].h) * 16,
+              90, (world[player.level][player.area].tiles[l].x * 16 + world[player.level][player.area].tiles[l].enemies[g].size/2) + e * world[player.level][player.area].tiles[l].enemies[g].offsetX, world[player.level][player.area].tiles[l].enemies[g].startY,world[player.level][player.area].tiles[l].enemies[g].pattern,world[player.level][player.area].tiles[l].enemies[g].offsetT * e));
+          }
+          return;
+        default:
+          break;
+      }
       for (e = 0; e < world[player.level][player.area].tiles[l].enemies[g].count; e++){
         enemies.push(new Enemy(world[player.level][player.area].tiles[l].enemies[g].type, world[player.level][player.area].tiles[l].enemies[g].speed, world[player.level][player.area].tiles[l].enemies[g].size,
           world[player.level][player.area].tiles[l].x * 16,world[player.level][player.area].tiles[l].y * 16,(world[player.level][player.area].tiles[l].x+world[player.level][player.area].tiles[l].w) * 16,(world[player.level][player.area].tiles[l].y+world[player.level][player.area].tiles[l].h) * 16,
