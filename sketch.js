@@ -217,14 +217,15 @@ class Enemy{
         break;
     }
 
-    this.immune = false;
 
     //movemovmeomveomveomve
     switch (this.type) {
       case "normal":
+        this.immune = false;
         this.movementPattern = "normal";
         break;
       case "wave":
+        this.immune = true;
         this.movementPattern = "wave";
         //get the length of the wave cycle
         this.cycleLength = 0;
