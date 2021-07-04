@@ -1,14 +1,27 @@
 
 
+class Wall{
+  constructor(x, y, w, h, pal, hardness, health){
+    this.x = x;
+    this.y = y;
+    this.w = w;
+    this.h = h;
+    this.pal = pal;
+    this.hardness = hardness;
+    this.health = health;
+  }
 
-
-function setup(){
-  document.addEventListener('contextmenu', event => event.preventDefault());
-  noCursor();
-  createCanvas(windowWidth, windowHeight);
-  player.x = gameMap.w/2 - player.w/2 + gameMap.x;
-  player.y = gameMap.h/2 - player.h/2 + gameMap.y;
+  draw(){
+    fill(this.pal.r, this.pal.g, this.pal.b)
+    rect(this.x - cam.x + cam.offsetX,this.y - cam.y + cam.offsetY,this.w, this.h);
+  }
 }
+
+
+walls = [
+  new Wall(128,0,128,4096,{r: 120, g: 120, b: 120}, 5, 500)
+]
+
 
 
 gameMap = {
@@ -75,7 +88,16 @@ function detect2BoxesCollision(rect1, rect2){
 }
 
 
+function setup(){
+  document.addEventListener('contextmenu', event => event.preventDefault());
+  noCursor();
+  createCanvas(windowWidth, windowHeight);
+  player.x = gameMap.w/2 - player.w/2 + gameMap.x;
+  player.y = gameMap.h/2 - player.h/2 + gameMap.y;
+}
+
 function draw(){
+
   canvasScale = windowWidth/640;
 
 scale(canvasScale);
@@ -100,34 +122,48 @@ scale(canvasScale);
     player.xv += player.speed;
   }
   player.x += player.xv;
+
+  //collision with walls (X)
+  for (w = 0; w < walls.length; w++){
+    if (detect2BoxesCollision(player, walls[w])){
+      player.x -= player.xv;
+      player.xv = 0;
+    }
+  }
+
   player.y += player.yv;
 
+  //collision with walls (Y)
+  for (w = 0; w < walls.length; w++){
+    if (detect2BoxesCollision(player, walls[w])){
+      player.y -= player.yv;
+      player.yv = 0;
+    }
+  }
+  
+
   //collision with map boundaries
-  if (player.x < gameMap.x - 1){
+  if (player.x < gameMap.x){
     player.xv = 0;
-    player.x = gameMap.x - 1;
+    player.x = gameMap.x;
   }
-  if (player.x > gameMap.x + gameMap.w - player.w + 1){
+  if (player.x > gameMap.x + gameMap.w - player.w){
     player.xv = 0;
-    player.x = gameMap.x + gameMap.w - player.w + 1;
+    player.x = gameMap.x + gameMap.w - player.w;
   }
-  if (player.y < gameMap.y - 1){
+  if (player.y < gameMap.y){
     player.yv = 0;
-    player.y = gameMap.y - 1;
+    player.y = gameMap.y;
   }
-  if (player.y > gameMap.y + gameMap.h - player.h + 1){
+  if (player.y > gameMap.y + gameMap.h - player.h){
     player.yv = 0;
-    player.y = gameMap.y + gameMap.h - player.h + 1;
+    player.y = gameMap.y + gameMap.h - player.h;
   }
-
-
-  cam.zoom = 1 + (abs(player.xv) + abs(player.yv))/20
 
   
 
 
-
-
+  cam.zoom = 1 + (abs(player.xv) + abs(player.yv))/20
   
   cam.x += (player.x - cam.x + player.w/2 + crosshair.x) / cam.smoothing;
   cam.y += (player.y - cam.y + player.h/2 + crosshair.y) / cam.smoothing;
@@ -142,6 +178,8 @@ scale(canvasScale);
   player.xv *= player.friction;
   player.yv *= player.friction;
 
+  
+
   //draw map
   fill(gameMap.r,gameMap.g,gameMap.b);
   rect(gameMap.x - cam.x + cam.offsetX, gameMap.y - cam.y + cam.offsetY, gameMap.w, gameMap.h)
@@ -155,7 +193,18 @@ scale(canvasScale);
     }
   }
 
+
   noStroke();
+  //draw walls
+  for (w = 0; w < walls.length; w++){
+    walls[w].draw();
+  }
+
+  //draw big outline around the whole map
+  noFill();
+  stroke(0);
+  strokeWeight(1);
+  rect(gameMap.x - cam.x + cam.offsetX, gameMap.y - cam.y + cam.offsetY, gameMap.w, gameMap.h)
 
   //draw player
   fill(player.r,player.g,player.b);
