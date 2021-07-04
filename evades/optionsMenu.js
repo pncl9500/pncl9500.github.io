@@ -38,10 +38,10 @@ class Button{
     //if the mouse is touching the button, draw it a bit lighter than normal
     switch (this.shape) {
       case "rect":
-        if (mouseX >= this.x + camOffsetX &&
-          mouseX <= this.x + camOffsetX + this.w &&
-          mouseY >= this.y + camOffsetY &&
-          mouseY <= this.y + camOffsetY + this.h){
+        if ((mouseX) >= (this.x + camOffsetX) * windowWidth/640 &&
+          (mouseX) <= (this.x + camOffsetX + this.w) * windowWidth/640 &&
+          (mouseY) >= (this.y + camOffsetY) * windowWidth/640 &&
+          (mouseY) <= (this.y + camOffsetY + this.h) * windowWidth/640){
           fill(this.pal.r + 30, this.pal.g + 30, this.pal.b + 30);
         } else {
           fill(this.pal.r, this.pal.g, this.pal.b);
@@ -49,7 +49,7 @@ class Button{
         rect(this.x + camOffsetX, this.y + camOffsetY, this.w, this.h);
         break;
       case "circle":
-        if (Math.sqrt(Math.pow(mouseX - (this.x + camOffsetX), 2)+Math.pow(mouseY - (this.y + camOffsetY),2) < this.w)){
+        if (Math.sqrt(Math.pow((mouseX) - ((this.x + camOffsetX) * windowWidth/640), 2)+Math.pow((mouseY) - ((this.y + camOffsetY) * windowWidth/640),2) < this.w)){
           fill(this.pal.r + 30, this.pal.g + 30, this.pal.b + 30);
         } else {
           fill(this.pal.r, this.pal.g, this.pal.b);

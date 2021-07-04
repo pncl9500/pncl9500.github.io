@@ -661,8 +661,11 @@ function setup() {
 
 }
 
+canvasScale = windowWidth/640;
+
 function draw() {
-  scale(windowWidth/640);
+  canvasScale = windowWidth/640
+  scale(canvasScale);
 
   //cool down the cooldowns
   if (skills[heroes[player.hero].skill1].cooldownDecreasesOverTime){
@@ -883,10 +886,10 @@ function mouseClicked() {
   for (b = 0; b < buttons.length; b++){
     switch (buttons[b].shape) {
       case "rect":
-          if (mouseX >= buttons[b].x + camOffsetX &&
-            mouseX <= buttons[b].x + camOffsetX + buttons[b].w &&
-            mouseY >= buttons[b].y + camOffsetY &&
-            mouseY <= buttons[b].y + camOffsetY + buttons[b].h){
+          if (mouseX >= (buttons[b].x + camOffsetX) * canvasScale &&
+            mouseX <= (buttons[b].x + camOffsetX + buttons[b].w) * canvasScale &&
+            mouseY >= (buttons[b].y + camOffsetY) * canvasScale &&
+            mouseY <= (buttons[b].y + camOffsetY + buttons[b].h) * canvasScale){
               if (options.optionsMenuHidden === -1 && buttons[b].tab === options.optionsMenuTab){
                 buttons[b].testClick();
                 return;
@@ -894,7 +897,7 @@ function mouseClicked() {
           }
         break;
       case "circle":
-        if (Math.sqrt(Math.pow(mouseX - (buttons[b].x + camOffsetX), 2)+Math.pow(mouseY - (buttons[b].y + camOffsetY),2) < buttons[b].w)){
+        if (Math.sqrt(Math.pow(mouseX - ((buttons[b].x + camOffsetX) * canvasScale), 2)+Math.pow(mouseY - ((buttons[b].y + camOffsetY) * canvasScale),2) < buttons[b].w)){
           if (options.optionsMenuHidden === -1 && buttons[b].tab === options.optionsMenuTab){
             buttons[b].testClick();
             return;
@@ -975,6 +978,6 @@ function keyPressed() {
 
 
 function windowResized() {
-  resizeCanvas(windowWidth, windowWidth/640 * 360);
+  resizeCanvas(windowWidth, canvasScale * 360);
 }
 
