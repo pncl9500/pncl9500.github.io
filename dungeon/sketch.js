@@ -1,36 +1,33 @@
 
 
 
+
 function setup(){
   noCursor();
-  createCanvas(windowWidth, windowWidth/640 * 360);
+  createCanvas(windowWidth, windowHeight);
+  player.x = gameMap.w/2 - player.w/2 + gameMap.x;
+  player.y = gameMap.h/2 - player.h/2 + gameMap.y;
 }
 
-tileTypes = {
-  wall: {
-    r: 75,
-    g: 75,
-    b: 75,
-    wall: true,
-  },
-  air: {
-    r: 255,
-    g: 255,
-    b: 255,
-    wall: false,
-  }
+gameMap = {
+  x: 0,
+  y: 0,
+  w: 768,
+  h: 768,
+
+  r: 255,
+  g: 255,
+  b: 255,
+
+  liner: 240,
+  lineg: 240,
+  lineb: 240,
+
+  xDivisions: 4,
+  yDivisions: 4,
 }
 
-tileMap = [["wall","wall","wall","wall","wall","wall","wall","wall","wall","wall"],
-      ["wall","air","air","air","air","air","air","air","air","wall"],
-      ["wall","air","air","air","air","air","air","air","air","wall"],
-      ["wall","air","air","air","air","air","air","air","air","wall"],
-      ["wall","air","air","air","air","air","air","air","air","wall"],
-      ["wall","air","air","air","air","air","air","air","air","wall"],
-      ["wall","air","air","air","air","air","air","air","air","wall"],
-      ["wall","air","wall","air","air","air","air","air","air","wall"],
-      ["wall","air","air","air","air","air","air","air","air","wall"],
-      ["wall","wall","wall","wall","wall","wall","wall","wall","wall","wall"],]
+
 
 cam = {
   x: 0,
@@ -45,8 +42,8 @@ cam = {
 }
 
 player = {
-  x: 52,
-  y: 52,
+  x: 0,
+  y: 0,
   xv: 0,
   yv: 0,
   w: 8,
@@ -77,15 +74,15 @@ function detect2BoxesCollision(rect1, rect2){
 
 
 function draw(){
-
-  noStroke();
-
   canvasScale = windowWidth/640;
 
-  scale(canvasScale);
+scale(canvasScale);
 
 
   background(0,0,0);
+
+
+  noStroke();
 
   //move player
   if (keyIsDown(87)){
@@ -107,11 +104,7 @@ function draw(){
 
   
 
-  cam.x += 320;
-  cam.y += 180;
 
-  cam.x -= 320;
-  cam.y -= 180;
 
 
   
@@ -123,39 +116,26 @@ function draw(){
 
   cam.x += random(cam.shakeX * -1, cam.shakeX);
   cam.y += random(cam.shakeY * -1, cam.shakeY);
-  
-
-
-  //draw tiles and collide player X stuff
-  for (y = 0; y < tileMap.length; y++){
-    for (x = 0; x < tileMap[y].length; x++){
-      fill(tileTypes[tileMap[y][x]].r,tileTypes[tileMap[y][x]].g,tileTypes[tileMap[y][x]].b);
-      rect(x * 16 - cam.x + cam.offsetX, y * 16 - cam.y + cam.offsetY, 16, 16);
-      if (tileTypes[tileMap[y][x]].wall){
-        if (detect2BoxesCollision({x: x*16, y: y*16, w: 16, h: 16}, {x: player.x, y: player.y, w: player.w, h: player.h})){
-          player.x -= player.xv
-          player.xv = 0;
-        }
-      }
-    }
-  }
 
   player.y += player.yv;
 
-  //Y stuff
-  for (y = 0; y < tileMap.length; y++){
-    for (x = 0; x < tileMap[y].length; x++){
-      if (tileTypes[tileMap[y][x]].wall){
-        if (detect2BoxesCollision({x: x*16, y: y*16, w: 16, h: 16}, {x: player.x, y: player.y, w: player.w, h: player.h})){
-          player.y -= player.yv
-          player.yv = 0;
-        }
-      }
+  player.xv *= player.friction;
+  player.yv *= player.friction;
+
+  //draw map
+  fill(gameMap.r,gameMap.g,gameMap.b);
+  rect(gameMap.x - cam.x + cam.offsetX, gameMap.y - cam.y + cam.offsetY, gameMap.w, gameMap.h)
+
+  noFill();
+  stroke(gameMap.liner,gameMap.lineg,gameMap.lineb);
+
+  for (x = 0; x < gameMap.xDivisions; x++){
+    for (y = 0; y < gameMap.yDivisions; y++){
+      rect(gameMap.x + (gameMap.w/gameMap.xDivisions) * x - cam.x + cam.offsetX, gameMap.y + (gameMap.h/gameMap.yDivisions) * y - cam.y + cam.offsetY, gameMap.w/gameMap.xDivisions,gameMap.h/gameMap.yDivisions)
     }
   }
 
-  player.xv *= player.friction;
-  player.yv *= player.friction;
+  noStroke();
 
   //draw player
   fill(player.r,player.g,player.b);
@@ -172,5 +152,9 @@ function draw(){
 }
 
 function windowResized() {
-  resizeCanvas(windowWidth, canvasScale * 360);
+  resizeCanvas(windowWidth, windowHeight);
+}
+
+function mousePressed(){
+  fullscreen(true);
 }
