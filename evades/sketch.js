@@ -651,7 +651,7 @@ function setup() {
   setupSkills();
 
   changeHero("magmax")
-  createCanvas(640, 360);
+  createCanvas(windowWidth, windowWidth/640 * 360);
   loadArea();
   addHeroButtons();
 
@@ -662,8 +662,7 @@ function setup() {
 }
 
 function draw() {
-
-  
+  scale(windowWidth/640);
 
   //cool down the cooldowns
   if (skills[heroes[player.hero].skill1].cooldownDecreasesOverTime){
@@ -972,5 +971,10 @@ function keyPressed() {
       }
       break;
   }
+}
+
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowWidth/640 * 360);
 }
 
