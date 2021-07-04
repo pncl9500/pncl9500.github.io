@@ -102,16 +102,21 @@ scale(canvasScale);
   player.x += player.xv;
   player.y += player.yv;
 
+  //collision with map boundaries
   if (player.x < gameMap.x - 1){
+    player.xv = 0;
     player.x = gameMap.x - 1;
   }
   if (player.x > gameMap.x + gameMap.w - player.w + 1){
+    player.xv = 0;
     player.x = gameMap.x + gameMap.w - player.w + 1;
   }
   if (player.y < gameMap.y - 1){
+    player.yv = 0;
     player.y = gameMap.y - 1;
   }
   if (player.y > gameMap.y + gameMap.h - player.h + 1){
+    player.yv = 0;
     player.y = gameMap.y + gameMap.h - player.h + 1;
   }
 
