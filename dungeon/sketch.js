@@ -10,11 +10,13 @@ tileTypes = {
     r: 75,
     g: 75,
     b: 75,
+    wall: true,
   },
   air: {
     r: 255,
     g: 255,
     b: 255,
+    wall: false,
   }
 }
 
@@ -55,14 +57,23 @@ player = {
   speed: 0.4,
 }
 
+function detect2BoxesCollision(rect1, rect2){
+  console.log(rect2);
+  return (rect1.x < rect2.x + rect2.w &&
+    rect1.x + rect1.w > rect2.x &&
+    rect1.y < rect2.y + rect2.h &&
+    rect1.y + rect1.h > rect2.y);
+}
+
 
 function draw(){
 
   noStroke();
 
   canvasScale = windowWidth/640;
-  canvasScale *= cam.zoom;
+
   scale(canvasScale);
+
 
   background(0,0,0);
 
@@ -80,12 +91,11 @@ function draw(){
     player.xv += player.speed;
   }
   player.x += player.xv;
-  player.y += player.yv;
 
-  player.xv *= player.friction;
-  player.yv *= player.friction;
 
-  //cam.zoom = 1 + (abs(player.xv) + abs(player.yv))/20
+  cam.zoom = 1 + (abs(player.xv) + abs(player.yv))/20
+
+  
 
   cam.x += 320;
   cam.y += 180;
@@ -93,9 +103,10 @@ function draw(){
   cam.x -= 320;
   cam.y -= 180;
 
+
   
-  cam.x += (player.x - cam.x - cam.offsetX + player.w/2) / cam.smoothing;
-  cam.y += (player.y - cam.y - cam.offsetY + player.h/2) / cam.smoothing;
+  cam.x += (player.x - cam.x + player.w/2) / cam.smoothing;
+  cam.y += (player.y - cam.y + player.h/2) / cam.smoothing;
 
   cam.shakeX /= 2;
   cam.shakeY /= 2;
@@ -104,17 +115,41 @@ function draw(){
   cam.y += random(cam.shakeY * -1, cam.shakeY);
   
 
-  //draw tiles and collide player
+
+  //draw tiles and collide player X stuff
   for (y = 0; y < tileMap.length; y++){
     for (x = 0; x < tileMap[y].length; x++){
       fill(tileTypes[tileMap[y][x]].r,tileTypes[tileMap[y][x]].g,tileTypes[tileMap[y][x]].b);
-      rect(x * 16 - cam.x, y * 16 - cam.y, 16, 16);
+      rect(x * 16 - cam.x + cam.offsetX, y * 16 - cam.y + cam.offsetY, 16, 16);
+      if (tileTypes[tileMap[y][x]].wall){
+        if (detect2BoxesCollision({x: x*16, y: y*16, w: 16, h: 16}, {x: player.x, y: player.y, w: player.w, h: player.h})){
+          player.x -= player.xv
+          player.xv = 0;
+        }
+      }
     }
   }
 
+  player.y += player.yv;
+
+  //Y stuff
+  for (y = 0; y < tileMap.length; y++){
+    for (x = 0; x < tileMap[y].length; x++){
+      if (tileTypes[tileMap[y][x]].wall){
+        if (detect2BoxesCollision({x: x*16, y: y*16, w: 16, h: 16}, {x: player.x, y: player.y, w: player.w, h: player.h})){
+          player.y -= player.yv
+          player.yv = 0;
+        }
+      }
+    }
+  }
+
+  player.xv *= player.friction;
+  player.yv *= player.friction;
+
   //draw player
   fill(player.r,player.g,player.b);
-  rect(player.x - cam.x,player.y - cam.y,player.w,player.h);
+  rect(player.x - cam.x + cam.offsetX,player.y - cam.y + cam.offsetY,player.w,player.h);
 }
 
 function windowResized() {
