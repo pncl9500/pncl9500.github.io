@@ -3,6 +3,7 @@
 
 
 function setup(){
+  document.addEventListener('contextmenu', event => event.preventDefault());
   noCursor();
   createCanvas(windowWidth, windowHeight);
   player.x = gameMap.w/2 - player.w/2 + gameMap.x;
@@ -46,13 +47,13 @@ player = {
   y: 0,
   xv: 0,
   yv: 0,
-  w: 8,
-  h: 8,
+  w: 4,
+  h: 4,
   r: 0,
   g: 0,
   b: 0,
   friction: 0.8,
-  speed: 0.4,
+  speed: 0.3,
 }
 
 crosshair = {
@@ -98,6 +99,20 @@ scale(canvasScale);
     player.xv += player.speed;
   }
   player.x += player.xv;
+  player.y += player.yv;
+
+  if (player.x < gameMap.x - 1){
+    player.x = gameMap.x - 1;
+  }
+  if (player.x > gameMap.x + gameMap.w - player.w + 1){
+    player.x = gameMap.x + gameMap.w - player.w + 1;
+  }
+  if (player.y < gameMap.y - 1){
+    player.y = gameMap.y - 1;
+  }
+  if (player.y > gameMap.y + gameMap.h - player.h + 1){
+    player.y = gameMap.y + gameMap.h - player.h + 1;
+  }
 
 
   cam.zoom = 1 + (abs(player.xv) + abs(player.yv))/20
@@ -117,7 +132,6 @@ scale(canvasScale);
   cam.x += random(cam.shakeX * -1, cam.shakeX);
   cam.y += random(cam.shakeY * -1, cam.shakeY);
 
-  player.y += player.yv;
 
   player.xv *= player.friction;
   player.yv *= player.friction;
