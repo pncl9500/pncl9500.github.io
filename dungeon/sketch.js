@@ -2,6 +2,7 @@
 
 
 function setup(){
+  noCursor();
   createCanvas(windowWidth, windowWidth/640 * 360);
 }
 
@@ -34,8 +35,8 @@ tileMap = [["wall","wall","wall","wall","wall","wall","wall","wall","wall","wall
 cam = {
   x: 0,
   y: 0,
-  offsetX: 320,
-  offsetY: 180,
+  offsetX: 640,
+  offsetY: 360,
   smoothing: 10,
   zoom: 1,
 
@@ -57,8 +58,17 @@ player = {
   speed: 0.4,
 }
 
+crosshair = {
+  x: 0,
+  y: 0,
+  r: 255,
+  g: 80,
+  b: 30,
+  w: 5,
+  h: 5,
+}
+
 function detect2BoxesCollision(rect1, rect2){
-  console.log(rect2);
   return (rect1.x < rect2.x + rect2.w &&
     rect1.x + rect1.w > rect2.x &&
     rect1.y < rect2.y + rect2.h &&
@@ -105,8 +115,8 @@ function draw(){
 
 
   
-  cam.x += (player.x - cam.x + player.w/2) / cam.smoothing;
-  cam.y += (player.y - cam.y + player.h/2) / cam.smoothing;
+  cam.x += (player.x - cam.x + player.w/2 + crosshair.x) / cam.smoothing;
+  cam.y += (player.y - cam.y + player.h/2 + crosshair.y) / cam.smoothing;
 
   cam.shakeX /= 2;
   cam.shakeY /= 2;
@@ -150,6 +160,15 @@ function draw(){
   //draw player
   fill(player.r,player.g,player.b);
   rect(player.x - cam.x + cam.offsetX,player.y - cam.y + cam.offsetY,player.w,player.h);
+
+  //draw mouse pointer
+  crosshair.x = mouseX/canvasScale;
+  crosshair.y = mouseY/canvasScale;
+
+  stroke(crosshair.r, crosshair.g, crosshair.b);
+  strokeWeight(1);
+  noFill();
+  ellipse(crosshair.x, crosshair.y, crosshair.w, crosshair.h);
 }
 
 function windowResized() {
