@@ -10,11 +10,12 @@ function setup(){
   player.y = gameMap.h/2 - player.h/2 + gameMap.y;
 }
 
+
 gameMap = {
   x: 0,
   y: 0,
-  w: 768,
-  h: 768,
+  w: 4096,
+  h: 4096,
 
   r: 255,
   g: 255,
@@ -24,8 +25,8 @@ gameMap = {
   lineg: 240,
   lineb: 240,
 
-  xDivisions: 4,
-  yDivisions: 4,
+  xDivisions: 16,
+  yDivisions: 16,
 }
 
 
