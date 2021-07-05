@@ -1,6 +1,6 @@
 
 class Wall{
-  constructor(x, y, w, h, pal, hardness, health){
+  constructor(x, y, w, h, pal, hardness, health, bounciness){
     this.x = x;
     this.y = y;
     this.w = w;
@@ -8,6 +8,7 @@ class Wall{
     this.pal = pal;
     this.hardness = hardness;
     this.health = health;
+    this.bounciness = bounciness;
   }
 
   draw(){
@@ -45,7 +46,7 @@ function makeWalls(){
   for (h = 0; h < tiles.length; h++){
     for (w = 0; w < tiles[h].length; w++){
       if (tiles[h][w] === 1){
-        walls.push(new Wall(w*gameMap.w/gameMap.xDivisions, h*gameMap.h/gameMap.yDivisions,gameMap.w/gameMap.xDivisions,gameMap.h/gameMap.yDivisions,{r: 125, g: 125, b: 125}, 5, 100));
+        walls.push(new Wall(w*gameMap.w/gameMap.xDivisions, h*gameMap.h/gameMap.yDivisions,gameMap.w/gameMap.xDivisions,gameMap.h/gameMap.yDivisions,{r: 125, g: 125, b: 125}, 5, 100, 0.5));
       }
     }
   }
@@ -74,11 +75,10 @@ function repositionPlayer(){
 }
 
 function generateMap(){
-  tiles = []
   for (h = 0; h < gameMap.yDivisions; h++){
     column = []
     for (w = 0; w < gameMap.xDivisions; w++){
-      column.push(floor(random(0,2)))
+      column.push(floor(random(0,3)))
     }
     tiles.push(column);
   }
@@ -173,7 +173,8 @@ scale(canvasScale);
   for (w = 0; w < walls.length; w++){
     if (detect2BoxesCollision(player, walls[w])){
       player.x -= player.xv;
-      player.xv = 0;
+      player.xv *= walls[w].bounciness * -1
+      //player.xv = 0;
     }
   }
 
@@ -183,7 +184,8 @@ scale(canvasScale);
   for (w = 0; w < walls.length; w++){
     if (detect2BoxesCollision(player, walls[w])){
       player.y -= player.yv;
-      player.yv = 0;
+      player.yv *= walls[w].bounciness * -1
+      //player.yv = 0;
     }
   }
   
