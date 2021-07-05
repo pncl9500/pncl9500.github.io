@@ -1,4 +1,5 @@
 
+
 class Wall{
   constructor(x, y, w, h, pal, hardness, health, bounciness){
     this.x = x;
@@ -38,6 +39,7 @@ gameMap = {
 
   xDivisions: 32,
   yDivisions: 32,
+
 }
 
 tiles = []
@@ -53,7 +55,7 @@ function makeWalls(){
 }
 
 function repositionPlayer(){
-  leniency = 10;
+  leniency = 0;
   centerOfMap = {
     x: gameMap.w/2 - player.w/2 + gameMap.x,
     y: gameMap.h/2 - player.h/2 + gameMap.y
@@ -114,6 +116,19 @@ player = {
   b: 0,
   friction: 0.8,
   speed: 0.3,
+  inventorySize: 8,
+  inventory: [
+    "excavator",
+    "none",
+    "none",
+    "none",
+    "none",
+    "none",
+    "none",
+    "none",
+  ],
+  selectedInventorySlot: 0,
+  inventoryShown: -1,
 }
 
 crosshair = {
@@ -258,13 +273,19 @@ scale(canvasScale);
   fill(player.r,player.g,player.b);
   rect(player.x - cam.x + cam.offsetX,player.y - cam.y + cam.offsetY,player.w,player.h);
 
+  //draw inventory stuff
+  stroke(0,0,0);
+  strokeWeight(1);
+  noFill();
+  for (l = 0; l < inventoryBoxes.length; l++){
+    inventoryBoxes[l].draw();
+  }
+
   //draw mouse pointer
   crosshair.x = mouseX/canvasScale;
   crosshair.y = mouseY/canvasScale;
 
   stroke(crosshair.r, crosshair.g, crosshair.b);
-  strokeWeight(1);
-  noFill();
   ellipse(crosshair.x, crosshair.y, crosshair.w, crosshair.h);
 }
 
@@ -274,4 +295,55 @@ function windowResized() {
 
 function mousePressed(){
   fullscreen(true);
+}
+
+
+
+
+
+inventoryBoxes = [];
+
+class InventoryBox{
+  constructor(slot){
+    this.slot = slot;
+    this.x = player.x + player.w/2;
+    this.y = player.y + player.h/2;
+    this.targetX = player.x;
+    this.targetY = player.y;
+    this.size = 0;
+    this.targetSize = 16;
+    this.smoothing = 10;
+    this.offsetY = 40;
+    this.gap = 6;
+    this.intangible = false;
+  }
+
+  draw(){
+    this.centerY = + (player.y + player.h/2 - this.offsetY + player.yv * 3);
+    this.centerX = + (player.x + player.w/2 + player.xv * 3);
+
+    this.targetX = this.centerX + this.slot * (this.size + this.gap) - (this.size * (player.inventorySize - 1))/2 - (this.gap * (player.inventorySize - 1))/2;
+    this.targetY = this.centerY;
+
+    this.size += (this.targetSize - this.size) / this.smoothing;
+    this.x += (this.targetX - this.x) / this.smoothing;
+    this.y += (this.targetY - this.y) / this.smoothing;
+    stroke(0);
+    strokeWeight(1);
+    noFill();
+    rect(this.x - this.size/2 - cam.x + cam.offsetX, this.y - this.size/2 - cam.y + cam.offsetY, this.size, this.size);
+  }
+}
+
+function keyPressed(){
+  if (keyCode === 9){
+    player.inventoryShown *= -1;
+    if (player.inventoryShown === 1){
+      for (i = 0; i < player.inventorySize; i++){
+        inventoryBoxes.push(new InventoryBox(i));
+      }
+    } else { 
+      inventoryBoxes = [];
+    }
+  }
 }
