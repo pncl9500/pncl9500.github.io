@@ -1,5 +1,4 @@
 
-
 class Wall{
   constructor(x, y, w, h, pal, hardness, health){
     this.x = x;
@@ -19,10 +18,8 @@ class Wall{
 
 
 walls = [
-  new Wall(128,0,128,4096,{r: 120, g: 120, b: 120}, 5, 500)
+  
 ]
-
-
 
 gameMap = {
   x: 0,
@@ -38,9 +35,58 @@ gameMap = {
   lineg: 240,
   lineb: 240,
 
-  xDivisions: 16,
-  yDivisions: 16,
+  xDivisions: 32,
+  yDivisions: 32,
 }
+
+tiles = []
+
+function makeWalls(){
+  for (h = 0; h < tiles.length; h++){
+    for (w = 0; w < tiles[h].length; w++){
+      if (tiles[h][w] === 1){
+        walls.push(new Wall(w*gameMap.w/gameMap.xDivisions, h*gameMap.h/gameMap.yDivisions,gameMap.w/gameMap.xDivisions,gameMap.h/gameMap.yDivisions,{r: 125, g: 125, b: 125}, 5, 100));
+      }
+    }
+  }
+}
+
+function repositionPlayer(){
+  leniency = 10;
+  centerOfMap = {
+    x: gameMap.w/2 - player.w/2 + gameMap.x,
+    y: gameMap.h/2 - player.h/2 + gameMap.y
+  }
+
+  playerStuckInBox = true;
+
+  while (playerStuckInBox) {
+    player.x = random(centerOfMap.x + leniency * -1,centerOfMap.x + leniency)
+    player.y = random(centerOfMap.y + leniency * -1,centerOfMap.y + leniency)
+    leniency += 5;
+    playerStuckInBox = false;
+    for (b = 0; b < walls.length; b++){
+      if (detect2BoxesCollision(player,walls[b])){
+        playerStuckInBox = true;
+      }
+    }
+  }
+}
+
+function generateMap(){
+  tiles = []
+  for (h = 0; h < gameMap.yDivisions; h++){
+    column = []
+    for (w = 0; w < gameMap.xDivisions; w++){
+      column.push(floor(random(0,2)))
+    }
+    tiles.push(column);
+  }
+
+  makeWalls();
+  repositionPlayer();
+}
+
 
 
 
@@ -92,8 +138,8 @@ function setup(){
   document.addEventListener('contextmenu', event => event.preventDefault());
   noCursor();
   createCanvas(windowWidth, windowHeight);
-  player.x = gameMap.w/2 - player.w/2 + gameMap.x;
-  player.y = gameMap.h/2 - player.h/2 + gameMap.y;
+
+  generateMap();
 }
 
 function draw(){
