@@ -279,6 +279,10 @@ scale(canvasScale);
   noFill();
   for (l = 0; l < inventoryBoxes.length; l++){
     inventoryBoxes[l].draw();
+    if (inventoryBoxes[l].timer < 1){
+      inventoryBoxes.splice(l,1)
+      l -= 1;
+    }
   }
 
   //draw mouse pointer
@@ -315,15 +319,28 @@ class InventoryBox{
     this.smoothing = 10;
     this.offsetY = 40;
     this.gap = 6;
-    this.intangible = false;
+    this.state = "normal";
+    this.timer = 30;
   }
 
   draw(){
-    this.centerY = + (player.y + player.h/2 - this.offsetY + player.yv * 3);
-    this.centerX = + (player.x + player.w/2 + player.xv * 3);
+    switch (this.state) {
+      case "normal":
+        this.centerY = + (player.y + player.h/2 - this.offsetY + player.yv * 3);
+        this.centerX = + (player.x + player.w/2 + player.xv * 3);
 
-    this.targetX = this.centerX + this.slot * (this.size + this.gap) - (this.size * (player.inventorySize - 1))/2 - (this.gap * (player.inventorySize - 1))/2;
-    this.targetY = this.centerY;
+        this.targetX = this.centerX + this.slot * (this.size + this.gap) - (this.size * (player.inventorySize - 1))/2 - (this.gap * (player.inventorySize - 1))/2;
+        this.targetY = this.centerY;
+        break;
+      case "closing":
+        this.timer -= 1;
+        this.targetX = player.x + player.w/2;
+        this.targetY = player.y + player.h/2;
+        this.targetSize = 0;
+        this.smoothing = this.smoothing/2 + 1;
+      default:
+        break;
+    }
 
     this.size += (this.targetSize - this.size) / this.smoothing;
     this.x += (this.targetX - this.x) / this.smoothing;
@@ -343,7 +360,10 @@ function keyPressed(){
         inventoryBoxes.push(new InventoryBox(i));
       }
     } else { 
-      inventoryBoxes = [];
+      for (i = 0; i < inventoryBoxes.length; i++){
+        inventoryBoxes[i].smoothing *= 8;
+        inventoryBoxes[i].state = "closing";
+      }
     }
   }
 }
