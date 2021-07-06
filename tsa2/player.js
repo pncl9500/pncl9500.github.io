@@ -14,9 +14,9 @@ player = {
   inventory: [
     "nothing_gun",
     "excavator",
+    "solidifier",
     "medkit",
     "key",
-    "none",
     "none",
     "none",
     "none",

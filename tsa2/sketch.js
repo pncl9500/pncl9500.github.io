@@ -54,10 +54,10 @@ class Bullet{
     //collision with walls
     for (w = 0; w < walls.length; w++){
       if (detect2BoxesCollision({
-        x: this.x - this.properties.size,
-        y: this.y - this.properties.size,
-        w: this.properties.size * 2,
-        h: this.properties.size * 2},walls[w])){
+        x: this.x - this.properties.size / 1.5,
+        y: this.y - this.properties.size / 1.5,
+        w: this.properties.size * 1.5,
+        h: this.properties.size * 1.5},walls[w])){
         if (!this.properties.goesThroughTerrain){
           this.deathTimer = this.properties.lifeTime;
         }
@@ -73,6 +73,17 @@ class Bullet{
         fill(this.properties.pal.r,this.properties.pal.g,this.properties.pal.b);
         noStroke();
         ellipse(this.x - cam.x + cam.offsetX, this.y - cam.y + cam.offsetY, this.properties.size, this.properties.size);
+        break;
+      default:
+        break;
+    }
+  }
+
+  doDeathEffect(){
+    switch (this.properties.effectOnDeath) {
+      case "makeWall":
+        walls.push(new Wall(this.x - this.properties.size/2, this.y - this.properties.size/2, this.properties.size, this.properties.size,{r: 190, g: 180, b: 175},1,20,0.5))
+        console.log(walls)
         break;
       default:
         break;
@@ -103,6 +114,9 @@ function fireSelectedGun(){
     inaccuracy = random(itemData[player.inventory[player.selectedInventorySlot]].inaccuracy * -1, itemData[player.inventory[player.selectedInventorySlot]].inaccuracy);
 
     bullets.push(new Bullet(player.x + player.w/2, player.y + player.h/2, Math.atan2(vectorY, vectorX) + inaccuracy, itemData[player.inventory[player.selectedInventorySlot]].bulletProperties));
+    //do recoil
+    player.xv += Math.cos(Math.atan2(vectorY, vectorX) + inaccuracy) * itemData[player.inventory[player.selectedInventorySlot]].recoil;
+    player.yv += Math.sin(Math.atan2(vectorY, vectorX) + inaccuracy) * itemData[player.inventory[player.selectedInventorySlot]].recoil;
   }
 }
 
@@ -150,10 +164,10 @@ function draw(){
 
   drawMap();
   drawMapDivisions();
-  drawWalls();
   drawMapOutline();
   drawBullets();
   drawPlayer();
+  drawWalls();
   drawInventoryBoxes();
   drawMousePointer();
   drawMousePointerText();

@@ -1,3 +1,5 @@
+
+
 itemData = {}
 
 //effectonleftclick is what happens when you click on it in the inventory not on overworld
@@ -13,6 +15,7 @@ function loadItems(){
       firePattern: "semiautomatic",
       fireRate: 30,
       inaccuracy: 0.1,
+      recoil: 1,
       bulletProperties: {
         speed: 8,
         friction: 0.99,
@@ -24,10 +27,11 @@ function loadItems(){
           g: 0,
           b: 0,
         },
-        damagesTerrain: false,
+        damagesTerrain: true,
         goesThroughTerrain: false,
-        destructionLevel: 0,
-        damageToTerrain: 0,
+        destructionLevel: 1,
+        damageToTerrain: 2,
+        effectOnDeath: "none",
         visual: "circle",
       }
     },
@@ -38,6 +42,7 @@ function loadItems(){
       effectOnLeftClick: "equip",
       effectOnUse: "shoot",
       firePattern: "automatic",
+      recoil: 0.2,
       fireRate: 1,
       inaccuracy: 0.3,
       bulletProperties: {
@@ -55,6 +60,36 @@ function loadItems(){
         goesThroughTerrain: false,
         destructionLevel: 8,
         damageToTerrain: 5,
+        effectOnDeath: "none",
+        visual: "circle",
+      }
+    },
+    solidifier: {
+      inventorySprite: loadImage('textures/items/inventory/solidifier.png'),
+      name: "Solidifier",
+      inventoryLeftClickFunctionName: "Left Click: Equip",
+      effectOnLeftClick: "equip",
+      effectOnUse: "shoot",
+      firePattern: "semiautomatic",
+      fireRate: 10,
+      inaccuracy: 0,
+      recoil: 3,
+      bulletProperties: {
+        speed: 5,
+        friction: 0.97,
+        acceleration: 0,
+        lifeTime: 30,
+        size: 16,
+        pal: {
+          r: 255,
+          g: 80,
+          b: 5,
+        },
+        damagesTerrain: false,
+        goesThroughTerrain: false,
+        destructionLevel: 0,
+        damageToTerrain: 0,
+        effectOnDeath: "makeWall",
         visual: "circle",
       }
     },

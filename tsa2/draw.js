@@ -16,6 +16,7 @@ function drawBullets(){
   for (b = 0; b < bullets.length; b++){
     bullets[b].draw();
     if (bullets[b].deathTimer >= bullets[b].properties.lifeTime){
+      bullets[b].doDeathEffect();
       bullets.splice(b, 1)
       b -= 1;
     }
@@ -34,10 +35,10 @@ function drawWalls(){
   for (w = 0; w < walls.length; w++){
     walls[w].draw();
     if (walls[w].health <= 0){
+      cam.shakeX += 4 * walls[w].hardness;
+      cam.shakeY += 4 * walls[w].hardness;
       walls.splice(w,1);
       w -= 1;
-      cam.shakeX += 20;
-      cam.shakeY += 20;
     }
   }
 }
