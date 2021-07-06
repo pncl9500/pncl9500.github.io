@@ -28,6 +28,10 @@ player = {
 
 
 function movePlayer(){
+
+  player.xv *= player.friction;
+  player.yv *= player.friction;
+  
   //move player
   if (keyIsDown(87)){
     player.yv -= player.speed;
