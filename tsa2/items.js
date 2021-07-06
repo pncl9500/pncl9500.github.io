@@ -93,6 +93,35 @@ function loadItems(){
         visual: "circle",
       }
     },
+    transportation_cannon:{
+      inventorySprite: loadImage('textures/items/inventory/transportation_cannon.png'),
+      name: "Omega Static Vortex Launcher",
+      inventoryLeftClickFunctionName: "Left Click: Equip",
+      effectOnLeftClick: "equip",
+      effectOnUse: "shoot",
+      firePattern: "automatic",
+      fireRate: 4,
+      inaccuracy: 0,
+      recoil: -20,
+      bulletProperties: {
+        speed: 0,
+        friction: 1,
+        acceleration: 0,
+        lifeTime: 4,
+        size: 256,
+        pal: {
+          r: 50,
+          g: 0,
+          b: 80,
+        },
+        damagesTerrain: true,
+        goesThroughTerrain: true,
+        destructionLevel: 1000,
+        damageToTerrain: 1000,
+        effectOnDeath: "none",
+        visual: "circle",
+      }
+    },
     gun_gun: {
       inventorySprite: loadImage('textures/items/inventory/gun_gun.png'),
       name: "THE HYPERDRIVE",

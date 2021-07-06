@@ -27,7 +27,6 @@ function drawBullets(){
 function drawSpawners(){
   for (s = 0; s < spawners.length; s++){
     spawners[s].draw();
-    spawners[s].testForPlayer();
   }
 }
 
