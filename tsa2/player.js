@@ -24,6 +24,8 @@ player = {
   selectedInventorySlot: 0,
   inventoryShown: -1,
   hoveredInventorySlot: false,
+
+  firingTick: 0,
 }
 
 

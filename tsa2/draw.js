@@ -12,6 +12,16 @@ function drawMapDivisions(){
   }
 }
 
+function drawBullets(){
+  for (b = 0; b < bullets.length; b++){
+    bullets[b].draw();
+    if (bullets[b].deathTimer >= bullets[b].properties.lifeTime){
+      bullets.splice(b, 1)
+      b -= 1;
+    }
+  }
+}
+
 function drawMap(){
   //draw map
   fill(gameMap.r,gameMap.g,gameMap.b);
@@ -23,6 +33,12 @@ function drawWalls(){
   //draw walls
   for (w = 0; w < walls.length; w++){
     walls[w].draw();
+    if (walls[w].health <= 0){
+      walls.splice(w,1);
+      w -= 1;
+      cam.shakeX += 20;
+      cam.shakeY += 20;
+    }
   }
 }
 
@@ -36,6 +52,7 @@ function drawMapOutline(){
 
 function drawPlayer(){
   //draw player
+  noStroke();
   fill(player.r,player.g,player.b);
   rect(player.x - cam.x + cam.offsetX,player.y - cam.y + cam.offsetY,player.w,player.h);
 }
