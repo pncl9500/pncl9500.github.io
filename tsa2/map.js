@@ -78,9 +78,23 @@ function generateMap(){
   for (h = 0; h < gameMap.yDivisions; h++){
     column = []
     for (w = 0; w < gameMap.xDivisions; w++){
-      column.push(floor(random(0,3)))
+      column.push(0)
     }
     tiles.push(column);
+  }
+
+  for (i = 0; i < 341; i++){
+    tilesOverlapping = true;
+    while (tilesOverlapping === true){
+      tileXpos = floor(random(0,gameMap.xDivisions));
+      tileYpos = floor(random(0,gameMap.yDivisions));
+      if (tiles[tileXpos][tileYpos] === 1){
+        tilesOverlapping = true;
+      } else {
+        tilesOverlapping = false;
+        tiles[tileXpos][tileYpos] = 1;
+      }
+    }
   }
 
   makeWalls();
