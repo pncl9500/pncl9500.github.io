@@ -6,16 +6,19 @@ function loadItems(){
       inventorySprite: loadImage('textures/items/excavator.png'),
       name: "Excavator",
       inventoryLeftClickFunctionName: "Left Click: Equip",
+      effectOnLeftClick: "equip",
     },
     medkit: {
       inventorySprite: loadImage('textures/items/medkit.png'),
       inventoryLeftClickFunctionName: "Left Click: Consume",
-      name: "Medkit"
+      name: "Medkit",
+      effectOnLeftClick: "consume",
     },
     key: {
       inventorySprite: loadImage('textures/items/key.png'),
       inventoryLeftClickFunctionName: "",
-      name: "Key"
+      name: "Key",
+      effectOnLeftClick: "none",
     },
   }  
 }
