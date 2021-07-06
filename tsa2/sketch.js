@@ -115,7 +115,7 @@ player = {
   g: 0,
   b: 0,
   friction: 0.8,
-  speed: 0.3,
+  speed: 0.4,
   inventorySize: 8,
   inventory: [
     "excavator",
@@ -129,6 +129,7 @@ player = {
   ],
   selectedInventorySlot: 0,
   inventoryShown: -1,
+  hoveredInventorySlot: false,
 }
 
 crosshair = {
@@ -139,6 +140,9 @@ crosshair = {
   b: 30,
   w: 5,
   h: 5,
+  textOffsetX: -2,
+  textOffsetY: -15,
+  spaceInBetweenText: 4,
 }
 
 function detect2BoxesCollision(rect1, rect2){
@@ -161,7 +165,7 @@ function setup(){
 }
 
 function draw(){
-
+  
   canvasScale = windowWidth/640;
 
   scale(canvasScale);
@@ -280,6 +284,7 @@ function draw(){
   stroke(0,0,0);
   strokeWeight(1);
   noFill();
+  player.hoveredInventorySlot = false;
   for (l = 0; l < inventoryBoxes.length; l++){
     inventoryBoxes[l].draw();
     if (inventoryBoxes[l].timer < 1){
@@ -294,6 +299,13 @@ function draw(){
 
   stroke(crosshair.r, crosshair.g, crosshair.b);
   ellipse(crosshair.x, crosshair.y, crosshair.w, crosshair.h);
+  fill(0,0,0);
+  noStroke();
+  textSize(4);
+  if (player.hoveredInventorySlot !== false && player.inventory[player.hoveredInventorySlot] !== "none"){
+    text(itemData[player.inventory[player.hoveredInventorySlot]].name,crosshair.x + crosshair.textOffsetX, crosshair.y + crosshair.textOffsetY)
+    text(itemData[player.inventory[player.hoveredInventorySlot]].inventoryLeftClickFunctionName,crosshair.x + crosshair.textOffsetX, crosshair.y + crosshair.textOffsetY + crosshair.spaceInBetweenText)
+  }
 }
 
 function windowResized() {
@@ -319,6 +331,8 @@ class InventoryBox{
     this.targetY = player.y;
     this.size = 0;
     this.targetSize = 16;
+    this.selectedSize = 0;
+    this.targetselectedSize = 0;
     this.smoothing = 10;
     this.offsetY = 40;
     this.gap = 6;
@@ -334,6 +348,19 @@ class InventoryBox{
         this.centerX = + (player.x + player.w/2 + player.xv * 3);
         this.targetX = this.centerX + this.slot * (this.size + this.gap) - (this.size * (player.inventorySize - 1))/2 - (this.gap * (player.inventorySize - 1))/2;
         this.targetY = this.centerY;
+        if (crosshair.x > this.x - this.size/2 - cam.x + cam.offsetX - this.selectedSize/2 &&
+            crosshair.x < this.x - this.size/2 - cam.x + cam.offsetX - this.selectedSize/2 + this.size + this.selectedSize &&
+            crosshair.y > this.y - this.size/2 - cam.y + cam.offsetY - this.selectedSize/2 &&
+            crosshair.y < this.y - this.size/2 - cam.y + cam.offsetY - this.selectedSize/2 + this.size + this.selectedSize){
+          this.targetSelectedSize = 4;
+          if (mouseIsPressed){
+            this.targetSelectedSize += 1;
+          }
+          player.hoveredInventorySlot = this.slot;
+        } else {
+          this.targetSelectedSize = 0;
+        }
+        this.selectedSize += (this.targetSelectedSize - this.selectedSize)/this.smoothing;
         break;
       case "closing":
         this.timer -= 1;
@@ -341,6 +368,7 @@ class InventoryBox{
         this.targetY = player.y + player.h/2;
         this.targetSize = 0;
         this.smoothing = this.smoothing/2 + 1;
+        this.selectedSize += (this.targetSelectedSize - this.selectedSize)/this.smoothing;
       default:
         break;
     }
@@ -351,11 +379,11 @@ class InventoryBox{
     stroke(0);
     strokeWeight(1);
     noFill();
-    rect(this.x - this.size/2 - cam.x + cam.offsetX, this.y - this.size/2 - cam.y + cam.offsetY, this.size, this.size);
+    rect(this.x - this.size/2 - cam.x + cam.offsetX - this.selectedSize/2, this.y - this.size/2 - cam.y + cam.offsetY - this.selectedSize/2, this.size + this.selectedSize, this.size + this.selectedSize);
 
     //make image
     if (player.inventory[this.slot] != "none"){
-      image(itemData[player.inventory[this.slot]].image,this.x - this.size/2 - cam.x + cam.offsetX + this.padding, this.y - this.size/2 - cam.y + cam.offsetY + this.padding, this.size - this.padding * 2, this.size - this.padding * 2)
+      image(itemData[player.inventory[this.slot]].inventorySprite,this.x - this.size/2 - this.selectedSize- cam.x + cam.offsetX + this.padding, this.y - this.size/2 - this.selectedSize - cam.y + cam.offsetY + this.padding, this.size - this.padding * 2 + this.selectedSize*2, this.size - this.padding * 2 + this.selectedSize*2)
     }
   }
 }
@@ -373,5 +401,11 @@ function keyPressed(){
         inventoryBoxes[i].state = "closing";
       }
     }
+  }
+}
+
+function mouseReleased(){
+  if (player.hoveredInventorySlot !== false){
+    player.selectedInventorySlot = player.hoveredInventorySlot
   }
 }

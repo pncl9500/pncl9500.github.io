@@ -3,13 +3,19 @@ itemData = {}
 function loadItems(){
   itemData = {
     excavator: {
-      image: loadImage('textures/items/excavator.png'),
+      inventorySprite: loadImage('textures/items/excavator.png'),
+      name: "Excavator",
+      inventoryLeftClickFunctionName: "Left Click: Equip",
     },
     medkit: {
-      image: loadImage('textures/items/medkit.png'),
+      inventorySprite: loadImage('textures/items/medkit.png'),
+      inventoryLeftClickFunctionName: "Left Click: Consume",
+      name: "Medkit"
     },
     key: {
-      image: loadImage('textures/items/key.png'),
+      inventorySprite: loadImage('textures/items/key.png'),
+      inventoryLeftClickFunctionName: "",
+      name: "Key"
     },
   }  
 }
