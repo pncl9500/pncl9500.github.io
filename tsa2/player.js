@@ -9,7 +9,7 @@ player = {
   g: 0,
   b: 0,
   friction: 0.8,
-  speed: 0.35,
+  speed: 0.25,
   inventorySize: 8,
   inventory: [
     "nothing_gun",

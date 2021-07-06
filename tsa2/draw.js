@@ -30,9 +30,21 @@ function drawSpawners(){
   }
 }
 
+function drawEnemies(){
+  rectMode(CENTER);
+  noStroke();
+  for (e = 0; e < enemies.length; e++){
+    enemies[e].draw();
+  }
+  rectMode(CORNER);
+}
+
 function testForPlayerOverSpawner(){
   for (s = 0; s < spawners.length; s++){
-    spawners[s].testForPlayer();
+    if (spawners[s].testForPlayer()){
+      spawners.splice(s, 1);
+      s -= 1;
+    }
   }
 }
 

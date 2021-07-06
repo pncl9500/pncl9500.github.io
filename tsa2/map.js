@@ -68,7 +68,6 @@ function makeWalls(){
 
 function removeSpawnersNearPlayer(){
   for (g = 0; g < spawners.length; g++){
-    console.log(player);
     if (detect2BoxesCollision(player, spawners[g])){
       spawners.splice(g, 1)
       g -= 1;

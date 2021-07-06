@@ -110,7 +110,7 @@ function loadItems(){
         lifeTime: 32,
         size: 256,
         pal: {
-          r: 80,
+          r: 40,
           g: 0,
           b: 120,
         },

@@ -83,7 +83,6 @@ class Bullet{
     switch (this.properties.effectOnDeath) {
       case "makeWall":
         walls.push(new Wall(this.x - this.properties.size/2, this.y - this.properties.size/2, this.properties.size, this.properties.size,{r: 190, g: 180, b: 175},1,20,0.5))
-        console.log(walls)
         break;
       default:
         break;
@@ -120,7 +119,16 @@ function fireSelectedGun(){
 }
 
 function draw(){
-
+  
+  enemyQueueTick -= 1;
+  if (enemyQueue.length > 0 && enemyQueueTick <= 0){
+    enemies.push(enemyQueue[enemyQueue.length - 1]);
+    enemyQueue.splice(enemyQueue.length - 1,1)
+    enemyQueueTick = enemyQueueTime;
+    if (enemyQueue.length >= 30){
+      enemyQueueTime /= 1.05;
+    }
+  }
   player.firingTick -= 1;
 
   if (mouseIsPressed){
@@ -166,6 +174,7 @@ function draw(){
   drawMapDivisions();
   drawBullets();
   drawPlayer();
+  drawEnemies();
   drawWalls();
   drawMapOutline();
   drawInventoryBoxes();
