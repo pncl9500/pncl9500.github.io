@@ -119,8 +119,8 @@ player = {
   inventorySize: 8,
   inventory: [
     "excavator",
-    "none",
-    "none",
+    "medkit",
+    "key",
     "none",
     "none",
     "none",
@@ -148,6 +148,9 @@ function detect2BoxesCollision(rect1, rect2){
     rect1.y + rect1.h > rect2.y);
 }
 
+function preload(){
+  loadImages();
+}
 
 function setup(){
   document.addEventListener('contextmenu', event => event.preventDefault());
@@ -320,7 +323,8 @@ class InventoryBox{
     this.offsetY = 40;
     this.gap = 6;
     this.state = "normal";
-    this.timer = 30;
+    this.timer = 10;
+    this.padding = 1;
   }
 
   draw(){
@@ -328,7 +332,6 @@ class InventoryBox{
       case "normal":
         this.centerY = + (player.y + player.h/2 - this.offsetY + player.yv * 3);
         this.centerX = + (player.x + player.w/2 + player.xv * 3);
-
         this.targetX = this.centerX + this.slot * (this.size + this.gap) - (this.size * (player.inventorySize - 1))/2 - (this.gap * (player.inventorySize - 1))/2;
         this.targetY = this.centerY;
         break;
@@ -349,6 +352,11 @@ class InventoryBox{
     strokeWeight(1);
     noFill();
     rect(this.x - this.size/2 - cam.x + cam.offsetX, this.y - this.size/2 - cam.y + cam.offsetY, this.size, this.size);
+
+    //make image
+    if (player.inventory[this.slot] != "none"){
+      image(itemImages[player.inventory[this.slot]],this.x - this.size/2 - cam.x + cam.offsetX + this.padding, this.y - this.size/2 - cam.y + cam.offsetY + this.padding, this.size - this.padding * 2, this.size - this.padding * 2)
+    }
   }
 }
 
