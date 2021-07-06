@@ -30,13 +30,16 @@ class InventoryBox{
             crosshair.x < this.x - this.size/2 - cam.x + cam.offsetX - this.selectedSize/2 + this.size + this.selectedSize &&
             crosshair.y > this.y - this.size/2 - cam.y + cam.offsetY - this.selectedSize/2 &&
             crosshair.y < this.y - this.size/2 - cam.y + cam.offsetY - this.selectedSize/2 + this.size + this.selectedSize){
-          this.targetSelectedSize = 3;
+          this.targetSelectedSize = 2;
           if (mouseIsPressed){
             this.targetSelectedSize += 2;
           }
           player.hoveredInventorySlot = this.slot;
         } else {
           this.targetSelectedSize = 0;
+        }
+        if (player.selectedInventorySlot === this.slot){
+          this.targetSelectedSize += 4;
         }
         this.selectedSize += (this.targetSelectedSize - this.selectedSize)/this.smoothing;
         break;

@@ -74,8 +74,6 @@ function draw(){
   cam.y += random(cam.shakeY * -1, cam.shakeY);
 
 
-  player.xv *= player.friction;
-  player.yv *= player.friction;
 
   
 

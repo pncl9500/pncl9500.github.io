@@ -9,13 +9,13 @@ player = {
   g: 0,
   b: 0,
   friction: 0.8,
-  speed: 0.4,
+  speed: 0.5,
   inventorySize: 8,
   inventory: [
+    "nothing_gun",
     "excavator",
     "medkit",
     "key",
-    "none",
     "none",
     "none",
     "none",
@@ -31,7 +31,7 @@ function movePlayer(){
 
   player.xv *= player.friction;
   player.yv *= player.friction;
-  
+
   //move player
   if (keyIsDown(87)){
     player.yv -= player.speed;
