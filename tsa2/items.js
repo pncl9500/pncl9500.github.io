@@ -1,10 +1,16 @@
-itemImages = {}
+itemData = {}
 
-function loadImages(){
-  itemImages = {
-    excavator: loadImage('textures/items/excavator.png'),
-    medkit: loadImage('textures/items/medkit.png'),
-    key: loadImage('textures/items/key.png'),
+function loadItems(){
+  itemData = {
+    excavator: {
+      image: loadImage('textures/items/excavator.png'),
+    },
+    medkit: {
+      image: loadImage('textures/items/medkit.png'),
+    },
+    key: {
+      image: loadImage('textures/items/key.png'),
+    },
   }  
 }
 

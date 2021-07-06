@@ -149,7 +149,7 @@ function detect2BoxesCollision(rect1, rect2){
 }
 
 function preload(){
-  loadImages();
+  loadItems();
 }
 
 function setup(){
@@ -164,7 +164,7 @@ function draw(){
 
   canvasScale = windowWidth/640;
 
-scale(canvasScale);
+  scale(canvasScale);
 
 
   background(0,0,0);
@@ -355,7 +355,7 @@ class InventoryBox{
 
     //make image
     if (player.inventory[this.slot] != "none"){
-      image(itemImages[player.inventory[this.slot]],this.x - this.size/2 - cam.x + cam.offsetX + this.padding, this.y - this.size/2 - cam.y + cam.offsetY + this.padding, this.size - this.padding * 2, this.size - this.padding * 2)
+      image(itemData[player.inventory[this.slot]].image,this.x - this.size/2 - cam.x + cam.offsetX + this.padding, this.y - this.size/2 - cam.y + cam.offsetY + this.padding, this.size - this.padding * 2, this.size - this.padding * 2)
     }
   }
 }
