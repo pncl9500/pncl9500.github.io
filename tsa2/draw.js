@@ -23,6 +23,20 @@ function drawBullets(){
   }
 }
 
+//only for debugging. spawners are invisible in game.
+function drawSpawners(){
+  for (s = 0; s < spawners.length; s++){
+    spawners[s].draw();
+    spawners[s].testForPlayer();
+  }
+}
+
+function testForPlayerOverSpawner(){
+  for (s = 0; s < spawners.length; s++){
+    spawners[s].testForPlayer();
+  }
+}
+
 function drawMap(){
   //draw map
   fill(gameMap.r,gameMap.g,gameMap.b);

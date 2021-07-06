@@ -96,11 +96,10 @@ function preload(){
 }
 
 function setup(){
+  generateMap();
   document.addEventListener('contextmenu', event => event.preventDefault());
   noCursor();
   createCanvas(windowWidth, windowHeight);
-
-  generateMap();
 }
 
 
@@ -143,7 +142,8 @@ function draw(){
   noStroke();
 
   movePlayer();
-
+  //if the player is on top of a spawner, it activates
+  testForPlayerOverSpawner();
   
 
 
@@ -164,13 +164,15 @@ function draw(){
 
   drawMap();
   drawMapDivisions();
-  drawMapOutline();
   drawBullets();
   drawPlayer();
   drawWalls();
+  drawMapOutline();
   drawInventoryBoxes();
   drawMousePointer();
   drawMousePointerText();
+  //only for debugging. these are invisible in game
+  //drawSpawners();
 }
 
 function windowResized() {

@@ -53,12 +53,25 @@ tiles = []
 function makeWalls(){
   for (h = 0; h < tiles.length; h++){
     for (w = 0; w < tiles[h].length; w++){
+      if (tiles[h][w] === 0){
+        spawners.push(new Spawner(w*gameMap.w/gameMap.xDivisions, h*gameMap.h/gameMap.yDivisions,gameMap.w/gameMap.xDivisions,gameMap.h/gameMap.yDivisions));
+      }
       if (tiles[h][w] === 1){
         walls.push(new Wall(w*gameMap.w/gameMap.xDivisions, h*gameMap.h/gameMap.yDivisions,gameMap.w/gameMap.xDivisions,gameMap.h/gameMap.yDivisions,{r: 125, g: 125, b: 125}, 5, 250, 0.5));
       }
       if (tiles[h][w] === 2){
         walls.push(new Wall(w*gameMap.w/gameMap.xDivisions, h*gameMap.h/gameMap.yDivisions,gameMap.w/gameMap.xDivisions,gameMap.h/gameMap.yDivisions,{r: 50, g: 50, b: 60}, 10, 1000, 0.2));
       }
+    }
+  }
+}
+
+function removeSpawnersNearPlayer(){
+  for (g = 0; g < spawners.length; g++){
+    console.log(player);
+    if (detect2BoxesCollision(player, spawners[g])){
+      spawners.splice(g, 1)
+      g -= 1;
     }
   }
 }
@@ -75,6 +88,7 @@ function repositionPlayer(){
   while (playerStuckInBox) {
     player.x = random(centerOfMap.x + leniency * -1,centerOfMap.x + leniency)
     player.y = random(centerOfMap.y + leniency * -1,centerOfMap.y + leniency)
+    removeSpawnersNearPlayer();
     leniency += 5;
     playerStuckInBox = false;
     for (b = 0; b < walls.length; b++){
@@ -83,6 +97,7 @@ function repositionPlayer(){
       }
     }
   }
+  removeSpawnersNearPlayer();
 }
 
 function generateMap(){
