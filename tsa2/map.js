@@ -32,8 +32,8 @@ walls = [
 gameMap = {
   x: 0,
   y: 0,
-  w: 4096,
-  h: 4096,
+  w: 3072,
+  h: 3072,
 
   r: 255,
   g: 255,
@@ -43,8 +43,8 @@ gameMap = {
   lineg: 240,
   lineb: 240,
 
-  xDivisions: 32,
-  yDivisions: 32,
+  xDivisions: 24,
+  yDivisions: 24,
 
 }
 
@@ -108,8 +108,8 @@ function generateMap(){
     tiles.push(column);
   }
 
-  //300 tiles will have 5 hardness
-  for (i = 0; i < 300; i++){
+  //150 tiles will have 5 hardness
+  for (i = 0; i < 150; i++){
     tilesOverlapping = true;
     while (tilesOverlapping === true){
       tileXpos = floor(random(0,gameMap.xDivisions));
@@ -123,8 +123,8 @@ function generateMap(){
     }
   }
 
-  //41 tiles will have 10 hardness and be darker
-  for (i = 0; i < 41; i++){
+  //10 tiles will have 10 hardness and be darker
+  for (i = 0; i < 10; i++){
     tilesOverlapping = true;
     while (tilesOverlapping === true){
       tileXpos = floor(random(0,gameMap.xDivisions));

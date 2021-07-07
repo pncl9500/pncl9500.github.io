@@ -8,7 +8,8 @@ enemyQueueTime = 35;
 spawnersTriggered = 0;
 currentLevel = 0;
 
-enemySpawnDistance = 120;
+enemySpawnDistance = 80;
+enemySpeedMagnitude = 10;
 
 class Enemy{
   constructor(type, x, y, magnification){
@@ -21,12 +22,18 @@ class Enemy{
 
     this.health = floor(enemyData[this.type].health * this.magnification);
     this.damage = floor(enemyData[this.type].damage * this.magnification/5);
-    this.speed = enemyData[this.type].speed;
+    this.speed = 0;
+
+    this.targetSpeed = enemyData[this.type].speed
+    this.speedSmoothing = 20;
+
     this.targetW = enemyData[this.type].w;
     this.targetH = enemyData[this.type].h;
     this.w = 1500;
     this.h = 1500;
     this.spawnAnimationSmoothing = 10;
+
+    this.direction = 0;
 
 
     this.pal = enemyData[this.type].pal;
@@ -37,7 +44,7 @@ class Enemy{
     this.targetStrokeWeight = 0;
 
     this.state = "spawning";
-    this.spawnTimer = 80;
+    this.spawnTimer = 90;
     
     
   }
@@ -69,8 +76,26 @@ class Enemy{
         }
         break;
       case "active":
+        this.speed = (this.targetSpeed - this.speed) / this.speedSmoothing;
         fill(this.pal.r, this.pal.g, this.pal.b);
         rect(this.x - cam.x + cam.offsetX, this.y - cam.y + cam.offsetY, this.w, this.h);
+        this.direction = Math.atan2(player.y + player.h/2 - this.y, player.x + player.w/2 - this.x);
+        //collision with walls (X)
+        this.x += cos(this.direction) * this.speed * enemySpeedMagnitude;;
+        for (w = 0; w < walls.length; w++){
+          if (detect2BoxesCollision({x: this.x - this.w/2, y: this.y - this.h/2, w: this.w, h: this.h}, walls[w])){
+            this.x -= cos(this.direction) * this.speed * enemySpeedMagnitude;;
+          }
+        }
+
+        this.y += sin(this.direction) * this.speed * enemySpeedMagnitude;
+
+        //collision with walls (Y)
+        for (w = 0; w < walls.length; w++){
+          if (detect2BoxesCollision({x: this.x - this.w/2, y: this.y - this.h/2, w: this.w, h: this.h}, walls[w])){
+            this.y -= sin(this.direction) * this.speed * enemySpeedMagnitude;
+          }
+        }
         break;
       default:
         break;

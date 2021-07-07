@@ -1,7 +1,7 @@
 enemyData = {
   gray: {
     health: 6,
-    speed: 0.6,
+    speed: 1.2,
     damage: 5,
     w: 4,
     h: 4,
@@ -13,7 +13,7 @@ enemyData = {
   },
   red: {
     health: 16,
-    speed: 0.5,
+    speed: 1,
     damage: 5,
     w: 5,
     h: 5,
@@ -25,7 +25,7 @@ enemyData = {
   },
   yellow: {
     health: 5,
-    speed: 0.9,
+    speed: 1.8,
     damage: 7,
     w: 4,
     h: 4,
@@ -37,7 +37,7 @@ enemyData = {
   },
   blue: {
     health: 28,
-    speed: 0.5,
+    speed: 1,
     damage: 10,
     w: 7,
     h: 7,
@@ -49,7 +49,7 @@ enemyData = {
   },
   blue_small: {
     health: 5,
-    speed: 0.8,
+    speed: 1.6,
     damage: 6,
     w: 3,
     h: 3,
@@ -61,7 +61,7 @@ enemyData = {
   },
   pink: {
     health: 16,
-    speed: 0.2,
+    speed: 0.4,
     damage: 5,
     w: 4,
     h: 4,
@@ -73,7 +73,7 @@ enemyData = {
   },
   green: {
     health: 26,
-    speed: 0.4,
+    speed: 0.8,
     damage: 5,
     w: 5,
     h: 5,
