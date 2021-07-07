@@ -94,6 +94,8 @@ class Bullet{
         }
       }
     }
+    
+    
 
     switch (this.properties.visual) {
       case "circle":
@@ -110,6 +112,9 @@ class Bullet{
     switch (this.properties.effectOnDeath) {
       case "makeWall":
         walls.push(new Wall(this.x - this.properties.size/2, this.y - this.properties.size/2, this.properties.size, this.properties.size,{r: 190, g: 180, b: 175},1,20,0.5))
+        break;
+      case "spawnBullet":
+        bullets.push(new Bullet(this.x, this.y, 0, this.properties.spawnedBulletProperties));
         break;
       default:
         break;
@@ -255,6 +260,9 @@ function mouseReleased(){
           enemies = [];
           spawners = [];
           enemyQueue = [];
+          player.inventory[player.hoveredInventorySlot] = "none";
+        case "spawnBullet":
+          bullets.push(new Bullet(player.x + player.w/2, player.y + player.w/2, 0, itemData[player.inventory[player.hoveredInventorySlot]].consumeBulletProperties))
           player.inventory[player.hoveredInventorySlot] = "none";
         default:
           break;

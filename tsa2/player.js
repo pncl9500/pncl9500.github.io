@@ -10,7 +10,7 @@ player = {
   b: 0,
   friction: 0.8,
   speed: 0.25,
-  inventorySize: 8,
+  inventorySize: 9,
   inventory: [
     "nothing_gun",
     "excavator",
@@ -19,6 +19,7 @@ player = {
     "transportation_cannon",
     "medkit",
     "key",
+    "bomb",
     "kill",
   ],
   selectedInventorySlot: 0,
