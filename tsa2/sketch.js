@@ -249,6 +249,11 @@ function mouseReleased(){
           player.health = min(player.maxHealth, player.health + itemData[player.inventory[player.hoveredInventorySlot]].consumeEffectAmount)
           player.inventory[player.hoveredInventorySlot] = "none";
           break;
+        case "killAllEnemies":
+          enemies = [];
+          spawners = [];
+          enemyQueue = [];
+          player.inventory[player.hoveredInventorySlot] = "none";
         default:
           break;
       }

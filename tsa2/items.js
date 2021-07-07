@@ -175,6 +175,13 @@ function loadItems(){
       name: "Key",
       effectOnLeftClick: "none",
     },
+    kill: {
+      inventorySprite: loadImage('textures/items/inventory/kill.png'),
+      inventoryLeftClickFunctionName: "Left Click: Consume",
+      name: "Kill All Enemies",
+      effectOnLeftClick: "consume",
+      consumeEffect: "killAllEnemies",
+    },
   }  
 }
 

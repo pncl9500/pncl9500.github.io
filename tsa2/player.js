@@ -19,7 +19,7 @@ player = {
     "transportation_cannon",
     "medkit",
     "key",
-    "none",
+    "kill",
   ],
   selectedInventorySlot: 0,
   inventoryShown: -1,
