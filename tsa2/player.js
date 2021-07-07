@@ -26,6 +26,22 @@ player = {
   hoveredInventorySlot: false,
 
   firingTick: 0,
+
+  maxHealth: 100,
+  health: 100,
+  healthBarWidth: 100,
+  healthBarAnimationSmoothing: 4,
+  healthBarScale: 0.2,
+  healthBarWidthMultiplier: 0.2,
+  healthBarHeight: 2,
+  healthBarYOffset: 14,
+
+  healthBarX: 0,
+  healthBarY: 0,
+  healthBarMovementSmoothing: 3,
+
+  iFramesOnHit: 60,
+  iFrames: 0,
 }
 
 

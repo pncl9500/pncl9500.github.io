@@ -2,7 +2,7 @@ enemyData = {
   gray: {
     health: 6,
     speed: 1.2,
-    damage: 5,
+    damage: 10,
     w: 4,
     h: 4,
     pal: {
@@ -14,7 +14,7 @@ enemyData = {
   red: {
     health: 16,
     speed: 1,
-    damage: 5,
+    damage: 10,
     w: 5,
     h: 5,
     pal: {
@@ -26,7 +26,7 @@ enemyData = {
   yellow: {
     health: 5,
     speed: 2.2,
-    damage: 7,
+    damage: 14,
     w: 4,
     h: 4,
     pal: {
@@ -38,7 +38,7 @@ enemyData = {
   blue: {
     health: 28,
     speed: 1,
-    damage: 10,
+    damage: 20,
     w: 7,
     h: 7,
     pal: {
@@ -55,7 +55,7 @@ enemyData = {
   blue_small: {
     health: 5,
     speed: 2,
-    damage: 6,
+    damage: 12,
     w: 3,
     h: 3,
     pal: {
@@ -67,7 +67,7 @@ enemyData = {
   pink: {
     health: 16,
     speed: 0.4,
-    damage: 5,
+    damage: 10,
     w: 4,
     h: 4,
     pal: {
@@ -79,7 +79,7 @@ enemyData = {
   green: {
     health: 26,
     speed: 0.8,
-    damage: 5,
+    damage: 10,
     w: 5,
     h: 5,
     pal: {
@@ -91,7 +91,7 @@ enemyData = {
   geode_1: {
     health: 40,
     speed: 0.8,
-    damage: 15,
+    damage: 30,
     w: 32,
     h: 32,
     pal: {
@@ -108,7 +108,7 @@ enemyData = {
   geode_2: {
     health: 30,
     speed: 1.1,
-    damage: 15,
+    damage: 30,
     w: 24,
     h: 24,
     pal: {
@@ -125,7 +125,7 @@ enemyData = {
   geode_3: {
     health: 20,
     speed: 1.7,
-    damage: 15,
+    damage: 25,
     w: 16,
     h: 16,
     pal: {
@@ -142,7 +142,7 @@ enemyData = {
   geode_4: {
     health: 5,
     speed: 4,
-    damage: 8,
+    damage: 16,
     w: 8,
     h: 8,
     pal: {

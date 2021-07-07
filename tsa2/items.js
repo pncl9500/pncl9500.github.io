@@ -166,6 +166,8 @@ function loadItems(){
       inventoryLeftClickFunctionName: "Left Click: Consume",
       name: "Medkit",
       effectOnLeftClick: "consume",
+      consumeEffect: "increaseHealth",
+      consumeEffectAmount: 100,
     },
     key: {
       inventorySprite: loadImage('textures/items/inventory/key.png'),

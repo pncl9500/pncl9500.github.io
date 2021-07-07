@@ -15,7 +15,6 @@ class Wall{
     this.spawnsOffsetY = 0;
 
     this.spawnsOnDestruction = [];
-    console.log(this.spawnsOnDestruction);
     this.spawnMagnification = 1;
     if (typeof(spawnsOnDestruction) != "undefined"){
       this.spawnMagnification = spawnMagnification;

@@ -122,6 +122,14 @@ class Enemy{
             this.y -= sin(this.direction) * this.speed * enemySpeedMagnitude;
           }
         }
+
+        //collision with player
+        if (player.iFrames <= 0 && detect2BoxesCollision({x: this.x - this.w/2, y: this.y - this.h/2, w: this.w, h: this.h}, player)){
+          player.health -= enemyData[this.type].damage;
+          player.iFrames = player.iFramesOnHit;
+          cam.shakeX = cam.damageShakeMultiplier * enemyData[this.type].damage;
+          cam.shakeY = cam.damageShakeMultiplier * enemyData[this.type].damage;
+        }
         break;
       default:
         break;

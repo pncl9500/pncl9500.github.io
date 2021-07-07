@@ -9,6 +9,8 @@ cam = {
 
   shakeX: 0,
   shakeY: 0,
+
+  damageShakeMultiplier: 0.2,
 }
 
 
@@ -208,6 +210,7 @@ function draw(){
 
   drawWalls();
   drawMapOutline();
+  drawPlayerHealthBar()
   drawInventoryBoxes();
   drawMousePointer();
   drawMousePointerText();
@@ -239,6 +242,16 @@ function mouseReleased(){
   if (player.hoveredInventorySlot !== false){
     if (itemData[player.inventory[player.hoveredInventorySlot]].effectOnLeftClick === "equip"){
       player.selectedInventorySlot = player.hoveredInventorySlot;
+    }
+    if (itemData[player.inventory[player.hoveredInventorySlot]].effectOnLeftClick === "consume"){
+      switch (itemData[player.inventory[player.hoveredInventorySlot]].consumeEffect) {
+        case "increaseHealth":
+          player.health = min(player.maxHealth, player.health + itemData[player.inventory[player.hoveredInventorySlot]].consumeEffectAmount)
+          player.inventory[player.hoveredInventorySlot] = "none";
+          break;
+        default:
+          break;
+      }
     }
   }
 }
