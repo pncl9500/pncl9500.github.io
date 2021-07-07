@@ -113,6 +113,7 @@ function getEnemySpawnPosition(){
     angle = random(0,6.28318);
     enemySpawnOffsetX = cos(angle) * enemySpawnDistance;
     enemySpawnOffsetY = sin(angle) * enemySpawnDistance;
+    //hitbox for enemy spawning is 24x24
     for (b = 0; b < walls.length; b++){
       if (detect2BoxesCollision({x: player.x + enemySpawnOffsetX - 12, y: player.y + enemySpawnOffsetY - 12, w: 24, h: 24},walls[b])){
         enemyStuckInBox = true;

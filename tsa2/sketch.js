@@ -54,10 +54,10 @@ class Bullet{
     //collision with walls
     for (w = 0; w < walls.length; w++){
       if (detect2BoxesCollision({
-        x: this.x - this.properties.size / 1.5,
-        y: this.y - this.properties.size / 1.5,
-        w: this.properties.size * 1.5,
-        h: this.properties.size * 1.5},walls[w])){
+        x: this.x - this.properties.size / 2,
+        y: this.y - this.properties.size / 2,
+        w: this.properties.size,
+        h: this.properties.size},walls[w])){
         if (!this.properties.goesThroughTerrain){
           this.deathTimer = this.properties.lifeTime;
         }
