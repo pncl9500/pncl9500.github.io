@@ -98,6 +98,7 @@ class Enemy{
         }
         break;
       case "active":
+        noStroke();
         this.speed = (this.targetSpeed - this.speed) / this.speedSmoothing;
         fill(this.pal.r, this.pal.g, this.pal.b);
         if (this.damageAnimationTick > 0){
