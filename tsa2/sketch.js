@@ -68,6 +68,23 @@ class Bullet{
       }
     }
 
+    //collision with enemies
+    for (e = 0; e < enemies.length; e++){
+      if (detect2BoxesCollision({
+        x: this.x - this.properties.size / 2,
+        y: this.y - this.properties.size / 2,
+        w: this.properties.size,
+        h: this.properties.size},enemies[e])){
+        if (enemies[e].state == "active"){
+          enemies[e].health -= this.properties.damageToEnemies;
+          enemies[e].doDamageAnimation();
+          if (!this.properties.goesThroughEnemies){
+            this.deathTimer = this.properties.lifeTime;
+          }
+        }
+      }
+    }
+
     switch (this.properties.visual) {
       case "circle":
         fill(this.properties.pal.r,this.properties.pal.g,this.properties.pal.b);

@@ -35,6 +35,10 @@ function drawEnemies(){
   noStroke();
   for (e = 0; e < enemies.length; e++){
     enemies[e].draw();
+    if (enemies[e].health <= 0){
+      enemies.splice(e,1);
+      e -= 1;
+    }
   }
   rectMode(CORNER);
 }

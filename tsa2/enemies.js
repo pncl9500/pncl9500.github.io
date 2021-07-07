@@ -44,12 +44,14 @@ class Enemy{
     this.targetStrokeWeight = 0;
 
     this.state = "spawning";
-    this.spawnTimer = 90;
+    this.spawnTimer = 85;
     
-    
+    this.damageAnimationLength = 5;
+    this.damageAnimationTick = 0;
   }
 
   draw(){
+    this.damageAnimationTick -= 1;
     //drawn in center rectmode because i do not like corner mode anymore
     switch (this.state) {
       case "spawning":
@@ -78,6 +80,9 @@ class Enemy{
       case "active":
         this.speed = (this.targetSpeed - this.speed) / this.speedSmoothing;
         fill(this.pal.r, this.pal.g, this.pal.b);
+        if (this.damageAnimationTick > 0){
+          fill(240,240,240);
+        }
         rect(this.x - cam.x + cam.offsetX, this.y - cam.y + cam.offsetY, this.w, this.h);
         this.direction = Math.atan2(player.y + player.h/2 - this.y, player.x + player.w/2 - this.x);
         //collision with walls (X)
@@ -100,6 +105,10 @@ class Enemy{
       default:
         break;
     }
+  }
+
+  doDamageAnimation(){
+    this.damageAnimationTick = this.damageAnimationLength;
   }
 }
 

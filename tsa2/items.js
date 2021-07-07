@@ -31,6 +31,8 @@ function loadItems(){
         goesThroughTerrain: false,
         destructionLevel: 1,
         damageToTerrain: 2,
+        goesThroughEnemies: false,
+        damageToEnemies: 1,
         effectOnDeath: "none",
         visual: "circle",
       }
@@ -60,6 +62,8 @@ function loadItems(){
         goesThroughTerrain: false,
         destructionLevel: 8,
         damageToTerrain: 5,
+        goesThroughEnemies: false,
+        damageToEnemies: 1,
         effectOnDeath: "none",
         visual: "circle",
       }
@@ -89,6 +93,8 @@ function loadItems(){
         goesThroughTerrain: false,
         destructionLevel: 0,
         damageToTerrain: 0,
+        goesThroughEnemies: false,
+        damageToEnemies: 0,
         effectOnDeath: "makeWall",
         visual: "circle",
       }
@@ -119,6 +125,8 @@ function loadItems(){
         destructionLevel: 100,
         damageToTerrain: 1000,
         effectOnDeath: "none",
+        goesThroughEnemies: true,
+        damageToEnemies: 250,
         visual: "circle",
       }
     },
@@ -148,6 +156,8 @@ function loadItems(){
         destructionLevel: 0,
         damageToTerrain: 0,
         effectOnDeath: "none",
+        goesThroughEnemies: false,
+        damageToEnemies: 0,
         visual: "circle",
       }
     },
