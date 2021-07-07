@@ -67,6 +67,8 @@ function drawWalls(){
     if (walls[w].health <= 0){
       cam.shakeX += 4 * walls[w].hardness;
       cam.shakeY += 4 * walls[w].hardness;
+      //spawn enemies if the wall spawns enemies
+      walls[w].spawnEnemiesOnDeath();
       walls.splice(w,1);
       w -= 1;
     }

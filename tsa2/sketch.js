@@ -76,7 +76,12 @@ class Bullet{
         x: this.x - this.properties.size / 2,
         y: this.y - this.properties.size / 2,
         w: this.properties.size,
-        h: this.properties.size},enemies[e])){
+        h: this.properties.size},{
+          x: enemies[e].x - enemies[e].w/2,
+          y: enemies[e].y - enemies[e].h/2,
+          w: enemies[e].w,
+          h: enemies[e].h,
+        })){
         if (enemies[e].state === "active" && this.dead === false){
           enemies[e].health -= this.properties.damageToEnemies;
           enemies[e].doDamageAnimation();

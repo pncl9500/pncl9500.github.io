@@ -13,7 +13,7 @@ function loadItems(){
       effectOnLeftClick: "equip",
       effectOnUse: "shoot",
       firePattern: "semiautomatic",
-      fireRate: 15,
+      fireRate: 10,
       inaccuracy: 0.1,
       recoil: 1,
       bulletProperties: {

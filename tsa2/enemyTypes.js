@@ -87,5 +87,68 @@ enemyData = {
       g: 171,
       b: 48,
     }
+  },
+  geode_1: {
+    health: 40,
+    speed: 0.8,
+    damage: 15,
+    w: 32,
+    h: 32,
+    pal: {
+      r: 40,
+      g: 40,
+      b: 40,
+    },
+    //enemies that spawn on the death of the enemy
+    spawnsFragmentsOnDeath: true,
+    fragmentOffsetX: 0,
+    fragmentOffsetY: 0,
+    fragmentSpawns: ["geode_2"]
+  },
+  geode_2: {
+    health: 30,
+    speed: 1.1,
+    damage: 15,
+    w: 24,
+    h: 24,
+    pal: {
+      r: 110,
+      g: 110,
+      b: 110,
+    },
+    //enemies that spawn on the death of the enemy
+    spawnsFragmentsOnDeath: true,
+    fragmentOffsetX: 0,
+    fragmentOffsetY: 0,
+    fragmentSpawns: ["geode_3"]
+  },
+  geode_3: {
+    health: 20,
+    speed: 1.7,
+    damage: 15,
+    w: 16,
+    h: 16,
+    pal: {
+      r: 180,
+      g: 180,
+      b: 180,
+    },
+    //enemies that spawn on the death of the enemy
+    spawnsFragmentsOnDeath: true,
+    fragmentOffsetX: 0,
+    fragmentOffsetY: 0,
+    fragmentSpawns: ["geode_4"]
+  },
+  geode_4: {
+    health: 5,
+    speed: 4,
+    damage: 8,
+    w: 8,
+    h: 8,
+    pal: {
+      r: 195,
+      g: 100,
+      b: 255,
+    },
   }
 }
