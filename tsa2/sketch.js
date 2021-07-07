@@ -42,6 +42,7 @@ class Bullet{
     this.v = this.properties.speed;
     this.direction = direction;
     this.deathTimer = 0;
+    this.dead = false;
     
   }
   draw(){
@@ -60,6 +61,7 @@ class Bullet{
         h: this.properties.size},walls[w])){
         if (!this.properties.goesThroughTerrain){
           this.deathTimer = this.properties.lifeTime;
+          this.dead = true;
         }
         if (this.properties.damagesTerrain && walls[w].hardness <= this.properties.destructionLevel){
           walls[w].health -= this.properties.damageToTerrain;
@@ -75,10 +77,11 @@ class Bullet{
         y: this.y - this.properties.size / 2,
         w: this.properties.size,
         h: this.properties.size},enemies[e])){
-        if (enemies[e].state == "active"){
+        if (enemies[e].state === "active" && this.dead === false){
           enemies[e].health -= this.properties.damageToEnemies;
           enemies[e].doDamageAnimation();
           if (!this.properties.goesThroughEnemies){
+            this.dead = true;
             this.deathTimer = this.properties.lifeTime;
           }
         }
