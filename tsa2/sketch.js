@@ -250,6 +250,8 @@ function mouseReleased(){
           player.inventory[player.hoveredInventorySlot] = "none";
           break;
         case "killAllEnemies":
+          cam.shakeX = 100;
+          cam.shakeY = 100;
           enemies = [];
           spawners = [];
           enemyQueue = [];
