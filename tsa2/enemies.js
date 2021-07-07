@@ -8,9 +8,13 @@ enemyQueueTime = 35;
 spawnersTriggered = 0;
 currentLevel = 0;
 
+enemySpawnDistance = 120;
+
 class Enemy{
   constructor(type, x, y, magnification){
     this.type = type;
+    this.spawnPointX = x;
+    this.spawnPointY = y;
     this.x = x;
     this.y = y;
     this.magnification = magnification;
@@ -34,6 +38,8 @@ class Enemy{
 
     this.state = "spawning";
     this.spawnTimer = 80;
+    
+    
   }
 
   draw(){
@@ -72,14 +78,39 @@ class Enemy{
   }
 }
 
+function getEnemySpawnPosition(){
+  
+
+  enemyStuckInBox = true;
+  
+  while (enemyStuckInBox) {
+    enemyStuckInBox = false;
+    angle = random(0,6.28318);
+    enemySpawnOffsetX = cos(angle) * enemySpawnDistance;
+    enemySpawnOffsetY = sin(angle) * enemySpawnDistance;
+    for (b = 0; b < walls.length; b++){
+      if (detect2BoxesCollision({x: player.x + enemySpawnOffsetX - 12, y: player.y + enemySpawnOffsetY - 12, w: 24, h: 24},walls[b])){
+        enemyStuckInBox = true;
+      }
+    }
+  }
+}
+
 function spawnEnemiesAroundPlayer(spawn){
+
   if (typeof(spawns[currentLevel][spawn]) != "undefined"){
     for (e = 0; e < spawns[currentLevel][spawn].length; e++){
-      enemyQueue.push(new Enemy(spawns[currentLevel][spawn][e], player.x + 40, player.y, 1))
+      enemySpawnOffsetX = 0;
+      enemySpawnOffsetY = 0;
+      getEnemySpawnPosition();
+      enemyQueue.push(new Enemy(spawns[currentLevel][spawn][e], player.x + enemySpawnOffsetX, player.y + enemySpawnOffsetY, 1))
     }
   } else {
     for (e = 0; e < spawns[currentLevel][spawns[currentLevel].length - 1].length; e++){
-      enemyQueue.push(new Enemy(spawns[currentLevel][spawns[currentLevel].length - 1][e], player.x + 40, player.y, 1))
+      enemySpawnOffsetX = 0;
+      enemySpawnOffsetY = 0;
+      getEnemySpawnPosition();
+      enemyQueue.push(new Enemy(spawns[currentLevel][spawns[currentLevel].length - 1][e], player.x + enemySpawnOffsetX, player.y + enemySpawnOffsetY, 1))
     }
   }
   

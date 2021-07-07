@@ -2,6 +2,14 @@
 spawns = [
   //spawns in the debug level (only level for now)
   [
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
   ["gray"],
   ["gray"],
   ["gray"],
