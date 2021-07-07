@@ -5,6 +5,9 @@ enemyQueue = [];
 enemyQueueTick = 20;
 enemyQueueTime = 35;
 
+//enemies created on enemy death so weird stuff doesnt happen
+enemyFragmentQueue = [];
+
 spawnersTriggered = 0;
 currentLevel = 0;
 
@@ -12,7 +15,15 @@ enemySpawnDistance = 80;
 enemySpeedMagnitude = 10;
 
 class Enemy{
-  constructor(type, x, y, magnification){
+  constructor(type, x, y, magnification, doSpawnAnimation){
+
+    if (typeof(doSpawnAnimation) != "undefined"){
+      this.doSpawnAnimation = doSpawnAnimation;
+    } else {
+      this.doSpawnAnimation = true;
+    }
+
+
     this.type = type;
     this.spawnPointX = x;
     this.spawnPointY = y;
@@ -31,6 +42,7 @@ class Enemy{
     this.targetH = enemyData[this.type].h;
     this.w = 1500;
     this.h = 1500;
+    
     this.spawnAnimationSmoothing = 10;
 
     this.direction = 0;
@@ -48,6 +60,14 @@ class Enemy{
     
     this.damageAnimationLength = 5;
     this.damageAnimationTick = 0;
+
+    if (!this.doSpawnAnimation){
+      this.w = this.targetW;
+      this.h = this.targetH;
+      this.state = "active";
+      this.spawnTimer = 0;
+      this.strokeWeight = this.targetStrokeWeight;
+    }
   }
 
   draw(){
@@ -109,6 +129,14 @@ class Enemy{
 
   doDamageAnimation(){
     this.damageAnimationTick = this.damageAnimationLength;
+  }
+
+  doFragmentSpawns(){
+    if (enemyData[this.type].spawnsFragmentsOnDeath){
+      for (this.f = 0; this.f < enemyData[this.type].fragmentSpawns.length; this.f++){
+        enemyFragmentQueue.push(new Enemy(enemyData[this.type].fragmentSpawns[this.f], this.x + random(enemyData[this.type].fragmentOffsetX * -1,enemyData[this.type].fragmentOffsetX), this.y + random(enemyData[this.type].fragmentOffsetY * -1,enemyData[this.type].fragmentOffsetY), this.magnification, false));
+      }
+    }
   }
 }
 

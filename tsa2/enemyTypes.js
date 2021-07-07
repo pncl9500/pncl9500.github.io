@@ -25,7 +25,7 @@ enemyData = {
   },
   yellow: {
     health: 5,
-    speed: 1.8,
+    speed: 2.2,
     damage: 7,
     w: 4,
     h: 4,
@@ -45,11 +45,16 @@ enemyData = {
       r: 40,
       g: 80,
       b: 255,
-    }
+    },
+    //enemies that spawn on the death of the enemy
+    spawnsFragmentsOnDeath: true,
+    fragmentOffsetX: 7,
+    fragmentOffsetY: 7,
+    fragmentSpawns: ["blue_small","blue_small","blue_small","blue_small","blue_small","blue_small"]
   },
   blue_small: {
     health: 5,
-    speed: 1.6,
+    speed: 2,
     damage: 6,
     w: 3,
     h: 3,

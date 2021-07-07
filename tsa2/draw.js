@@ -36,6 +36,7 @@ function drawEnemies(){
   for (e = 0; e < enemies.length; e++){
     enemies[e].draw();
     if (enemies[e].health <= 0){
+      enemies[e].doFragmentSpawns();
       enemies.splice(e,1);
       e -= 1;
     }

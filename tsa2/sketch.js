@@ -195,6 +195,12 @@ function draw(){
   drawBullets();
   drawPlayer();
   drawEnemies();
+
+  for (e = 0; e < enemyFragmentQueue.length; e++){
+    enemies.push(enemyFragmentQueue[e])
+  }
+  enemyFragmentQueue = [];
+
   drawWalls();
   drawMapOutline();
   drawInventoryBoxes();
