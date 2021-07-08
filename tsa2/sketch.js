@@ -261,6 +261,17 @@ function keyPressed(){
   if (keyCode === 69 || keyCode === 9){
     toggleInventoryDisplay();
   }
+
+  //1-9 hotkeys
+  for (k = 49; k < 57; k++){
+    if (keyCode === k && itemData[player.inventory[k - 49]].effectOnLeftClick === "equip"){
+      player.selectedInventorySlot = k - 49;
+    }
+  }
+  //0 hotkey
+  if (keyCode === 48 && itemData[player.inventory[9]].effectOnLeftClick === "equip"){
+    player.selectedInventorySlot = 9;
+  }
 }
 
 function mouseReleased(){
