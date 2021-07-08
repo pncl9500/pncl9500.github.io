@@ -9,7 +9,8 @@ enemyData = {
       r: 200,
       g: 200,
       b: 200,
-    }
+    },
+    loot: [],
   },
   red: {
     health: 16,
@@ -21,7 +22,8 @@ enemyData = {
       r: 220,
       g: 0,
       b: 0,
-    }
+    },
+    loot: [],
   },
   yellow: {
     health: 5,
@@ -33,7 +35,8 @@ enemyData = {
       r: 240,
       g: 240,
       b: 0,
-    }
+    },
+    loot: [],
   },
   blue: {
     health: 28,
@@ -46,6 +49,7 @@ enemyData = {
       g: 80,
       b: 255,
     },
+    loot: [],
     //enemies that spawn on the death of the enemy
     spawnsFragmentsOnDeath: true,
     fragmentOffsetX: 7,
@@ -62,7 +66,8 @@ enemyData = {
       r: 55,
       g: 95,
       b: 255,
-    }
+    },
+    loot: [],
   },
   pink: {
     health: 16,
@@ -74,7 +79,8 @@ enemyData = {
       r: 235,
       g: 40,
       b: 240,
-    }
+    },
+    loot: [],
   },
   green: {
     health: 26,
@@ -86,7 +92,8 @@ enemyData = {
       r: 58,
       g: 171,
       b: 48,
-    }
+    },
+    loot: [],
   },
   geode_1: {
     health: 40,
@@ -99,6 +106,7 @@ enemyData = {
       g: 40,
       b: 40,
     },
+    loot: [],
     //enemies that spawn on the death of the enemy
     spawnsFragmentsOnDeath: true,
     fragmentOffsetX: 0,
@@ -116,6 +124,7 @@ enemyData = {
       g: 110,
       b: 110,
     },
+    loot: [],
     //enemies that spawn on the death of the enemy
     spawnsFragmentsOnDeath: true,
     fragmentOffsetX: 0,
@@ -133,6 +142,7 @@ enemyData = {
       g: 180,
       b: 180,
     },
+    loot: [],
     //enemies that spawn on the death of the enemy
     spawnsFragmentsOnDeath: true,
     fragmentOffsetX: 0,
@@ -150,5 +160,6 @@ enemyData = {
       g: 100,
       b: 255,
     },
+    loot: ["transportation_cannon", "gun_gun", "solidifier", "excavator", "kill", "nothing_gun"],
   }
 }

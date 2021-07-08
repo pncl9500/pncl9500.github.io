@@ -147,6 +147,12 @@ class Enemy{
       }
     }
   }
+
+  dropLoot(){
+    for (l = 0; l < enemyData[this.type].loot.length; l++){
+      pickups.push(new Pickup(enemyData[this.type].loot[l],this.x, this.y));
+    }
+  }
 }
 
 function getEnemySpawnPosition(){
