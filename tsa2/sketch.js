@@ -224,6 +224,7 @@ function draw(){
 
   drawMap();
   drawMapDivisions();
+  drawPickups();
   drawBullets();
   drawPlayer();
   drawEnemies();
@@ -275,29 +276,42 @@ function keyPressed(){
 }
 
 function mouseReleased(){
-  if (player.hoveredInventorySlot !== false){
-    if (itemData[player.inventory[player.hoveredInventorySlot]].effectOnLeftClick === "equip"){
-      player.selectedInventorySlot = player.hoveredInventorySlot;
-    }
-    if (itemData[player.inventory[player.hoveredInventorySlot]].effectOnLeftClick === "consume"){
-      switch (itemData[player.inventory[player.hoveredInventorySlot]].consumeEffect) {
-        case "increaseHealth":
-          player.health = min(player.maxHealth, player.health + itemData[player.inventory[player.hoveredInventorySlot]].consumeEffectAmount)
-          player.inventory[player.hoveredInventorySlot] = "none";
-          break;
-        case "killAllEnemies":
-          cam.shakeX = 100;
-          cam.shakeY = 100;
-          enemies = [];
-          spawners = [];
-          enemyQueue = [];
-          player.inventory[player.hoveredInventorySlot] = "none";
-        case "spawnBullet":
-          bullets.push(new Bullet(player.x + player.w/2, player.y + player.w/2, 0, itemData[player.inventory[player.hoveredInventorySlot]].consumeBulletProperties))
-          player.inventory[player.hoveredInventorySlot] = "none";
-        default:
-          break;
+  switch (mouseButton) {
+    case LEFT:
+      if (player.hoveredInventorySlot !== false){
+        if (itemData[player.inventory[player.hoveredInventorySlot]].effectOnLeftClick === "equip"){
+          player.selectedInventorySlot = player.hoveredInventorySlot;
+        }
+        if (itemData[player.inventory[player.hoveredInventorySlot]].effectOnLeftClick === "consume"){
+          switch (itemData[player.inventory[player.hoveredInventorySlot]].consumeEffect) {
+            case "increaseHealth":
+              player.health = min(player.maxHealth, player.health + itemData[player.inventory[player.hoveredInventorySlot]].consumeEffectAmount)
+              player.inventory[player.hoveredInventorySlot] = "none";
+              break;
+            case "killAllEnemies":
+              cam.shakeX = 100;
+              cam.shakeY = 100;
+              enemies = [];
+              spawners = [];
+              enemyQueue = [];
+              player.inventory[player.hoveredInventorySlot] = "none";
+            case "spawnBullet":
+              bullets.push(new Bullet(player.x + player.w/2, player.y + player.w/2, 0, itemData[player.inventory[player.hoveredInventorySlot]].consumeBulletProperties))
+              player.inventory[player.hoveredInventorySlot] = "none";
+            default:
+              break;
+          }
+        }
       }
-    }
+      break;
+      case RIGHT:
+        if (player.hoveredInventorySlot !== false && itemData[player.inventory[player.hoveredInventorySlot]].droppable){
+          pickups.push(new Pickup(player.inventory[player.hoveredInventorySlot], player.x + player.w/2, player.y + player.h/2));
+          player.inventory[player.hoveredInventorySlot] = "none";
+          break;
+        }
+    default:
+      break;
   }
+  
 }

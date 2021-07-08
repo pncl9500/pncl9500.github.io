@@ -1,5 +1,45 @@
-inventoryBoxes = [];
+pickups = [];
 
+class Pickup{
+  constructor(item,x,y){
+    this.item = item
+    this.x = x;
+    this.y = y;
+    this.xv = random(-1,1);
+    this.yv = random(-1,1);
+    this.friction = 0.95
+    this.size = 0;
+    this.targetSize = 16;
+    //animation stuff
+    this.gv = 1;
+    this.gfriction = 0.95;
+    this.smoothing = 5;
+    //space between outline and image border
+    this.padding = 1;
+  }
+
+  draw(){
+    console.log(this.x);
+    console.log(this.y);
+    this.size += (this.targetSize - this.size) / this.smoothing;
+    this.size += this.gv;
+    this.gv *= this.gfriction;
+    this.x += this.xv;
+    this.y += this.yv;
+    this.xv *= this.friction;
+    this.yv *= this.friction;
+    stroke(0);
+    strokeWeight(1);
+    noFill();
+    rect(this.x - this.size/2 - cam.x + cam.offsetX, this.y - this.size/2 - cam.y + cam.offsetY, this.size, this.size);
+
+    //make image
+    image(itemData[this.item].inventorySprite,this.x - this.size/2 - cam.x + cam.offsetX + this.padding, this.y - this.size/2 - cam.y + cam.offsetY + this.padding, this.size - this.padding * 2, this.size - this.padding * 2)
+  }
+}
+
+
+inventoryBoxes = [];
 class InventoryBox{
   constructor(slot){
     this.slot = slot;

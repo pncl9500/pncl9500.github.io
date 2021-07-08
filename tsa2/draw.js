@@ -30,6 +30,12 @@ function drawSpawners(){
   }
 }
 
+function drawPickups(){
+  for (p = 0; p < pickups.length; p++){
+    pickups[p].draw();
+  }
+}
+
 function drawEnemies(){
   rectMode(CENTER);
   noStroke();
@@ -130,5 +136,10 @@ function drawMousePointerText(){
     textSize(4);
     text(itemData[player.inventory[player.hoveredInventorySlot]].name,crosshair.x + crosshair.textOffsetX, crosshair.y + crosshair.textOffsetY)
     text(itemData[player.inventory[player.hoveredInventorySlot]].inventoryLeftClickFunctionName,crosshair.x + crosshair.textOffsetX, crosshair.y + crosshair.textOffsetY + crosshair.spaceInBetweenText)
+    if (itemData[player.inventory[player.hoveredInventorySlot]].inventoryLeftClickFunctionName === ""){
+      text("Right Click: Drop",crosshair.x + crosshair.textOffsetX, crosshair.y + crosshair.textOffsetY + crosshair.spaceInBetweenText)
+    } else {
+      text("Right Click: Drop",crosshair.x + crosshair.textOffsetX, crosshair.y + crosshair.textOffsetY + crosshair.spaceInBetweenText * 2)
+    }
   }
 }

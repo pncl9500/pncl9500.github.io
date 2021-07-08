@@ -6,6 +6,13 @@ itemData = {}
 
 function loadItems(){
   itemData = {
+    none: {
+      inventorySprite: loadImage('textures/items/inventory/nothing_gun.png'),
+      name: "None",
+      effectOnLeftClick: "none",
+      effectOnUse: "nothing",
+      droppable: false,
+    },
     nothing_gun: {
       inventorySprite: loadImage('textures/items/inventory/nothing_gun.png'),
       name: "Nothing Gun",
@@ -39,7 +46,8 @@ function loadItems(){
         shakeXOnDeath: 0,
         shakeYOnDeath: 0,
         visual: "circle",
-      }
+      },
+      droppable: true,
     },
     excavator: {
       inventorySprite: loadImage('textures/items/inventory/excavator.png'),
@@ -74,7 +82,8 @@ function loadItems(){
         shakeXOnDeath: 0,
         shakeYOnDeath: 0,
         visual: "circle",
-      }
+      },
+      droppable: true,
     },
     solidifier: {
       inventorySprite: loadImage('textures/items/inventory/solidifier.png'),
@@ -109,7 +118,8 @@ function loadItems(){
         shakeXOnDeath: 0,
         shakeYOnDeath: 0,
         visual: "circle",
-      }
+      },
+      droppable: true,
     },
     transportation_cannon:{
       inventorySprite: loadImage('textures/items/inventory/transportation_cannon.png'),
@@ -144,7 +154,8 @@ function loadItems(){
         goesThroughPlayer: true,
         damageToPlayer: 0,
         visual: "circle",
-      }
+      },
+      droppable: true,
     },
     gun_gun: {
       inventorySprite: loadImage('textures/items/inventory/gun_gun.png'),
@@ -179,7 +190,8 @@ function loadItems(){
         goesThroughPlayer: true,
         damageToPlayer: 0,
         visual: "circle",
-      }
+      },
+      droppable: true,
     },
     medkit: {
       inventorySprite: loadImage('textures/items/inventory/medkit.png'),
@@ -188,12 +200,14 @@ function loadItems(){
       effectOnLeftClick: "consume",
       consumeEffect: "increaseHealth",
       consumeEffectAmount: 100,
+      droppable: true,
     },
     key: {
       inventorySprite: loadImage('textures/items/inventory/key.png'),
       inventoryLeftClickFunctionName: "",
       name: "Key",
       effectOnLeftClick: "none",
+      droppable: true,
     },
     kill: {
       inventorySprite: loadImage('textures/items/inventory/kill.png'),
@@ -201,6 +215,7 @@ function loadItems(){
       name: "Kill All Enemies",
       effectOnLeftClick: "consume",
       consumeEffect: "killAllEnemies",
+      droppable: true,
     },
     bomb: {
       inventorySprite: loadImage('textures/items/inventory/bomb.png'),
@@ -254,8 +269,9 @@ function loadItems(){
           shakeYOnDeath: 0,
           visual: "circle",
         },
-        visual: "circle",
-      }
+        visual: "circle"
+      },
+      droppable: true,
     },
   }  
 }
