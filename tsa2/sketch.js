@@ -94,6 +94,24 @@ class Bullet{
         }
       }
     }
+
+    //collision with players
+    //circle-circle collision because it would be frustrating if the player gets hit by a bomb explosion when they shouldnt due to it being rect-rect
+    this.distX = player.x - this.x;
+    this.distY = player.y - this.y;
+    if (Math.sqrt((this.distX * this.distX) + (this.distY * this.distY)) <= player.w/2 + this.properties.size/2){
+      console.log("grkjahsflkjdsahljkdfs")
+      if (!this.properties.goesThroughPlayer){
+        this.dead = true;
+        this.deathTimer = this.properties.lifeTime;
+      }
+      if (player.iFrames <= 0 && this.properties.damageToPlayer > 0){
+        player.health -= this.properties.damageToPlayer;
+        player.iFrames = player.iFramesOnHit;
+        cam.shakeX = cam.damageShakeMultiplier * this.properties.damageToPlayer;
+        cam.shakeY = cam.damageShakeMultiplier * this.properties.damageToPlayer;
+      }
+    }
     
     
 
@@ -109,6 +127,8 @@ class Bullet{
   }
 
   doDeathEffect(){
+    cam.shakeX += this.properties.shakeXOnDeath;
+    cam.shakeY += this.properties.shakeYOnDeath;
     switch (this.properties.effectOnDeath) {
       case "makeWall":
         walls.push(new Wall(this.x - this.properties.size/2, this.y - this.properties.size/2, this.properties.size, this.properties.size,{r: 190, g: 180, b: 175},1,20,0.5))
