@@ -83,6 +83,9 @@ function makeWalls(){
       if (tiles[h][w] === 3){
         walls.push(new Wall(w*gameMap.w/gameMap.xDivisions, h*gameMap.h/gameMap.yDivisions,gameMap.w/gameMap.xDivisions,gameMap.h/gameMap.yDivisions,{r: 100, g: 90, b: 120}, 1, 20, 0.3, ["geode_1"], 0, 0, 1));
       }
+      if (tiles[h][w] === 4){
+        walls.push(new Wall(w*gameMap.w/gameMap.xDivisions, h*gameMap.h/gameMap.yDivisions,gameMap.w/gameMap.xDivisions,gameMap.h/gameMap.yDivisions,{r: 130, g: 130, b: 120}, 1, 10, 0.7, ["yellow","yellow","yellow","yellow","yellow","yellow","yellow","yellow"], 50, 50, 1));
+      }
     }
   }
 }
@@ -129,8 +132,8 @@ function generateMap(){
     tiles.push(column);
   }
 
-  //150 tiles will have 5 hardness
-  for (i = 0; i < 150; i++){
+  //145 tiles will have 5 hardness
+  for (i = 0; i < 145; i++){
     tilesOverlapping = true;
     while (tilesOverlapping === true){
       tileXpos = floor(random(0,gameMap.xDivisions));
@@ -143,6 +146,7 @@ function generateMap(){
       }
     }
   }
+
 
   //10 tiles will have 10 hardness and be darker
   for (i = 0; i < 10; i++){
@@ -171,6 +175,21 @@ function generateMap(){
         tiles[tileXpos][tileYpos] = 3;
       }
     }
+
+  //5 tiles will have 1 hardness and spawn yellow enemies
+  for (i = 0; i < 5; i++){
+    tilesOverlapping = true;
+    while (tilesOverlapping === true){
+      tileXpos = floor(random(0,gameMap.xDivisions));
+      tileYpos = floor(random(0,gameMap.yDivisions));
+      if (tiles[tileXpos][tileYpos] === 1){
+        tilesOverlapping = true;
+      } else {
+        tilesOverlapping = false;
+        tiles[tileXpos][tileYpos] = 4;
+      }
+    }
+  }
 
   makeWalls();
   repositionPlayer();
