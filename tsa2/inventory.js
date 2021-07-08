@@ -5,8 +5,8 @@ class Pickup{
     this.item = item
     this.x = x;
     this.y = y;
-    this.xv = random(-1,1);
-    this.yv = random(-1,1);
+    this.xv = random(-1.5,1.5);
+    this.yv = random(-1.5,1.5);
     this.friction = 0.95
     this.size = 0;
     this.targetSize = 16;
@@ -24,8 +24,6 @@ class Pickup{
     this.size += (this.targetSize - this.size) / this.smoothing;
     this.size += this.gv;
     this.gv *= this.gfriction;
-    this.x += this.xv;
-    this.y += this.yv;
     this.xv *= this.friction;
     this.yv *= this.friction;
     stroke(0);
@@ -35,6 +33,26 @@ class Pickup{
 
     //make image
     image(itemData[this.item].inventorySprite,this.x - this.size/2 - cam.x + cam.offsetX + this.padding, this.y - this.size/2 - cam.y + cam.offsetY + this.padding, this.size - this.padding * 2, this.size - this.padding * 2)
+
+    this.x += this.xv;
+
+    //collision with walls (X)
+    for (w = 0; w < walls.length; w++){
+      if (detect2BoxesCollision({x: this.x - this.targetSize/2, y: this.y - this.targetSize/2, w: this.targetSize, h: this.targetSize}, walls[w])){
+        this.x -= this.xv;
+        this.xv *= -1
+      }
+    }
+
+    this.y += this.yv;
+
+    //collision with walls (Y)
+    for (w = 0; w < walls.length; w++){
+      if (detect2BoxesCollision({x: this.x - this.targetSize/2, y: this.y - this.targetSize/2, w: this.targetSize, h: this.targetSize}, walls[w])){
+        this.y -= this.yv;
+        this.yv *= -1
+      }
+    }
   }
 }
 
