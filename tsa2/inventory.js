@@ -16,6 +16,7 @@ class Pickup{
     this.smoothing = 5;
     //space between outline and image border
     this.padding = 1;
+    this.dead = false;
   }
 
   draw(){
@@ -52,6 +53,23 @@ class Pickup{
         this.y -= this.yv;
         this.yv *= -1
       }
+    }
+  }
+
+  checkForPickup(){
+    if (this.dead === false && detect2BoxesCollision({x: this.x - this.targetSize/2, y: this.y - this.targetSize/2, w: this.targetSize, h: this.targetSize}, player)){
+      var inventoryFull = true;
+      var pickupInsertionPoint;
+      for (s = 0; s < player.inventorySize; s++){
+        if (player.inventory[s] === "none"){
+          inventoryFull = false;
+          pickupInsertionPoint = s;
+          player.inventory[s] = this.item;
+          this.dead = true;
+          return true;
+        }
+      }
+      return false;
     }
   }
 }

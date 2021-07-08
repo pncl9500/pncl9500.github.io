@@ -259,9 +259,22 @@ function mousePressed(){
 
 
 function keyPressed(){
-  if (keyCode === 69 || keyCode === 9){
-    toggleInventoryDisplay();
+  switch (keyCode) {
+    case 69:
+    case 9:
+      toggleInventoryDisplay();
+      break;
+    case 70:
+      for (p = 0; p < pickups.length; p++){
+        if (pickups[p].checkForPickup()){
+          break;
+        }
+      }
+      break;
+    default:
+      break;
   }
+
 
   //1-9 hotkeys
   for (k = 49; k < 57; k++){

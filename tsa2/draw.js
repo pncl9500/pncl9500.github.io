@@ -33,6 +33,10 @@ function drawSpawners(){
 function drawPickups(){
   for (p = 0; p < pickups.length; p++){
     pickups[p].draw();
+    if (pickups[p].dead){
+      pickups.splice(p,1);
+      p -= 1;
+    }
   }
 }
 
