@@ -141,7 +141,7 @@ enemyData = {
   },
   geode_4: {
     health: 5,
-    speed: 4,
+    speed: 4.5,
     damage: 16,
     w: 8,
     h: 8,
