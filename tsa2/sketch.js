@@ -85,8 +85,10 @@ class Bullet{
           h: enemies[e].h,
         })){
         if (enemies[e].state === "active" && this.dead === false){
+          if (this.properties.damageToEnemies > 0){
+            enemies[e].doDamageAnimation();  
+          }
           enemies[e].health -= this.properties.damageToEnemies;
-          enemies[e].doDamageAnimation();
           if (!this.properties.goesThroughEnemies){
             this.dead = true;
             this.deathTimer = this.properties.lifeTime;
@@ -100,7 +102,6 @@ class Bullet{
     this.distX = player.x - this.x;
     this.distY = player.y - this.y;
     if (Math.sqrt((this.distX * this.distX) + (this.distY * this.distY)) <= player.w/2 + this.properties.size/2){
-      console.log("grkjahsflkjdsahljkdfs")
       if (!this.properties.goesThroughPlayer){
         this.dead = true;
         this.deathTimer = this.properties.lifeTime;

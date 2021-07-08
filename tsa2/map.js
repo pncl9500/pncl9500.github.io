@@ -1,5 +1,5 @@
 class Wall{
-  constructor(x, y, w, h, pal, hardness, health, bounciness, spawnsOnDestruction, spawnsOffsetX, spawnsOffsetY, spawnMagnification){
+  constructor(x, y, w, h, pal, hardness, health, bounciness, spawnsOnDestruction, spawnsOffsetX, spawnsOffsetY, spawnMagnification, loot){
     this.x = x;
     this.y = y;
     this.w = w;
@@ -22,6 +22,11 @@ class Wall{
       this.spawnsOffsetX = spawnsOffsetX;
       this.spawnsOffsetY = spawnsOffsetY;
     }
+
+    this.loot = [];
+    if (typeof(loot) != "undefined"){
+      this.loot = loot;
+    }
   }
 
   draw(){
@@ -38,6 +43,12 @@ class Wall{
   spawnEnemiesOnDeath(){
     for (this.s = 0; this.s < this.spawnsOnDestruction.length; this.s++){
       enemyFragmentQueue.push(new Enemy(this.spawnsOnDestruction[this.s], this.x + random(this.spawnsOffsetX * -1,this.spawnsOffsetX) + this.w/2, this.y + random(this.spawnsOffsetY * -1,this.spawnsOffsetY) + this.h/2, this.spawnMagnification, false));
+    }
+  }
+
+  spawnLootOnDeath(){
+    for (l = 0; l < this.loot.length; l++){
+      pickups.push(new Pickup(this.loot[l],this.x + this.w/2, this.y + this.h/2));
     }
   }
 }
@@ -84,7 +95,7 @@ function makeWalls(){
         walls.push(new Wall(w*gameMap.w/gameMap.xDivisions, h*gameMap.h/gameMap.yDivisions,gameMap.w/gameMap.xDivisions,gameMap.h/gameMap.yDivisions,{r: 100, g: 90, b: 120}, 1, 20, 0.3, ["geode_1"], 0, 0, 1));
       }
       if (tiles[h][w] === 4){
-        walls.push(new Wall(w*gameMap.w/gameMap.xDivisions, h*gameMap.h/gameMap.yDivisions,gameMap.w/gameMap.xDivisions,gameMap.h/gameMap.yDivisions,{r: 130, g: 130, b: 120}, 1, 10, 0.7, ["yellow","yellow","yellow","yellow","yellow","yellow","yellow","yellow"], 50, 50, 1));
+        walls.push(new Wall(w*gameMap.w/gameMap.xDivisions, h*gameMap.h/gameMap.yDivisions,gameMap.w/gameMap.xDivisions,gameMap.h/gameMap.yDivisions,{r: 130, g: 130, b: 120}, 1, 10, 0.7, ["yellow","yellow","yellow","yellow","yellow","yellow","yellow","yellow"], 50, 50, 1, ["bomb"]));
       }
     }
   }

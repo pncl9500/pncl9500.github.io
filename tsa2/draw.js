@@ -80,6 +80,7 @@ function drawWalls(){
       cam.shakeY += 4 * walls[w].hardness;
       //spawn enemies if the wall spawns enemies
       walls[w].spawnEnemiesOnDeath();
+      walls[w].spawnLootOnDeath();
       walls.splice(w,1);
       w -= 1;
     }
