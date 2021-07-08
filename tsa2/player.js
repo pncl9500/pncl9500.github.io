@@ -12,7 +12,7 @@ player = {
   speed: 0.25,
   inventorySize: 10,
   inventory: [
-    "nothing_gun",
+    "pistol",
     "excavator",
     "solidifier",
     "gun_gun",

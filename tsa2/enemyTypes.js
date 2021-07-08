@@ -107,7 +107,7 @@ enemyData = {
   },
   geode_2: {
     health: 30,
-    speed: 1.1,
+    speed: 1.2,
     damage: 30,
     w: 24,
     h: 24,
@@ -124,7 +124,7 @@ enemyData = {
   },
   geode_3: {
     health: 20,
-    speed: 1.7,
+    speed: 2,
     damage: 25,
     w: 16,
     h: 16,
@@ -140,8 +140,8 @@ enemyData = {
     fragmentSpawns: ["geode_4"]
   },
   geode_4: {
-    health: 5,
-    speed: 4.5,
+    health: 10,
+    speed: 4.7,
     damage: 16,
     w: 8,
     h: 8,
