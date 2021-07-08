@@ -73,7 +73,8 @@ class Bullet{
     }
 
     //collision with enemies
-    for (e = 0; e < enemies.length; e++){
+    //the most recent enemy spawn is the one that is hit first
+    for (e = enemies.length - 1; e >= 0; e--){
       if (detect2BoxesCollision({
         x: this.x - this.properties.size / 2,
         y: this.y - this.properties.size / 2,
