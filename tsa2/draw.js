@@ -48,11 +48,22 @@ function drawEnemies(){
     if (enemies[e].health <= 0){
       enemies[e].doFragmentSpawns();
       enemies[e].dropLoot();
+      enemies[e].dropChests();
       enemies.splice(e,1);
       e -= 1;
     }
   }
   rectMode(CORNER);
+}
+
+function drawChests(){
+  for (c = 0; c < chests.length; c++){
+    chests[c].draw();
+    if (chests[c].dead){
+      chests.splice(c,1);
+      c -= 1;
+    }
+  }
 }
 
 function testForPlayerOverSpawner(){
@@ -81,6 +92,7 @@ function drawWalls(){
       //spawn enemies if the wall spawns enemies
       walls[w].spawnEnemiesOnDeath();
       walls[w].spawnLootOnDeath();
+      walls[w].spawnChestsOnDeath();
       walls.splice(w,1);
       w -= 1;
     }

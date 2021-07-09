@@ -153,6 +153,12 @@ class Enemy{
       pickups.push(new Pickup(enemyData[this.type].loot[l],this.x, this.y));
     }
   }
+
+  dropChests(){
+    for (c = 0; c < enemyData[this.type].chestDrops.length; c++){
+      chests.push(new Chest(enemyData[this.type].chestDrops[c], this.x - 16, this.y - 8))
+    }
+  }
 }
 
 function getEnemySpawnPosition(){

@@ -146,6 +146,7 @@ class Bullet{
 
 function preload(){
   loadItems();
+  loadChests();
 }
 
 function setup(){
@@ -227,6 +228,7 @@ function draw(){
   drawMap();
   drawMapDivisions();
   drawPickups();
+  drawChests();
   drawBullets();
   drawPlayer();
   drawEnemies();
@@ -269,6 +271,11 @@ function keyPressed(){
     case 70:
       for (p = 0; p < pickups.length; p++){
         if (pickups[p].checkForPickup()){
+          break;
+        }
+      }
+      for (c = 0; c < chests.length; c++){
+        if (chests[c].checkForOpen()){
           break;
         }
       }

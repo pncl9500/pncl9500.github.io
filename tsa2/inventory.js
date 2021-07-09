@@ -20,8 +20,6 @@ class Pickup{
   }
 
   draw(){
-    console.log(this.x);
-    console.log(this.y);
     this.size += (this.targetSize - this.size) / this.smoothing;
     this.size += this.gv;
     this.gv *= this.gfriction;

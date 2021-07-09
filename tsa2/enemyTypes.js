@@ -11,6 +11,7 @@ enemyData = {
       b: 200,
     },
     loot: [],
+    chestDrops: [],
   },
   red: {
     health: 16,
@@ -24,6 +25,7 @@ enemyData = {
       b: 0,
     },
     loot: [],
+    chestDrops: [],
   },
   yellow: {
     health: 5,
@@ -37,6 +39,7 @@ enemyData = {
       b: 0,
     },
     loot: [],
+    chestDrops: [],
   },
   blue: {
     health: 28,
@@ -54,7 +57,8 @@ enemyData = {
     spawnsFragmentsOnDeath: true,
     fragmentOffsetX: 7,
     fragmentOffsetY: 7,
-    fragmentSpawns: ["blue_small","blue_small","blue_small","blue_small","blue_small","blue_small"]
+    fragmentSpawns: ["blue_small","blue_small","blue_small","blue_small","blue_small","blue_small"],
+    chestDrops: [],
   },
   blue_small: {
     health: 5,
@@ -68,6 +72,7 @@ enemyData = {
       b: 255,
     },
     loot: [],
+    chestDrops: [],
   },
   pink: {
     health: 16,
@@ -81,6 +86,7 @@ enemyData = {
       b: 240,
     },
     loot: [],
+    chestDrops: [],
   },
   green: {
     health: 26,
@@ -94,6 +100,7 @@ enemyData = {
       b: 48,
     },
     loot: [],
+    chestDrops: [],
   },
   geode_1: {
     health: 40,
@@ -111,7 +118,8 @@ enemyData = {
     spawnsFragmentsOnDeath: true,
     fragmentOffsetX: 0,
     fragmentOffsetY: 0,
-    fragmentSpawns: ["geode_2"]
+    fragmentSpawns: ["geode_2"],
+    chestDrops: [],
   },
   geode_2: {
     health: 30,
@@ -129,7 +137,8 @@ enemyData = {
     spawnsFragmentsOnDeath: true,
     fragmentOffsetX: 0,
     fragmentOffsetY: 0,
-    fragmentSpawns: ["geode_3"]
+    fragmentSpawns: ["geode_3"],
+    chestDrops: [],
   },
   geode_3: {
     health: 20,
@@ -147,7 +156,8 @@ enemyData = {
     spawnsFragmentsOnDeath: true,
     fragmentOffsetX: 0,
     fragmentOffsetY: 0,
-    fragmentSpawns: ["geode_4"]
+    fragmentSpawns: ["geode_4"],
+    chestDrops: [],
   },
   geode_4: {
     health: 10,
@@ -160,6 +170,7 @@ enemyData = {
       g: 100,
       b: 255,
     },
-    loot: ["transportation_cannon", "gun_gun", "solidifier", "excavator", "kill", "nothing_gun"],
+    loot: [],
+    chestDrops: ["geode"],
   }
 }
