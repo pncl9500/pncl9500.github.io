@@ -93,20 +93,33 @@ tiles = []
 function makeWalls(){
   for (h = 0; h < tiles.length; h++){
     for (w = 0; w < tiles[h].length; w++){
-      if (tiles[h][w] === 0){
-        spawners.push(new Spawner(w*gameMap.w/gameMap.xDivisions, h*gameMap.h/gameMap.yDivisions,gameMap.w/gameMap.xDivisions,gameMap.h/gameMap.yDivisions));
-      }
-      if (tiles[h][w] === 1){
-        walls.push(new Wall(w*gameMap.w/gameMap.xDivisions, h*gameMap.h/gameMap.yDivisions,gameMap.w/gameMap.xDivisions,gameMap.h/gameMap.yDivisions,{r: 125, g: 125, b: 125}, 5, 250, 0.5));
-      }
-      if (tiles[h][w] === 2){
-        walls.push(new Wall(w*gameMap.w/gameMap.xDivisions, h*gameMap.h/gameMap.yDivisions,gameMap.w/gameMap.xDivisions,gameMap.h/gameMap.yDivisions,{r: 50, g: 50, b: 60}, 10, 1000, 0.2));
-      }
-      if (tiles[h][w] === 3){
-        walls.push(new Wall(w*gameMap.w/gameMap.xDivisions, h*gameMap.h/gameMap.yDivisions,gameMap.w/gameMap.xDivisions,gameMap.h/gameMap.yDivisions,{r: 100, g: 90, b: 120}, 1, 20, 0.3, ["geode_1"], 0, 0, 1));
-      }
-      if (tiles[h][w] === 4){
-        walls.push(new Wall(w*gameMap.w/gameMap.xDivisions, h*gameMap.h/gameMap.yDivisions,gameMap.w/gameMap.xDivisions,gameMap.h/gameMap.yDivisions,{r: 130, g: 130, b: 120}, 1, 10, 0.7, ["yellow","yellow","yellow","yellow","yellow","yellow","yellow","yellow"], 50, 50, 1, [], ["normal"]));
+      switch (tiles[h][w]) {
+        case 0:
+          //empty space (normal enemy spawner)
+          spawners.push(new Spawner(w*gameMap.w/gameMap.xDivisions, h*gameMap.h/gameMap.yDivisions,gameMap.w/gameMap.xDivisions,gameMap.h/gameMap.yDivisions));
+          break;
+        case 1:
+          //normal stone
+          walls.push(new Wall(w*gameMap.w/gameMap.xDivisions, h*gameMap.h/gameMap.yDivisions,gameMap.w/gameMap.xDivisions,gameMap.h/gameMap.yDivisions,{r: 125, g: 125, b: 125}, 5, 250, 0.5));
+          break;
+        case 2:
+          //hard stone
+          walls.push(new Wall(w*gameMap.w/gameMap.xDivisions, h*gameMap.h/gameMap.yDivisions,gameMap.w/gameMap.xDivisions,gameMap.h/gameMap.yDivisions,{r: 50, g: 50, b: 60}, 10, 1000, 0.2));
+          break;
+        case 3:
+          //geode boss spawner
+          walls.push(new Wall(w*gameMap.w/gameMap.xDivisions, h*gameMap.h/gameMap.yDivisions,gameMap.w/gameMap.xDivisions,gameMap.h/gameMap.yDivisions,{r: 100, g: 90, b: 120}, 1, 20, 0.3, ["geode_1"], 0, 0, 1));
+          break;
+        case 4:
+          //nest
+          walls.push(new Wall(w*gameMap.w/gameMap.xDivisions, h*gameMap.h/gameMap.yDivisions,gameMap.w/gameMap.xDivisions,gameMap.h/gameMap.yDivisions,{r: 130, g: 130, b: 120}, 1, 10, 0.7, ["yellow","yellow","yellow","yellow","yellow","yellow","yellow","yellow"], 50, 50, 1, [], ["normal"]));
+          break;
+        case 5:
+          //softer stone inside the geode struture
+          walls.push(new Wall(w*gameMap.w/gameMap.xDivisions, h*gameMap.h/gameMap.yDivisions,gameMap.w/gameMap.xDivisions,gameMap.h/gameMap.yDivisions,{r: 175, g: 175, b: 185}, 1, 15, 0.5));
+          break;
+        default:
+          break;
       }
     }
   }
@@ -186,17 +199,17 @@ function generateMap(){
   }
 
   //1 tile will have 1 hardness and spawn the geode boss
-    tilesOverlapping = true;
-    while (tilesOverlapping === true){
-      tileXpos = floor(random(0,gameMap.xDivisions));
-      tileYpos = floor(random(0,gameMap.yDivisions));
-      if (tiles[tileXpos][tileYpos] >= 1){
-        tilesOverlapping = true;
-      } else {
-        tilesOverlapping = false;
-        tiles[tileXpos][tileYpos] = 3;
-      }
-    }
+    // tilesOverlapping = true;
+    // while (tilesOverlapping === true){
+    //   tileXpos = floor(random(0,gameMap.xDivisions));
+    //   tileYpos = floor(random(0,gameMap.yDivisions));
+    //   if (tiles[tileXpos][tileYpos] >= 1){
+    //     tilesOverlapping = true;
+    //   } else {
+    //     tilesOverlapping = false;
+    //     tiles[tileXpos][tileYpos] = 3;
+    //   }
+    // }
 
   //5 tiles will have 1 hardness and spawn yellow enemies
   for (i = 0; i < 5; i++){
@@ -213,9 +226,33 @@ function generateMap(){
     }
   }
 
+
+  //spawn structures
+  spawnStructure("donut");
+  spawnStructure("donut");
+  if (floor(random(0,11)) === 0){
+    //10% chance for the among us imposter to appear
+    spawnStructure("among");
+  }
+
+  spawnStructure("geode");
+
   makeWalls();
   repositionPlayer();
 }
 
+function spawnStructure(structureType){
+  structureWidth = structures[structureType].tiles[0].length;
+  structureHeight = structures[structureType].tiles.length;
+
+  structureX = floor(random(0,tiles.length - structureWidth));
+  structureY = floor(random(0,tiles.length - structureWidth));
+
+  for (x = 0; x < structureWidth; x++){
+    for (y = 0; y < structureHeight; y++){
+      tiles[x + structureX][y + structureY] = structures[structureType].tiles[x][y];
+    }
+  }
+}
 
 
