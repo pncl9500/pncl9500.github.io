@@ -59,7 +59,9 @@ function loadChests(){
         {item: "none", weight: 0},
         {item: "bomb", weight: 5},
         {item: "smg", weight: 1},
-      ]
+      ],
+      cost: 0,
+      needsKey: false,
     },
     normal: {
       sprite: loadImage('textures/chests/chest_normal.png'),
@@ -69,7 +71,9 @@ function loadChests(){
         {item: "bomb", weight: 3},
         {item: "medkit", weight: 2},
         {item: "key", weight: 1},
-      ]
+      ],
+      cost: 0,
+      needsKey: false,
     },
     normal_locked: {
       sprite: loadImage('textures/chests/chest_normal_locked.png'),
@@ -80,7 +84,9 @@ function loadChests(){
         {item: "medkit", weight: 20},
         {item: "smg", weight: 5},
         {item: "key", weight: 1},
-      ]
+      ],
+      cost: 0,
+      needsKey: true,
     },
     great: {
       sprite: loadImage('textures/chests/chest_great.png'),
@@ -90,7 +96,9 @@ function loadChests(){
         {item: "bomb", weight: 3},
         {item: "medkit", weight: 2},
         {item: "key", weight: 1},
-      ]
+      ],
+      cost: 0,
+      needsKey: false,
     },
     great_locked: {
       sprite: loadImage('textures/chests/chest_great_locked.png'),
@@ -101,7 +109,52 @@ function loadChests(){
         {item: "medkit", weight: 20},
         {item: "smg", weight: 5},
         {item: "key", weight: 1},
-      ]
+      ],
+      cost: 0,
+      needsKey: true,
+    },
+    case_supply: {
+      sprite: loadImage('textures/chests/case_supply.png'),
+      lootItemCount: 4,
+      loot: [
+        {item: "none", weight: 0},
+        {item: "bomb", weight: 1},
+        {item: "medkit", weight: 1},
+        {item: "key", weight: 1},
+      ],
+      cost: 50,
+      needsKey: false,
+    },
+    case_weapon: {
+      sprite: loadImage('textures/chests/case_weapon.png'),
+      lootItemCount: 1,
+      loot: [
+        {item: "none", weight: 0},
+        {item: "smg", weight: 9},
+        {item: "minigun", weight: 1},
+      ],
+      cost: 100,
+      needsKey: false,
+    },
+    case_omega: {
+      sprite: loadImage('textures/chests/case_omega.png'),
+      lootItemCount: 1,
+      loot: [
+        {item: "none", weight: 0},
+        {item: "transportation_cannon", weight: 1},
+      ],
+      cost: 10000,
+      needsKey: false,
+    },
+    case_gungun: {
+      sprite: loadImage('textures/chests/case_gungun.png'),
+      lootItemCount: 1,
+      loot: [
+        {item: "none", weight: 0},
+        {item: "gun_gun", weight: 1},
+      ],
+      cost: 100,
+      needsKey: false,
     },
     geode: {
       sprite: loadImage('textures/chests/chest_geode.png'),
@@ -116,7 +169,9 @@ function loadChests(){
         {item: "nothing_gun"},
         {item: "smg"},
         {item: "minigun"},
-      ]
+      ],
+      cost: 0,
+      needsKey: false,
     },
   }
 }

@@ -149,6 +149,7 @@ class Enemy{
   }
 
   dropLoot(){
+    player.money += enemyData[this.type].moneyDrop;
     for (l = 0; l < enemyData[this.type].loot.length; l++){
       pickups.push(new Pickup(enemyData[this.type].loot[l],this.x, this.y));
     }

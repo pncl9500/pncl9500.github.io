@@ -8,6 +8,8 @@ player = {
   r: 0,
   g: 0,
   b: 0,
+  money: 0,
+  moneyCountYOffset: 6,
   friction: 0.8,
   speed: 0.25,
   inventorySize: 10,
@@ -26,6 +28,8 @@ player = {
   selectedInventorySlot: 0,
   inventoryShown: -1,
   hoveredInventorySlot: false,
+
+  
 
   firingTick: 0,
 

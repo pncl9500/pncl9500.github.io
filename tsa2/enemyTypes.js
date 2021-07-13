@@ -12,6 +12,7 @@ enemyData = {
     },
     loot: [],
     chestDrops: [],
+    moneyDrop: 1,
   },
   red: {
     health: 16,
@@ -26,6 +27,7 @@ enemyData = {
     },
     loot: [],
     chestDrops: [],
+    moneyDrop: 2,
   },
   yellow: {
     health: 5,
@@ -40,6 +42,7 @@ enemyData = {
     },
     loot: [],
     chestDrops: [],
+    moneyDrop: 1,
   },
   blue: {
     health: 28,
@@ -59,6 +62,7 @@ enemyData = {
     fragmentOffsetY: 7,
     fragmentSpawns: ["blue_small","blue_small","blue_small","blue_small","blue_small","blue_small"],
     chestDrops: [],
+    moneyDrop: 3,
   },
   blue_small: {
     health: 5,
@@ -73,6 +77,7 @@ enemyData = {
     },
     loot: [],
     chestDrops: [],
+    moneyDrop: 1,
   },
   pink: {
     health: 16,
@@ -87,6 +92,7 @@ enemyData = {
     },
     loot: [],
     chestDrops: [],
+    moneyDrop: 1,
   },
   green: {
     health: 26,
@@ -101,6 +107,7 @@ enemyData = {
     },
     loot: [],
     chestDrops: [],
+    moneyDrop: 2,
   },
   geode_1: {
     health: 40,
@@ -120,6 +127,7 @@ enemyData = {
     fragmentOffsetY: 0,
     fragmentSpawns: ["geode_2"],
     chestDrops: [],
+    moneyDrop: 0,
   },
   geode_2: {
     health: 30,
@@ -139,6 +147,7 @@ enemyData = {
     fragmentOffsetY: 0,
     fragmentSpawns: ["geode_3"],
     chestDrops: [],
+    moneyDrop: 0,
   },
   geode_3: {
     health: 20,
@@ -158,6 +167,7 @@ enemyData = {
     fragmentOffsetY: 0,
     fragmentSpawns: ["geode_4"],
     chestDrops: [],
+    moneyDrop: 0,
   },
   geode_4: {
     health: 10,
@@ -172,5 +182,6 @@ enemyData = {
     },
     loot: [],
     chestDrops: ["geode"],
+    moneyDrop: 50,
   }
 }

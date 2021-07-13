@@ -140,6 +140,14 @@ class InventoryBox{
     if (player.inventory[this.slot] != "none"){
       image(itemData[player.inventory[this.slot]].inventorySprite,this.x - this.size/2 - this.selectedSize- cam.x + cam.offsetX + this.padding, this.y - this.size/2 - this.selectedSize - cam.y + cam.offsetY + this.padding, this.size - this.padding * 2 + this.selectedSize*2, this.size - this.padding * 2 + this.selectedSize*2)
     }
+
+    //if the slot is 0, text is drawn which is the player's money counter
+    if (this.slot === 0){
+      noStroke();
+      fill(0);
+      textSize(5);
+      text(`Money: ${player.money}`, this.x - this.size/2 - this.selectedSize - cam.x + cam.offsetX + this.padding, this.y - this.size/2 - this.selectedSize - cam.y + cam.offsetY + this.padding - player.moneyCountYOffset)
+    }
   }
 }
 

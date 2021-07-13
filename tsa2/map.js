@@ -118,6 +118,42 @@ function makeWalls(){
           //softer stone inside the geode struture
           walls.push(new Wall(w*gameMap.w/gameMap.xDivisions, h*gameMap.h/gameMap.yDivisions,gameMap.w/gameMap.xDivisions,gameMap.h/gameMap.yDivisions,{r: 175, g: 175, b: 185}, 1, 15, 0.5));
           break;
+        case 6:
+          //hard stone [shop wall thing]
+          walls.push(new Wall(w*gameMap.w/gameMap.xDivisions, h*gameMap.h/gameMap.yDivisions,gameMap.w/gameMap.xDivisions,gameMap.h/gameMap.yDivisions/2,{r: 50, g: 50, b: 60}, 10, 1000, 0.2));
+          walls.push(new Wall(w*gameMap.w/gameMap.xDivisions, h*gameMap.h/gameMap.yDivisions,gameMap.w/gameMap.xDivisions/2,gameMap.h/gameMap.yDivisions/2 + gameMap.h/gameMap.yDivisions/4,{r: 50, g: 50, b: 60}, 10, 1000, 0.2));
+          break;
+        case 7:
+          //hard stone [shop wall thing]
+          walls.push(new Wall(w*gameMap.w/gameMap.xDivisions, h*gameMap.h/gameMap.yDivisions,gameMap.w/gameMap.xDivisions/2,gameMap.h/gameMap.yDivisions/2,{r: 50, g: 50, b: 60}, 10, 1000, 0.2));
+          break;
+        case 8:
+          //hard stone [shop wall thing]
+          walls.push(new Wall(w*gameMap.w/gameMap.xDivisions + gameMap.w/gameMap.xDivisions/2, h*gameMap.h/gameMap.yDivisions,gameMap.w/gameMap.xDivisions/2,gameMap.h/gameMap.yDivisions/2,{r: 50, g: 50, b: 60}, 10, 1000, 0.2));
+          break;
+        case 9:
+          //hard stone [shop wall thing]
+          walls.push(new Wall(w*gameMap.w/gameMap.xDivisions, h*gameMap.h/gameMap.yDivisions + gameMap.h/gameMap.yDivisions/2,gameMap.w/gameMap.xDivisions,gameMap.h/gameMap.yDivisions/2,{r: 50, g: 50, b: 60}, 10, 1000, 0.2));
+          walls.push(new Wall(w*gameMap.w/gameMap.xDivisions, h*gameMap.h/gameMap.yDivisions + gameMap.h/gameMap.yDivisions/4,gameMap.w/gameMap.xDivisions/2,gameMap.h/gameMap.yDivisions/2 + gameMap.h/gameMap.yDivisions/4,{r: 50, g: 50, b: 60}, 10, 1000, 0.2));
+          break;
+        case 10:
+          //hard stone [shop wall thing]
+          walls.push(new Wall(w*gameMap.w/gameMap.xDivisions, h*gameMap.h/gameMap.yDivisions + gameMap.h/gameMap.yDivisions/2,gameMap.w/gameMap.xDivisions/2,gameMap.h/gameMap.yDivisions/2,{r: 50, g: 50, b: 60}, 10, 1000, 0.2));
+          break;
+        case 11:
+          //hard stone [shop wall thing]
+          walls.push(new Wall(w*gameMap.w/gameMap.xDivisions + gameMap.w/gameMap.xDivisions/2, h*gameMap.h/gameMap.yDivisions + gameMap.h/gameMap.yDivisions/2,gameMap.w/gameMap.xDivisions/2,gameMap.h/gameMap.yDivisions/2,{r: 50, g: 50, b: 60}, 10, 1000, 0.2));
+          break;
+        case 12:
+          //hard stone [shop wall thing]
+          walls.push(new Wall(w*gameMap.w/gameMap.xDivisions, h*gameMap.h/gameMap.yDivisions,gameMap.w/gameMap.xDivisions,gameMap.h/gameMap.yDivisions/2,{r: 50, g: 50, b: 60}, 10, 1000, 0.2));
+          walls.push(new Wall(w*gameMap.w/gameMap.xDivisions + gameMap.w/gameMap.xDivisions/2, h*gameMap.h/gameMap.yDivisions,gameMap.w/gameMap.xDivisions/2,gameMap.h/gameMap.yDivisions/2 + gameMap.h/gameMap.yDivisions/4,{r: 50, g: 50, b: 60}, 10, 1000, 0.2));
+          break;
+        case 13:
+          //hard stone [shop wall thing]
+          walls.push(new Wall(w*gameMap.w/gameMap.xDivisions, h*gameMap.h/gameMap.yDivisions + gameMap.h/gameMap.yDivisions/2,gameMap.w/gameMap.xDivisions,gameMap.h/gameMap.yDivisions/2,{r: 50, g: 50, b: 60}, 10, 1000, 0.2));
+          walls.push(new Wall(w*gameMap.w/gameMap.xDivisions + gameMap.w/gameMap.xDivisions/2, h*gameMap.h/gameMap.yDivisions + gameMap.h/gameMap.yDivisions/4,gameMap.w/gameMap.xDivisions/2,gameMap.h/gameMap.yDivisions/2 + gameMap.h/gameMap.yDivisions/4,{r: 50, g: 50, b: 60}, 10, 1000, 0.2));
+          break;
         default:
           break;
       }
@@ -229,12 +265,11 @@ function generateMap(){
 
   //spawn structures
   spawnStructure("donut");
-  spawnStructure("donut");
   if (floor(random(0,11)) === 0){
     //10% chance for the among us imposter to appear
     spawnStructure("among");
   }
-
+  spawnStructure("shop");
   spawnStructure("geode");
 
   makeWalls();
@@ -242,8 +277,8 @@ function generateMap(){
 }
 
 function spawnStructure(structureType){
-  structureWidth = structures[structureType].tiles[0].length;
-  structureHeight = structures[structureType].tiles.length;
+  structureWidth = structures[structureType].tiles.length;
+  structureHeight = structures[structureType].tiles[0].length;
 
   structureX = floor(random(0,tiles.length - structureWidth));
   structureY = floor(random(0,tiles.length - structureWidth));
