@@ -49,6 +49,7 @@ function loadChests(){
   
   //chests = [new Chest("blank",0,0)];
   //the none at the start of the loot table is required for the game to function so dont make a chest without it
+  //if the lootitemcount is static then one of every possible loot thing will be dropped from the chest
   chests = [];
   chestData = {
     blank: {
@@ -114,6 +115,7 @@ function loadChests(){
         {item: "kill"},
         {item: "nothing_gun"},
         {item: "smg"},
+        {item: "minigun"},
       ]
     },
   }
