@@ -288,6 +288,18 @@ function spawnStructure(structureType){
       tiles[x + structureX][y + structureY] = structures[structureType].tiles[x][y];
     }
   }
+
+  //spawn chests and stuff
+  for (c = 0; c < structures[structureType].chests.length; c++){
+    //i think the structure's X and Y is fliped for some reason idk why
+    //rare chest
+    if (structures[structureType].chests[c].hasRareChestVariation && random(0,1) <= structures[structureType].chests[c].rareChestChance){
+      chests.push(new Chest(structures[structureType].chests[c].rareChest, (structureY + structures[structureType].chests[c].x) * (gameMap.h/gameMap.yDivisions) - 16, (structureX + structures[structureType].chests[c].y) * (gameMap.w/gameMap.xDivisions) - 8))
+    } else {
+      chests.push(new Chest(structures[structureType].chests[c].chestType, (structureY + structures[structureType].chests[c].x) * (gameMap.h/gameMap.yDivisions) - 16, (structureX + structures[structureType].chests[c].y) * (gameMap.w/gameMap.xDivisions) - 8))
+    }
+  }
 }
+
 
 

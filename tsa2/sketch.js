@@ -51,28 +51,12 @@ class Bullet{
     this.deathTimer += 1;
     this.v *= this.properties.friction;
     this.v += this.properties.acceleration;
-    this.x += Math.cos(this.direction) * this.v * -1;
-    this.y += Math.sin(this.direction) * this.v * -1;
 
-    //collision with walls
-    for (w = 0; w < walls.length; w++){
-      if (detect2BoxesCollision({
-        x: this.x - this.properties.size / 2,
-        y: this.y - this.properties.size / 2,
-        w: this.properties.size,
-        h: this.properties.size},walls[w])){
-        if (!this.properties.goesThroughTerrain){
-          this.deathTimer = this.properties.lifeTime;
-          this.dead = true;
-        }
-        if (this.properties.damagesTerrain && walls[w].hardness <= this.properties.destructionLevel){
-          walls[w].health -= this.properties.damageToTerrain;
-          walls[w].doDamageAnimation();
-        }
-      }
-    }
-
-    //collision with enemies
+    //collides with enemies twice for extra collision juice
+    for (i = 0; i < 2; i++){
+      this.x += Math.cos(this.direction) * this.v * -0.5;
+      this.y += Math.sin(this.direction) * this.v * -0.5;
+      //collision with enemies
     //the most recent enemy spawn is the one that is hit first
     for (e = enemies.length - 1; e >= 0; e--){
       if (detect2BoxesCollision({
@@ -97,6 +81,28 @@ class Bullet{
         }
       }
     }
+    }
+
+    
+
+    //collision with walls
+    for (w = 0; w < walls.length; w++){
+      if (detect2BoxesCollision({
+        x: this.x - this.properties.size / 2,
+        y: this.y - this.properties.size / 2,
+        w: this.properties.size,
+        h: this.properties.size},walls[w])){
+        if (!this.properties.goesThroughTerrain){
+          this.deathTimer = this.properties.lifeTime;
+          this.dead = true;
+        }
+        if (this.properties.damagesTerrain && walls[w].hardness <= this.properties.destructionLevel){
+          walls[w].health -= this.properties.damageToTerrain;
+          walls[w].doDamageAnimation();
+        }
+      }
+    }
+
 
     //collision with players
     //circle-circle collision because it would be frustrating if the player gets hit by a bomb explosion when they shouldnt due to it being rect-rect
