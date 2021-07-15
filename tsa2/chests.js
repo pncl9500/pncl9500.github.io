@@ -131,7 +131,7 @@ function loadChests(){
         {item: "key", weight: 3},
         {item: "energydrink", weight: 1},
       ],
-      cost: 25,
+      cost: 15,
       needsKey: false,
     },
     case_weapon: {
@@ -144,7 +144,7 @@ function loadChests(){
         {item: "grenadelauncher", weight: 3},
         {item: "minigun", weight: 1},
       ],
-      cost: 50,
+      cost: 30,
       needsKey: false,
     },
     case_omega: {
