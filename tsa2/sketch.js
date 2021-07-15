@@ -156,7 +156,7 @@ function preload(){
 }
 
 function setup(){
-  generateMap();
+  generateMap("debugArea");
   document.addEventListener('contextmenu', event => event.preventDefault());
   noCursor();
   createCanvas(windowWidth, windowHeight);

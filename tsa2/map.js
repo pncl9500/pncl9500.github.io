@@ -195,21 +195,21 @@ function repositionPlayer(){
 }
 
 function generateMap(areaType){
+  spawnersTriggered = 0;
+  enemyQueue = [];
   walls = [];
   chests = [];
   enemies = [];
   spawners = [];
   pickups = [];
   tiles = [];
-  if (areaType === "blackMarket"){
-    gameMap.r = 170;
-    gameMap.g = 170;
-    gameMap.b = 170;
+    gameMap.r = areaTypes[areaType].mapPal.r;
+    gameMap.g = areaTypes[areaType].mapPal.g;
+    gameMap.b = areaTypes[areaType].mapPal.b;
 
-    gameMap.liner = 155;
-    gameMap.lineg = 155;
-    gameMap.lineb = 155;
-  }
+    gameMap.liner = areaTypes[areaType].mapPal.liner;
+    gameMap.lineg = areaTypes[areaType].mapPal.lineg;
+    gameMap.lineb = areaTypes[areaType].mapPal.lineb;
 
   for (h = 0; h < gameMap.yDivisions; h++){
     column = []
@@ -280,18 +280,13 @@ function generateMap(areaType){
 
 
   //spawn structures
-  spawnStructure("donut");
-  if (floor(random(0,11)) === 0){
-    //10% chance for the among us imposter to appear
-    spawnStructure("among");
-  }
-  spawnStructure("shop");
-  if (areaType === "blackMarket"){
-    for (i = 0; i < 40; i++){
-      spawnStructure("shop");
+  for (s = 0; s < areaTypes[areaType].structures.length; s++){
+    if (random(0,1) < areaTypes[areaType].structures[s].chance){
+      for (p = 0; p < areaTypes[areaType].structures[s].count; p++){
+        spawnStructure(areaTypes[areaType].structures[s].structure);
+      }
     }
   }
-  spawnStructure("geode");
 
   makeWalls();
   repositionPlayer();
