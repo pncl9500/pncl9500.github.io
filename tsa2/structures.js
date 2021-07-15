@@ -88,5 +88,20 @@ structures = {
         hasRareChestVariation: false,
       }
     ]
+  },
+  returnPortal: {
+    tiles: [
+      [16,16,16],
+      [16,15,16],
+      [16,16,16],
+    ],
+    chests: [
+      {
+        chestType: "case_back",
+        x: 1.5,
+        y: 1.5,
+        hasRareChestVariation: false,
+      }
+    ]
   }
 }

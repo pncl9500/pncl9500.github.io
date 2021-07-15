@@ -204,5 +204,15 @@ function loadChests(){
       cost: 0,
       needsKey: false,
     },
+    case_back: {
+      sprite: loadImage('textures/chests/case_back.png'),
+      lootItemCount: "static",
+      loot: [
+        {item: "none"},
+        {item: "teleportBack"},
+      ],
+      cost: 0,
+      needsKey: false,
+    }
   }
 }

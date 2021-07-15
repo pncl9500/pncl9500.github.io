@@ -167,6 +167,11 @@ function makeWalls(){
           //spawn void (a wall that the player cannot spawn in, but there is still an enemy spawner)
           walls.push(new Wall(w*gameMap.w/gameMap.xDivisions, h*gameMap.h/gameMap.yDivisions,gameMap.w/gameMap.xDivisions,gameMap.h/gameMap.yDivisions,{r: 120, g: 90, b: 0}, 10, 500, 0.5, [], 50, 50, 1, [], [], true));
           spawners.push(new Spawner(w*gameMap.w/gameMap.xDivisions, h*gameMap.h/gameMap.yDivisions,gameMap.w/gameMap.xDivisions,gameMap.h/gameMap.yDivisions));
+          break;
+        case 16:
+          //desert nest thing
+          walls.push(new Wall(w*gameMap.w/gameMap.xDivisions, h*gameMap.h/gameMap.yDivisions,gameMap.w/gameMap.xDivisions,gameMap.h/gameMap.yDivisions,{r: 120, g: 90, b: 0}, 8, 10, 0.5, ["pink", "pink", "pink", "pink", "pink"], 50, 50, 1, [], []));
+          break;
         default:
           break;
       }
