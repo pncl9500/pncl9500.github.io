@@ -17,6 +17,7 @@ enemySpeedMagnitude = 10;
 class Enemy{
   constructor(type, x, y, magnification, doSpawnAnimation){
 
+
     if (typeof(doSpawnAnimation) != "undefined"){
       this.doSpawnAnimation = doSpawnAnimation;
     } else {
@@ -25,6 +26,8 @@ class Enemy{
 
 
     this.type = type;
+
+
     this.spawnPointX = x;
     this.spawnPointY = y;
     this.x = x;
@@ -68,9 +71,12 @@ class Enemy{
       this.spawnTimer = 0;
       this.strokeWeight = this.targetStrokeWeight;
     }
+
+    this.bulletTimer = 0;
   }
 
   draw(){
+    this.bulletTimer -= 1;
     this.damageAnimationTick -= 1;
     //drawn in center rectmode because i do not like corner mode anymore
     switch (this.state) {
@@ -129,6 +135,14 @@ class Enemy{
           player.iFrames = player.iFramesOnHit;
           cam.shakeX = cam.damageShakeMultiplier * enemyData[this.type].damage;
           cam.shakeY = cam.damageShakeMultiplier * enemyData[this.type].damage;
+        }
+
+        //shoot bullet
+        if (enemyData[this.type].spawnsBullet && this.bulletTimer <= 0){
+          vectorX = this.x - (player.x + player.w/2);
+          vectorY = this.y - (player.y + player.h/2);
+          this.bulletTimer = enemyData[this.type].fireRate;
+          bullets.push(new Bullet(this.x, this.y, Math.atan2(vectorY, vectorX), enemyData[this.type].bulletProperties))
         }
         break;
       default:
