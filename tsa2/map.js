@@ -1,5 +1,5 @@
 class Wall{
-  constructor(x, y, w, h, pal, hardness, health, bounciness, spawnsOnDestruction, spawnsOffsetX, spawnsOffsetY, spawnMagnification, loot, chestSpawnsOnDestruction){
+  constructor(x, y, w, h, pal, hardness, health, bounciness, spawnsOnDestruction, spawnsOffsetX, spawnsOffsetY, spawnMagnification, loot, chestSpawnsOnDestruction, isSpawnVoid){
     this.x = x;
     this.y = y;
     this.w = w;
@@ -26,6 +26,11 @@ class Wall{
     this.loot = [];
     if (typeof(loot) != "undefined"){
       this.loot = loot;
+    }
+
+    this.isSpawnVoid = false;
+    if (typeof(isSpawnVoid) != "undefined"){
+      this.isSpawnVoid = isSpawnVoid;
     }
 
     this.chestSpawnsOnDestruction = [];
@@ -158,6 +163,9 @@ function makeWalls(){
           //desert portal stone
           walls.push(new Wall(w*gameMap.w/gameMap.xDivisions, h*gameMap.h/gameMap.yDivisions,gameMap.w/gameMap.xDivisions,gameMap.h/gameMap.yDivisions,{r: 120, g: 90, b: 0}, 10, 500, 0.5));
           break;
+        case 15:
+          //spawn void (a wall that the player cannot spawn in)
+          walls.push(new Wall(w*gameMap.w/gameMap.xDivisions, h*gameMap.h/gameMap.yDivisions,gameMap.w/gameMap.xDivisions,gameMap.h/gameMap.yDivisions,{r: 120, g: 90, b: 0}, 10, 500, 0.5, [], 50, 50, 1, [], [], true));
         default:
           break;
       }
@@ -170,6 +178,15 @@ function removeSpawnersNearPlayer(){
     if (detect2BoxesCollision(player, spawners[g])){
       spawners.splice(g, 1)
       g -= 1;
+    }
+  }
+}
+
+function removeSpawnVoids(){
+  for (w = 0; w < walls.length; w++){
+    if (walls[w].isSpawnVoid){
+      walls.splice(w,1);
+      w--;
     }
   }
 }
@@ -196,6 +213,8 @@ function repositionPlayer(){
     }
   }
   removeSpawnersNearPlayer();
+
+  removeSpawnVoids();
 }
 
 function generateMap(areaType){
