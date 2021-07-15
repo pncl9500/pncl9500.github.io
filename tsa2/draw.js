@@ -87,8 +87,8 @@ function drawWalls(){
   for (w = 0; w < walls.length; w++){
     walls[w].draw();
     if (walls[w].health <= 0){
-      cam.shakeX += 8
-      cam.shakeY += 8
+      cam.shakeX += 8;
+      cam.shakeY += 8;
       //spawn enemies if the wall spawns enemies
       walls[w].spawnEnemiesOnDeath();
       walls[w].spawnLootOnDeath();

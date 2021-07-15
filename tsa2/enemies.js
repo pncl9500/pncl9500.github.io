@@ -9,7 +9,7 @@ enemyQueueTime = 35;
 enemyFragmentQueue = [];
 
 spawnersTriggered = 0;
-currentLevel = 0;
+currentLevel = "debugArea";
 
 enemySpawnDistance = 80;
 enemySpeedMagnitude = 10;

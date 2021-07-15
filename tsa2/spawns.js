@@ -1,7 +1,7 @@
 //list of enemies that spawn in spawners. Every spawner triggered will increase the difficulty of the area, meaning harder things will spawn.
-spawns = [
+spawns = {
   //spawns in the debug level (only level for now)
-  [
+  debugArea: [
   [],
   [],
   [],
@@ -285,5 +285,31 @@ spawns = [
   ["blue", "yellow", "blue", "blue", "blue", "yellow", "blue", "yellow", "blue", "blue"],
   ["blue", "yellow", "blue", "blue", "blue", "yellow", "blue", "yellow", "blue", "blue"],
   ["blue", "yellow", "blue", "blue", "blue", "yellow", "blue", "yellow", "blue", "blue","blue", "yellow", "blue", "blue", "blue", "yellow", "blue", "yellow", "blue", "blue"],
+  ],
+
+  //spawns in the black market
+  blackMarket: [
+    ["red"],
+    ["red", "red"],
+    ["red", "red", "red"],
+    ["red", "red", "red", "red"],
+    ["red", "red", "red", "red", "red"],
+    ["red", "red", "red", "red", "red", "red"],
+    ["red", "red", "red", "red", "red", "red", "red"],
+    ["red", "red", "red", "red", "red", "red", "red", "red"],
+    ["red", "red", "red", "red", "red", "red", "red", "red", "red"],
+    ["red", "red", "red", "red", "red", "red", "red", "red", "red", "red"],
+    ["red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red"],
+    ["red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red"],
+    ["red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red"],
+    ["red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red"],
+    ["red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red"],
+    ["red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red"],
+    ["red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red"],
+    ["red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red"],
+    ["red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red"],
+    ["red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red"],
+    ["red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red"],
+    ["red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red", "red"],
   ]
-]
+}

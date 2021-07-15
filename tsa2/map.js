@@ -195,6 +195,7 @@ function repositionPlayer(){
 }
 
 function generateMap(areaType){
+  currentLevel = areaType;
   spawnersTriggered = 0;
   enemyQueue = [];
   walls = [];
