@@ -141,7 +141,7 @@ function loadChests(){
         {item: "none", weight: 0},
         {item: "smg", weight: 9},
         {item: "sniper", weight: 7},
-        {item: "grenadelauncher", weight: 5},
+        {item: "grenadelauncher", weight: 3},
         {item: "minigun", weight: 1},
       ],
       cost: 50,
