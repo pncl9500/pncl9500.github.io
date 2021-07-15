@@ -163,8 +163,6 @@ function loadChests(){
       lootItemCount: "static",
       loot: [
         {item: "none"},
-        {item: "transportation_cannon"},
-        {item: "gun_gun"},
         {item: "solidifier"},
         {item: "excavator"},
         {item: "kill"},
