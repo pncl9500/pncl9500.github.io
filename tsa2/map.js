@@ -194,7 +194,13 @@ function repositionPlayer(){
   removeSpawnersNearPlayer();
 }
 
-function generateMap(){
+function generateMap(areaType){
+  walls = [];
+  chests = [];
+  enemies = [];
+  spawners = [];
+  pickups = [];
+  tiles = [];
   for (h = 0; h < gameMap.yDivisions; h++){
     column = []
     for (w = 0; w < gameMap.xDivisions; w++){
@@ -270,6 +276,11 @@ function generateMap(){
     spawnStructure("among");
   }
   spawnStructure("shop");
+  if (areaType === "blackMarket"){
+    for (i = 0; i < 40; i++){
+      spawnStructure("shop");
+    }
+  }
   spawnStructure("geode");
 
   makeWalls();

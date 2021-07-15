@@ -38,7 +38,7 @@ structures = {
         x: 1.3,
         y: 1,
         hasRareChestVariation: true,
-        rareChestChance: 0.25,
+        rareChestChance: 0.05,
         rareChest: "case_omega",
       },
       {
@@ -46,7 +46,7 @@ structures = {
         x: 2.7,
         y: 1,
         hasRareChestVariation: true,
-        rareChestChance: 0.25,
+        rareChestChance: 0.05,
         rareChest: "case_gungun",
       }
     ]

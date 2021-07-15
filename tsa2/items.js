@@ -421,6 +421,14 @@ function loadItems(){
       consumeEffect: "killAllEnemies",
       droppable: true,
     },
+    blackmarketteleport: {
+      inventorySprite: loadImage('textures/items/inventory/blackmarketteleport.png'),
+      inventoryLeftClickFunctionName: "Left Click: Consume",
+      name: "Teleport To Black Market",
+      effectOnLeftClick: "consume",
+      consumeEffect: "blackMarketTeleport",
+      droppable: true,
+    },
     bomb: {
       inventorySprite: loadImage('textures/items/inventory/bomb.png'),
       inventoryLeftClickFunctionName: "Left Click: Deploy",

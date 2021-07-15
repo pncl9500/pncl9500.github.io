@@ -12,9 +12,11 @@ player = {
   moneyCountYOffset: 6,
   friction: 0.8,
   speed: 0.25,
-  inventorySize: 10,
+  inventorySize: 12,
   inventory: [
     "pistol",
+    "none",
+    "none",
     "none",
     "none",
     "none",
