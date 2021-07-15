@@ -331,6 +331,14 @@ function mouseReleased(){
             case "blackMarketTeleport":
               generateMap("blackMarket");
               break;
+            case "expandInventory":
+              for (i = 0; i < itemData[player.inventory[player.hoveredInventorySlot]].consumeEffectAmount; i++){
+                player.inventorySize += 1;
+                player.inventory.push("none");
+                inventoryBoxes.push(new InventoryBox(player.inventorySize - 1));
+              }
+              player.inventory[player.hoveredInventorySlot] = "none";
+              break;
             default:
               break;
           }

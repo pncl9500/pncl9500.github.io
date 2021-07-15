@@ -429,6 +429,15 @@ function loadItems(){
       consumeEffect: "blackMarketTeleport",
       droppable: true,
     },
+    inventorycrystal: {
+      inventorySprite: loadImage('textures/items/inventory/inventorycrystal.png'),
+      inventoryLeftClickFunctionName: "Left Click: Consume",
+      name: "Inventory Crystal",
+      effectOnLeftClick: "consume",
+      consumeEffect: "expandInventory",
+      consumeEffectAmount: 1,
+      droppable: true,
+    },
     bomb: {
       inventorySprite: loadImage('textures/items/inventory/bomb.png'),
       inventoryLeftClickFunctionName: "Left Click: Deploy",
