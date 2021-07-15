@@ -15,9 +15,9 @@ player = {
   inventorySize: 8,
   inventory: [
     "pistol",
-    "none",
-    "none",
-    "none",
+    "energydrink",
+    "energydrink",
+    "energydrink",
     "medkit",
     "key",
     "bomb",

@@ -328,6 +328,10 @@ function mouseReleased(){
               bullets.push(new Bullet(player.x + player.w/2, player.y + player.w/2, 0, itemData[player.inventory[player.hoveredInventorySlot]].consumeBulletProperties))
               player.inventory[player.hoveredInventorySlot] = "none";
               break;
+            case "increasePlayerSpeed":
+              player.speed += itemData[player.inventory[player.hoveredInventorySlot]].consumeEffectAmount;
+              player.inventory[player.hoveredInventorySlot] = "none";
+              break;
             case "blackMarketTeleport":
               generateMap("blackMarket");
               break;

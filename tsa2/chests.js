@@ -118,9 +118,10 @@ function loadChests(){
       lootItemCount: 4,
       loot: [
         {item: "none", weight: 0},
-        {item: "bomb", weight: 1},
-        {item: "medkit", weight: 1},
-        {item: "key", weight: 1},
+        {item: "bomb", weight: 3},
+        {item: "medkit", weight: 3},
+        {item: "key", weight: 3},
+        {item: "energydrink", weight: 1},
       ],
       cost: 50,
       needsKey: false,

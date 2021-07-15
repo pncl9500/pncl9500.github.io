@@ -406,6 +406,15 @@ function loadItems(){
       consumeEffectAmount: 100,
       droppable: true,
     },
+    energydrink: {
+      inventorySprite: loadImage('textures/items/inventory/energydrink.png'),
+      inventoryLeftClickFunctionName: "Left Click: Consume",
+      name: "Energy Drink",
+      effectOnLeftClick: "consume",
+      consumeEffect: "increasePlayerSpeed",
+      consumeEffectAmount: 0.05,
+      droppable: true,
+    },
     key: {
       inventorySprite: loadImage('textures/items/inventory/key.png'),
       inventoryLeftClickFunctionName: "",
