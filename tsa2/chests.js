@@ -177,13 +177,22 @@ function loadChests(){
       cost: 50,
       needsKey: false,
     },
+    case_excavator: {
+      sprite: loadImage('textures/chests/case_excavator.png'),
+      lootItemCount: 1,
+      loot: [
+        {item: "none", weight: 0},
+        {item: "excavator", weight: 1},
+      ],
+      cost: 0,
+      needsKey: false,
+    },
     geode: {
       sprite: loadImage('textures/chests/chest_geode.png'),
       lootItemCount: "static",
       loot: [
         {item: "none"},
         {item: "solidifier"},
-        {item: "excavator"},
         {item: "kill"},
         {item: "nothing_gun"},
         {item: "blackmarketteleport"},

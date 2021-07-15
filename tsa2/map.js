@@ -156,7 +156,7 @@ function makeWalls(){
           break;
         case 14:
           //desert portal stone
-          walls.push(new Wall(w*gameMap.w/gameMap.xDivisions, h*gameMap.h/gameMap.yDivisions,gameMap.w/gameMap.xDivisions,gameMap.h/gameMap.yDivisions,{r: 200, g: 175, b: 0}, 10, 500, 0.5));
+          walls.push(new Wall(w*gameMap.w/gameMap.xDivisions, h*gameMap.h/gameMap.yDivisions,gameMap.w/gameMap.xDivisions,gameMap.h/gameMap.yDivisions,{r: 120, g: 90, b: 0}, 10, 500, 0.5));
           break;
         default:
           break;
