@@ -201,6 +201,16 @@ function generateMap(areaType){
   spawners = [];
   pickups = [];
   tiles = [];
+  if (areaType === "blackMarket"){
+    gameMap.r = 170;
+    gameMap.g = 170;
+    gameMap.b = 170;
+
+    gameMap.liner = 155;
+    gameMap.lineg = 155;
+    gameMap.lineb = 155;
+  }
+
   for (h = 0; h < gameMap.yDivisions; h++){
     column = []
     for (w = 0; w < gameMap.xDivisions; w++){
