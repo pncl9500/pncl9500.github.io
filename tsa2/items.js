@@ -482,7 +482,7 @@ function loadItems(){
           destructionLevel: 8,
           damageToTerrain: 50,
           goesThroughEnemies: true,
-          damageToEnemies: 13,
+          damageToEnemies: 5,
           goesThroughPlayer: true,
           damageToPlayer: 50,
           effectOnDeath: "none",
