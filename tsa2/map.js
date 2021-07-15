@@ -224,6 +224,7 @@ function repositionPlayer(){
 }
 
 function generateMap(areaType){
+  enemyQueueTime = 35;
   currentLevel = areaType;
   spawnersTriggered = 0;
   enemyQueue = [];
