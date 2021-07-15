@@ -139,9 +139,9 @@ function loadChests(){
       lootItemCount: 1,
       loot: [
         {item: "none", weight: 0},
-        {item: "smg", weight: 9},
-        {item: "sniper", weight: 7},
-        {item: "grenadelauncher", weight: 3},
+        {item: "smg", weight: 10},
+        {item: "sniper", weight: 4},
+        {item: "grenadelauncher", weight: 2},
         {item: "minigun", weight: 1},
       ],
       cost: 30,
