@@ -167,6 +167,16 @@ function loadChests(){
       cost: 100,
       needsKey: false,
     },
+    case_desertTeleport: {
+      sprite: loadImage('textures/chests/case_desertTeleport.png'),
+      lootItemCount: 1,
+      loot: [
+        {item: "none", weight: 0},
+        {item: "desertTeleport", weight: 1},
+      ],
+      cost: 50,
+      needsKey: false,
+    },
     geode: {
       sprite: loadImage('textures/chests/chest_geode.png'),
       lootItemCount: "static",

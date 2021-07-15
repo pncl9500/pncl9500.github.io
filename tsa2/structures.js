@@ -51,4 +51,21 @@ structures = {
       }
     ]
   },
+  desertPortal: {
+    tiles: [
+      [0,14,0,14,0],
+      [14,14,0,14,14],
+      [0,0,0,0,0],
+      [14,14,0,14,14],
+      [0,14,0,14,0],
+    ],
+    chests: [
+      {
+        chestType: "case_desertTeleport",
+        x: 2.5,
+        y: 2.5,
+        hasRareChestVariation: false,
+      }
+    ]
+  }
 }

@@ -435,7 +435,17 @@ function loadItems(){
       inventoryLeftClickFunctionName: "Left Click: Consume",
       name: "Teleport To Black Market",
       effectOnLeftClick: "consume",
-      consumeEffect: "blackMarketTeleport",
+      consumeEffect: "teleport",
+      consumeEffectAmount: "blackMarket",
+      droppable: true,
+    },
+    desertTeleport:{
+      inventorySprite: loadImage('textures/items/inventory/desertTeleport.png'),
+      inventoryLeftClickFunctionName: "Left Click: Consume",
+      name: "Teleport To Desert",
+      effectOnLeftClick: "consume",
+      consumeEffect: "teleport",
+      consumeEffectAmount: "desert",
       droppable: true,
     },
     inventorycrystal: {

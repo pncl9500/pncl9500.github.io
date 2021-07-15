@@ -18,7 +18,7 @@ areaTypes = {
   blackMarket: {
     structures:[
       {structure: "shop", count: 42, chance: 1},
-      {structure: "geode", count: 1, chance: 1},
+      {structure: "desertPortal", count: 1, chance: 1},
     ],
     mapPal: {
       r: 170,
@@ -38,9 +38,9 @@ areaTypes = {
       r: 219,
       g: 212,
       b: 136,
-      liner: 186,
-      lineg: 168,
-      lineb: 110,
+      liner: 204,
+      lineg: 197,
+      lineb: 121,
     },
   }
 }

@@ -332,8 +332,8 @@ function mouseReleased(){
               player.speed += itemData[player.inventory[player.hoveredInventorySlot]].consumeEffectAmount;
               player.inventory[player.hoveredInventorySlot] = "none";
               break;
-            case "blackMarketTeleport":
-              generateMap("blackMarket");
+            case "teleport":
+              generateMap(itemData[player.inventory[player.hoveredInventorySlot]].consumeEffectAmount);
               break;
             case "expandInventory":
               for (i = 0; i < itemData[player.inventory[player.hoveredInventorySlot]].consumeEffectAmount; i++){
