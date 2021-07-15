@@ -334,13 +334,13 @@ function loadItems(){
       firePattern: "automatic",
       fireRate: 1,
       inaccuracy: 0,
-      recoil: -5,
+      recoil: -3,
       bulletProperties: {
         speed: 0,
         friction: 1,
         acceleration: 0,
         lifeTime: 32,
-        size: 256,
+        size: 128,
         pal: {
           r: 40,
           g: 0,
