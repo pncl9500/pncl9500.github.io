@@ -1,4 +1,5 @@
 
+
 class Chest{
   constructor(type, x, y){
     this.type = type;
@@ -11,12 +12,19 @@ class Chest{
 
   draw(){
     image(chestData[this.type].sprite,this.x - cam.x + cam.offsetX, this.y - cam.y + cam.offsetY, this.w, this.h)
+    if (chestData[this.type].cost !== 0){
+      noStroke();
+      textSize(6);
+      fill(0);
+      text(chestData[this.type].cost, this.x - cam.x + cam.offsetX, this.y - cam.y + cam.offsetY - 6)
+    }
   }
 
   checkForOpen(){
-    if (detect2BoxesCollision(this, player) && this.dead === false){
+    if (detect2BoxesCollision(this, player) && this.dead === false && player.money >= chestData[this.type].cost){
       this.spawnChestLoot();
       this.dead = true;
+      player.money -= chestData[this.type].cost;
     }
   }
 
@@ -123,7 +131,7 @@ function loadChests(){
         {item: "key", weight: 3},
         {item: "energydrink", weight: 1},
       ],
-      cost: 50,
+      cost: 25,
       needsKey: false,
     },
     case_weapon: {
@@ -136,7 +144,7 @@ function loadChests(){
         {item: "grenadelauncher", weight: 5},
         {item: "minigun", weight: 1},
       ],
-      cost: 100,
+      cost: 50,
       needsKey: false,
     },
     case_omega: {
@@ -146,7 +154,7 @@ function loadChests(){
         {item: "none", weight: 0},
         {item: "transportation_cannon", weight: 1},
       ],
-      cost: 10000,
+      cost: 1000,
       needsKey: false,
     },
     case_gungun: {
