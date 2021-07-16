@@ -234,6 +234,7 @@ function generateMap(areaType){
   spawners = [];
   pickups = [];
   tiles = [];
+  npcs = [];
     gameMap.r = areaTypes[areaType].mapPal.r;
     gameMap.g = areaTypes[areaType].mapPal.g;
     gameMap.b = areaTypes[areaType].mapPal.b;
