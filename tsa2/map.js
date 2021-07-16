@@ -346,6 +346,11 @@ function spawnStructure(structureType){
       chests.push(new Chest(structures[structureType].chests[c].chestType, (structureY + structures[structureType].chests[c].x) * (gameMap.h/gameMap.yDivisions) - 16, (structureX + structures[structureType].chests[c].y) * (gameMap.w/gameMap.xDivisions) - 8))
     }
   }
+
+  //spawn npcs
+  for (n = 0; n < structures[structureType].npcs.length; n++){
+    npcs.push(new Npc((structureY + structures[structureType].npcs[n].x) * (gameMap.h/gameMap.yDivisions) - structures[structureType].npcs[n].w/2, (structureX + structures[structureType].npcs[n].y) * (gameMap.w/gameMap.xDivisions) - structures[structureType].npcs[n].h/2, structures[structureType].npcs[n].w, structures[structureType].npcs[n].h, structures[structureType].npcs[n].sprite));
+  }
 }
 
 

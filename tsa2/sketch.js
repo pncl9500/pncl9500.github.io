@@ -153,6 +153,7 @@ class Bullet{
 function preload(){
   loadItems();
   loadChests();
+  loadStructures();
 }
 
 function setup(){
@@ -236,6 +237,7 @@ function draw(){
   drawPickups();
   drawChests();
   drawBullets();
+  drawNPCs();
   drawPlayer();
   drawEnemies();
 

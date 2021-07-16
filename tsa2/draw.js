@@ -81,6 +81,12 @@ function drawMap(){
   rect(gameMap.x - cam.x + cam.offsetX, gameMap.y - cam.y + cam.offsetY, gameMap.w, gameMap.h)
 }
 
+function drawNPCs(){
+  for (n = 0; n < npcs.length; n++){
+    npcs[n].draw();
+  }
+}
+
 function drawWalls(){
   noStroke();
   //draw walls
