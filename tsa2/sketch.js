@@ -151,9 +151,11 @@ class Bullet{
 }
 
 function preload(){
+  //the loadImage thing doesnt work unless it is called in preload
   loadItems();
   loadChests();
   loadStructures();
+  loadDialogue();
 }
 
 function setup(){
@@ -250,6 +252,25 @@ function draw(){
   drawMapOutline();
   drawPlayerHealthBar()
   drawInventoryBoxes();
+  //idk it works i guess
+  //the effect of the weird canvasscale stuff is to make the dialoguebox appear from the npc that spawns it
+  //it isn't in keyPressed() because idk
+  if (keyIsDown(70)){
+    for (n = 0; n < npcs.length; n++){
+      if (npcs[n].checkForPlayerInteraction()){
+        dialogueBox.points = [
+          {x: (npcs[n].x - cam.x + cam.offsetX + npcs[n].w/2)*canvasScale, y: (npcs[n].y - cam.y + cam.offsetY + npcs[n].h/2)*canvasScale, targetX: (npcs[n].x - cam.x + cam.offsetX + npcs[n].w/2)*canvasScale, targetY: (npcs[n].y - cam.y + cam.offsetY + npcs[n].h/2)*canvasScale},
+          {x: (npcs[n].x - cam.x + cam.offsetX + npcs[n].w/2)*canvasScale, y: (npcs[n].y - cam.y + cam.offsetY + npcs[n].h/2)*canvasScale, targetX: (npcs[n].x - cam.x + cam.offsetX + npcs[n].w/2)*canvasScale, targetY: (npcs[n].y - cam.y + cam.offsetY + npcs[n].h/2)*canvasScale},
+          {x: (npcs[n].x - cam.x + cam.offsetX + npcs[n].w/2)*canvasScale, y: (npcs[n].y - cam.y + cam.offsetY + npcs[n].h/2)*canvasScale, targetX: (npcs[n].x - cam.x + cam.offsetX + npcs[n].w/2)*canvasScale, targetY: (npcs[n].y - cam.y + cam.offsetY + npcs[n].h/2)*canvasScale},
+          {x: (npcs[n].x - cam.x + cam.offsetX + npcs[n].w/2)*canvasScale, y: (npcs[n].y - cam.y + cam.offsetY + npcs[n].h/2)*canvasScale, targetX: (npcs[n].x - cam.x + cam.OffsetX + npcs[n].w/2)*canvasScale, targetY: (npcs[n].y - cam.y + cam.offsetY + npcs[n].h/2)*canvasScale},
+        ]
+        break;
+      }
+    }
+  }
+  if (!dialogueBox.hidden){
+    drawDialogueBox();
+  }
   drawMousePointer();
   drawMousePointerText();
   //only for debugging. these are invisible in game

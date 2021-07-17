@@ -2,6 +2,7 @@
 
 
 function drawMapDivisions(){
+  strokeWeight(1);
   noFill();
   stroke(gameMap.liner,gameMap.lineg,gameMap.lineb);
 
@@ -146,6 +147,8 @@ function drawPlayerHealthBar(){
 }
 
 function drawMousePointer(){
+  strokeWeight(1);
+  noFill();
   crosshair.x = mouseX/canvasScale;
   crosshair.y = mouseY/canvasScale;
 
@@ -166,4 +169,28 @@ function drawMousePointerText(){
       text("Right Click: Drop",crosshair.x + crosshair.textOffsetX, crosshair.y + crosshair.textOffsetY + crosshair.spaceInBetweenText * 2)
     }
   }
+}
+
+function drawDialogueBox(){
+  console.log(dialogueBox.points);
+  
+  dialogueBox.points[0].targetX = windowWidth - 10;
+  dialogueBox.points[0].targetY = 10 + windowHeight*0.7;
+  dialogueBox.points[1].targetX = 10;
+  dialogueBox.points[1].targetY = 10 + windowHeight*0.7;
+  dialogueBox.points[2].targetX = 10;
+  dialogueBox.points[2].targetY = windowHeight - 10;
+  dialogueBox.points[3].targetX = windowWidth - 10;
+  dialogueBox.points[3].targetY = windowHeight - 10;
+  for (p = 0; p < dialogueBox.points.length; p++){
+    dialogueBox.points[p].x += (dialogueBox.points[p].targetX - dialogueBox.points[p].x)/dialogueBox.smoothing
+    dialogueBox.points[p].y += (dialogueBox.points[p].targetY - dialogueBox.points[p].y)/dialogueBox.smoothing
+  }
+  stroke(0);
+  strokeWeight(4);
+  fill(255);
+  //the dialogue box is completely independent from the rest of the things drawn.
+  scale(1/canvasScale);
+  quad(dialogueBox.points[0].x,dialogueBox.points[0].y,dialogueBox.points[1].x,dialogueBox.points[1].y,dialogueBox.points[2].x,dialogueBox.points[2].y,dialogueBox.points[3].x,dialogueBox.points[3].y);
+  scale(canvasScale);
 }

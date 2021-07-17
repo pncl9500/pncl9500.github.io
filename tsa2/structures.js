@@ -60,7 +60,8 @@ function loadStructures(){
           y: 1,
           w: 64,
           h: 64,
-          sprite: loadImage('textures/npcs/overworld/shopkeeper.png')
+          sprite: loadImage('textures/npcs/overworld/shopkeeper.png'),
+          dialogue: "text_shopkeeper",
         },
       ]
     },

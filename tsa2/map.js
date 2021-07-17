@@ -350,7 +350,7 @@ function spawnStructure(structureType){
 
   //spawn npcs
   for (n = 0; n < structures[structureType].npcs.length; n++){
-    npcs.push(new Npc((structureY + structures[structureType].npcs[n].x) * (gameMap.h/gameMap.yDivisions) - structures[structureType].npcs[n].w/2, (structureX + structures[structureType].npcs[n].y) * (gameMap.w/gameMap.xDivisions) - structures[structureType].npcs[n].h/2, structures[structureType].npcs[n].w, structures[structureType].npcs[n].h, structures[structureType].npcs[n].sprite));
+    npcs.push(new Npc((structureY + structures[structureType].npcs[n].x) * (gameMap.h/gameMap.yDivisions) - structures[structureType].npcs[n].w/2, (structureX + structures[structureType].npcs[n].y) * (gameMap.w/gameMap.xDivisions) - structures[structureType].npcs[n].h/2, structures[structureType].npcs[n].w, structures[structureType].npcs[n].h, structures[structureType].npcs[n].sprite, structures[structureType].npcs[n].dialogue));
   }
 }
 
