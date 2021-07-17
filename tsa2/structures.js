@@ -42,7 +42,7 @@ function loadStructures(){
           x: 1.3,
           y: 1,
           hasRareChestVariation: true,
-          rareChestChance: 0.05,
+          rareChestChance: 0.01,
           rareChest: "case_omega",
         },
         {
@@ -50,7 +50,7 @@ function loadStructures(){
           x: 2.7,
           y: 1,
           hasRareChestVariation: true,
-          rareChestChance: 0.05,
+          rareChestChance: 0.02,
           rareChest: "case_gungun",
         }
       ],

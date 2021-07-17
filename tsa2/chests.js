@@ -154,7 +154,7 @@ function loadChests(){
         {item: "none", weight: 0},
         {item: "transportation_cannon", weight: 1},
       ],
-      cost: 1000,
+      cost: 2500,
       needsKey: false,
     },
     case_gungun: {
