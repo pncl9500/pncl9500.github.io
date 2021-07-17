@@ -432,7 +432,7 @@ function loadItems(){
     },
     teleportBack: {
       inventorySprite: loadImage('textures/items/inventory/teleportBack.png'),
-      inventoryLeftClickFunctionName: "Left Click: Consume",
+      inventoryLeftClickFunctionName: "Left Click: Use",
       name: "Teleport To Starting Area",
       effectOnLeftClick: "consume",
       consumeEffect: "teleport",
@@ -441,7 +441,7 @@ function loadItems(){
     },
     blackmarketteleport: {
       inventorySprite: loadImage('textures/items/inventory/blackmarketteleport.png'),
-      inventoryLeftClickFunctionName: "Left Click: Consume",
+      inventoryLeftClickFunctionName: "Left Click: Use",
       name: "Teleport To Black Market",
       effectOnLeftClick: "consume",
       consumeEffect: "teleport",
@@ -450,7 +450,7 @@ function loadItems(){
     },
     desertTeleport:{
       inventorySprite: loadImage('textures/items/inventory/desertTeleport.png'),
-      inventoryLeftClickFunctionName: "Left Click: Consume",
+      inventoryLeftClickFunctionName: "Left Click: Use",
       name: "Teleport To Desert",
       effectOnLeftClick: "consume",
       consumeEffect: "teleport",
