@@ -197,17 +197,42 @@ function drawDialogueBox(){
 }
 
 function drawDialoguePortrait(){
+  drawNpc = false;
+  dialogueBox.timer += 1;
+
+  switch (dialogueBox.state) {
+    case "dialogueBoxExpanding":
+      dialogueBox.npc.targetY = 10 + windowHeight*0.7 + windowHeight/12;
+      drawNpc = false;
+      if (dialogueBox.timer > 40){
+        dialogueBox.timer = 0;
+        dialogueBox.state = "npcPopup";
+      }
+      break;
+    case "npcPopup":
+      drawNpc = true;
+      dialogueBox.npc.targetY = 10 + windowHeight*0.7 - windowHeight/10;
+      break;
+    default:
+      break;
+  }
+
   dialogueBox.npc.x = windowWidth/5
   if (dialogueBox.dialogue[dialogueBox.dialogueStep].side === "right"){
     dialogueBox.npc.x = windowWidth - windowWidth/5
   }
 
-  dialogueBox.npc.y = 10 + windowHeight*0.7 - windowHeight/12;
+  
 
-  dialogueBox.npc.w = windowHeight/6
-  dialogueBox.npc.h = windowHeight/6
+  dialogueBox.npc.yv += (dialogueBox.npc.targetY - dialogueBox.npc.y)/dialogueBox.npc.smoothing;
+  dialogueBox.npc.yv *= dialogueBox.npc.friction;
+  dialogueBox.npc.y += dialogueBox.npc.yv;
+
+  dialogueBox.npc.w = windowHeight/4
+  dialogueBox.npc.h = windowHeight/4
 
 
-  image(dialogueBox.dialogue[dialogueBox.dialogueStep].image, dialogueBox.npc.x - dialogueBox.npc.w/2, dialogueBox.npc.y - dialogueBox.npc.h/2, dialogueBox.npc.w, dialogueBox.npc.h);
-
+  if (drawNpc){
+    image(dialogueBox.dialogue[dialogueBox.dialogueStep].image, dialogueBox.npc.x - dialogueBox.npc.w/2, dialogueBox.npc.y - dialogueBox.npc.h/2, dialogueBox.npc.w, dialogueBox.npc.h);
+  }
 }

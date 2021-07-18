@@ -16,8 +16,8 @@ dialogueBox = {
     y: 0,
     targetY: 0,
     yv: 0,
-    smoothing: 2.5,
-    friction: 0.75,
+    smoothing: 3,
+    friction: 0.6,
     w: 256,
     h: 256,
   },
@@ -46,6 +46,7 @@ class Npc{
       dialogueBox.timer= 0;
       dialogueBox.dialogueStep = 0;
       dialogueBox.state= "dialogueBoxExpanding";
+      dialogueBox.npc.y = 10 + windowHeight*0.7 + windowHeight/12;
       return true;
     }
     return false;
