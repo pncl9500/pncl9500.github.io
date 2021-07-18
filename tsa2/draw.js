@@ -272,7 +272,7 @@ function drawDialoguePortrait(){
     noStroke();
     textSize(dialogueBox.dialogue[dialogueBox.dialogueStep].textSize);
     rectMode(CORNERS);
-    text(dialogueBox.dialogue[dialogueBox.dialogueStep].text, dialogueBox.points[1].x + dialogueBox.textPadding,dialogueBox.points[1].y + dialogueBox.textPadding,dialogueBox.points[3].x - dialogueBox.textPadding,dialogueBox.points[3].y - dialogueBox.textPadding);
+    text(dialogueBox.dialogue[dialogueBox.dialogueStep].text, dialogueBox.points[1].x + dialogueBox.textPadding,dialogueBox.points[1].y + dialogueBox.textPadding,dialogueBox.points[3].x - dialogueBox.textPadding * 2,dialogueBox.points[3].y - dialogueBox.textPadding);
     rectMode(CORNER);
   }
 }
