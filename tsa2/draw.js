@@ -230,13 +230,13 @@ function drawDialoguePortrait(){
     case "ending":
       dialogueBox.smoothing = 4;
       dialogueBox.points[0].targetX = windowWidth - 10;
-      dialogueBox.points[0].targetY = windowHeight + 10;
+      dialogueBox.points[0].targetY = windowHeight + 5;
       dialogueBox.points[1].targetX = 10;
-      dialogueBox.points[1].targetY = windowHeight + 10;
+      dialogueBox.points[1].targetY = windowHeight + 5;
       dialogueBox.points[2].targetX = 10;
-      dialogueBox.points[2].targetY = windowHeight + 10;
+      dialogueBox.points[2].targetY = windowHeight + 5;
       dialogueBox.points[3].targetX = windowWidth - 10;
-      dialogueBox.points[3].targetY = windowHeight + 10;
+      dialogueBox.points[3].targetY = windowHeight + 5;
       if (dialogueBox.timer > 40){
         dialogueBox.hidden = true;
       }
