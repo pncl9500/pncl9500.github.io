@@ -202,7 +202,10 @@ function drawDialoguePortrait(){
     dialogueBox.npc.x = windowWidth - windowWidth/5
   }
 
-  dialogueBox.npc.y = windowHeight/1.5
+  dialogueBox.npc.y = 10 + windowHeight*0.7 - windowHeight/12;
+
+  dialogueBox.npc.w = windowHeight/6
+  dialogueBox.npc.h = windowHeight/6
 
 
   image(dialogueBox.dialogue[dialogueBox.dialogueStep].image, dialogueBox.npc.x - dialogueBox.npc.w/2, dialogueBox.npc.y - dialogueBox.npc.h/2, dialogueBox.npc.w, dialogueBox.npc.h);
