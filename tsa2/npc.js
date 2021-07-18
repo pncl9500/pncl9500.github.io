@@ -17,7 +17,7 @@ dialogueBox = {
     targetY: 0,
     yv: 0,
     smoothing: 3,
-    friction: 0.6,
+    friction: 0.55,
     w: 256,
     h: 256,
   },
@@ -67,7 +67,27 @@ function loadDialogue(){
         side: "left",
         text: "ok",
         image: loadImage("textures/npcs/dialogue/player/player_neutral.png"),
-      }
+      },
+      {
+        side: "left",
+        text: "ok",
+        image: loadImage("textures/npcs/dialogue/player/player_angry.png"),
+      },
+      {
+        side: "left",
+        text: "ok",
+        image: loadImage("textures/npcs/dialogue/player/player_happy.png"),
+      },
+      {
+        side: "right",
+        text: "ok",
+        image: loadImage("textures/npcs/dialogue/player/player_happy3.png"),
+      },
+      {
+        side: "right",
+        text: "i fucking love air-conditioning",
+        image: loadImage("textures/npcs/dialogue/shopkeeper/shopkeeper_pensive.png"),
+      },
     ]
   }
 }

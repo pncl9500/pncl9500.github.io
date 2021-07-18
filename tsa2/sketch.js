@@ -309,6 +309,11 @@ function keyPressed(){
         }
       }
       break;
+    case 32:
+      dialogueBox.timer = 0;
+      if (!(dialogueBox.hidden) && (dialogueBox.state === "npcPopup")){
+        dialogueBox.state = "lowering";
+      }
     default:
       break;
   }

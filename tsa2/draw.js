@@ -174,14 +174,17 @@ function drawMousePointerText(){
 function drawDialogueBox(){
   dialogueBox.timer += 1;
   
-  dialogueBox.points[0].targetX = windowWidth - 10;
-  dialogueBox.points[0].targetY = 10 + windowHeight*0.7;
-  dialogueBox.points[1].targetX = 10;
-  dialogueBox.points[1].targetY = 10 + windowHeight*0.7;
-  dialogueBox.points[2].targetX = 10;
-  dialogueBox.points[2].targetY = windowHeight - 10;
-  dialogueBox.points[3].targetX = windowWidth - 10;
-  dialogueBox.points[3].targetY = windowHeight - 10;
+  if (dialogueBox.state !== "ending"){
+    dialogueBox.smoothing = 8;
+    dialogueBox.points[0].targetX = windowWidth - 10;
+    dialogueBox.points[0].targetY = 10 + windowHeight*0.7;
+    dialogueBox.points[1].targetX = 10;
+    dialogueBox.points[1].targetY = 10 + windowHeight*0.7;
+    dialogueBox.points[2].targetX = 10;
+    dialogueBox.points[2].targetY = windowHeight - 10;
+    dialogueBox.points[3].targetX = windowWidth - 10;
+    dialogueBox.points[3].targetY = windowHeight - 10;
+  }
   for (p = 0; p < dialogueBox.points.length; p++){
     dialogueBox.points[p].x += (dialogueBox.points[p].targetX - dialogueBox.points[p].x)/dialogueBox.smoothing
     dialogueBox.points[p].y += (dialogueBox.points[p].targetY - dialogueBox.points[p].y)/dialogueBox.smoothing
@@ -198,13 +201,13 @@ function drawDialogueBox(){
 
 function drawDialoguePortrait(){
   drawNpc = false;
-  dialogueBox.timer += 1;
 
   switch (dialogueBox.state) {
     case "dialogueBoxExpanding":
+      
       dialogueBox.npc.targetY = 10 + windowHeight*0.7 + windowHeight/12;
       drawNpc = false;
-      if (dialogueBox.timer > 40){
+      if (dialogueBox.timer > 30){
         dialogueBox.timer = 0;
         dialogueBox.state = "npcPopup";
       }
@@ -212,6 +215,32 @@ function drawDialoguePortrait(){
     case "npcPopup":
       drawNpc = true;
       dialogueBox.npc.targetY = 10 + windowHeight*0.7 - windowHeight/10;
+      break;
+    case "lowering":
+      drawNpc = true;
+      dialogueBox.npc.targetY = 10 + windowHeight*0.7 + windowHeight/12;
+      if (dialogueBox.timer > 10){
+        dialogueBox.timer = 0;
+        dialogueBox.state = "npcPopup";
+        dialogueBox.dialogueStep += 1;
+        if (dialogueBox.dialogueStep >= dialogueBox.dialogue.length){
+          dialogueBox.dialogueStep = 0;
+          dialogueBox.state = "ending";
+        }
+      }
+    case "ending":
+      dialogueBox.smoothing = 4;
+      dialogueBox.points[0].targetX = windowWidth - 10;
+      dialogueBox.points[0].targetY = windowHeight + 10;
+      dialogueBox.points[1].targetX = 10;
+      dialogueBox.points[1].targetY = windowHeight + 10;
+      dialogueBox.points[2].targetX = 10;
+      dialogueBox.points[2].targetY = windowHeight + 10;
+      dialogueBox.points[3].targetX = windowWidth - 10;
+      dialogueBox.points[3].targetY = windowHeight + 10;
+      if (dialogueBox.timer > 40){
+        dialogueBox.hidden = true;
+      }
       break;
     default:
       break;
