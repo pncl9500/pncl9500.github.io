@@ -9,6 +9,20 @@ dialogueBox = {
     {x: 0, y: 0, targetX: 0, targetY: 0},
   ],
   smoothing: 8,
+  dialogue: {},
+  dialogueStep: 0,
+  npc: {
+    x: 0,
+    y: 0,
+    targetY: 0,
+    yv: 0,
+    smoothing: 2.5,
+    friction: 0.75,
+    w: 256,
+    h: 256,
+  },
+  timer: 0,
+  state: "dialogueBoxExpanding",
 }
 class Npc{
   constructor(x, y, w, h, overWorldSprite, dialogue){
@@ -28,6 +42,10 @@ class Npc{
   checkForPlayerInteraction(){
     if (detect2BoxesCollision(this, player) && (dialogueBox.hidden)){
       dialogueBox.hidden = false;
+      dialogueBox.dialogue = this.dialogue;
+      dialogueBox.timer= 0;
+      dialogueBox.dialogueStep = 0;
+      dialogueBox.state= "dialogueBoxExpanding";
       return true;
     }
     return false;
@@ -43,6 +61,11 @@ function loadDialogue(){
         side: "right",
         text: "i fucking love air-conditioning",
         image: loadImage("textures/npcs/dialogue/shopkeeper/shopkeeper_neutral.png"),
+      },
+      {
+        side: "left",
+        text: "ok",
+        image: loadImage("textures/npcs/dialogue/player/player_neutral.png"),
       }
     ]
   }

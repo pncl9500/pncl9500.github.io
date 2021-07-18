@@ -3,7 +3,7 @@ function loadStructures(){
     donut: {
       tiles: [
         [2,2,2],
-        [2,0,2],
+        [2,15,2],
         [2,2,2],
       ],
       chests: [],

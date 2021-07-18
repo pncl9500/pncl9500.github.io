@@ -172,7 +172,7 @@ function drawMousePointerText(){
 }
 
 function drawDialogueBox(){
-  console.log(dialogueBox.points);
+  dialogueBox.timer += 1;
   
   dialogueBox.points[0].targetX = windowWidth - 10;
   dialogueBox.points[0].targetY = 10 + windowHeight*0.7;
@@ -191,6 +191,20 @@ function drawDialogueBox(){
   fill(255);
   //the dialogue box is completely independent from the rest of the things drawn.
   scale(1/canvasScale);
+  drawDialoguePortrait();
   quad(dialogueBox.points[0].x,dialogueBox.points[0].y,dialogueBox.points[1].x,dialogueBox.points[1].y,dialogueBox.points[2].x,dialogueBox.points[2].y,dialogueBox.points[3].x,dialogueBox.points[3].y);
   scale(canvasScale);
+}
+
+function drawDialoguePortrait(){
+  dialogueBox.npc.x = windowWidth/5
+  if (dialogueBox.dialogue[dialogueBox.dialogueStep].side === "right"){
+    dialogueBox.npc.x = windowWidth - windowWidth/5
+  }
+
+  dialogueBox.npc.y = windowHeight/1.5
+
+
+  image(dialogueBox.dialogue[dialogueBox.dialogueStep].image, dialogueBox.npc.x - dialogueBox.npc.w/2, dialogueBox.npc.y - dialogueBox.npc.h/2, dialogueBox.npc.w, dialogueBox.npc.h);
+
 }
