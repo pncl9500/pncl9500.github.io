@@ -8,7 +8,7 @@ dialogueBox = {
     {x: 0, y: 0, targetX: 0, targetY: 0},
     {x: 0, y: 0, targetX: 0, targetY: 0},
   ],
-  smoothing: 8,
+  smoothing: 0,
   dialogue: {},
   dialogueStep: 0,
   npc: {
