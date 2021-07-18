@@ -159,7 +159,7 @@ function preload(){
 }
 
 function setup(){
-  generateMap("blackMarket");
+  generateMap("debugArea");
   document.addEventListener('contextmenu', event => event.preventDefault());
   noCursor();
   createCanvas(windowWidth, windowHeight);
