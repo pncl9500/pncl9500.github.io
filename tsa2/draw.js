@@ -189,24 +189,21 @@ function drawDialogueBox(){
     dialogueBox.points[p].x += (dialogueBox.points[p].targetX - dialogueBox.points[p].x)/dialogueBox.smoothing
     dialogueBox.points[p].y += (dialogueBox.points[p].targetY - dialogueBox.points[p].y)/dialogueBox.smoothing
   }
-  stroke(0);
-  strokeWeight(4);
-  fill(255);
   //the dialogue box is completely independent from the rest of the things drawn.
   scale(1/canvasScale);
   drawDialoguePortrait();
-  quad(dialogueBox.points[0].x,dialogueBox.points[0].y,dialogueBox.points[1].x,dialogueBox.points[1].y,dialogueBox.points[2].x,dialogueBox.points[2].y,dialogueBox.points[3].x,dialogueBox.points[3].y);
+  
   scale(canvasScale);
 }
 
 function drawDialoguePortrait(){
   drawNpc = false;
+  drawText = false;
 
   switch (dialogueBox.state) {
     case "dialogueBoxExpanding":
-      
+      drawText = false;
       dialogueBox.npc.targetY = 10 + windowHeight*0.7 + windowHeight/12;
-      drawNpc = false;
       if (dialogueBox.timer > 30){
         dialogueBox.timer = 0;
         dialogueBox.state = "npcPopup";
@@ -214,7 +211,9 @@ function drawDialoguePortrait(){
       break;
     case "npcPopup":
       drawNpc = true;
+      drawText = true;
       dialogueBox.npc.targetY = 10 + windowHeight*0.7 - windowHeight/10;
+      text()
       break;
     case "lowering":
       drawNpc = true;
@@ -263,5 +262,17 @@ function drawDialoguePortrait(){
 
   if (drawNpc){
     image(dialogueBox.dialogue[dialogueBox.dialogueStep].image, dialogueBox.npc.x - dialogueBox.npc.w/2, dialogueBox.npc.y - dialogueBox.npc.h/2, dialogueBox.npc.w, dialogueBox.npc.h);
+  }
+  stroke(0);
+  strokeWeight(4);
+  fill(255);
+  quad(dialogueBox.points[0].x,dialogueBox.points[0].y,dialogueBox.points[1].x,dialogueBox.points[1].y,dialogueBox.points[2].x,dialogueBox.points[2].y,dialogueBox.points[3].x,dialogueBox.points[3].y);
+  if (drawText){
+    fill(0);
+    noStroke();
+    textSize(dialogueBox.dialogue[dialogueBox.dialogueStep].textSize);
+    rectMode(CORNERS);
+    text(dialogueBox.dialogue[dialogueBox.dialogueStep].text, dialogueBox.points[1].x + dialogueBox.textPadding,dialogueBox.points[1].y + dialogueBox.textPadding,dialogueBox.points[3].x - dialogueBox.textPadding,dialogueBox.points[3].y - dialogueBox.textPadding);
+    rectMode(CORNER);
   }
 }
