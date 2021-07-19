@@ -220,6 +220,7 @@ function drawDialoguePortrait(){
       dialogueBox.npc.targetY = 10 + windowHeight*0.7 + windowHeight/12;
       if (dialogueBox.timer > 10){
         dialogueBox.timer = 0;
+        dialogueBox.charactersDrawn = 0,
         dialogueBox.state = "npcPopup";
         dialogueBox.dialogueStep += 1;
         if (dialogueBox.dialogueStep >= dialogueBox.dialogue.length){
@@ -268,11 +269,12 @@ function drawDialoguePortrait(){
   fill(255);
   quad(dialogueBox.points[0].x,dialogueBox.points[0].y,dialogueBox.points[1].x,dialogueBox.points[1].y,dialogueBox.points[2].x,dialogueBox.points[2].y,dialogueBox.points[3].x,dialogueBox.points[3].y);
   if (drawText){
+    dialogueBox.charactersDrawn += 1;
     fill(0);
     noStroke();
     textSize(dialogueBox.dialogue[dialogueBox.dialogueStep].textSize);
     rectMode(CORNERS);
-    text(dialogueBox.dialogue[dialogueBox.dialogueStep].text, dialogueBox.points[1].x + dialogueBox.textPadding,dialogueBox.points[1].y + dialogueBox.textPadding,dialogueBox.points[3].x - dialogueBox.textPadding * 2,dialogueBox.points[3].y - dialogueBox.textPadding);
+    text((dialogueBox.dialogue[dialogueBox.dialogueStep].text).substr(0,min(dialogueBox.charactersDrawn,dialogueBox.dialogue[dialogueBox.dialogueStep].text.length)), dialogueBox.points[1].x + dialogueBox.textPadding,dialogueBox.points[1].y + dialogueBox.textPadding,dialogueBox.points[3].x - dialogueBox.textPadding * 2,dialogueBox.points[3].y - dialogueBox.textPadding);
     rectMode(CORNER);
   }
 }

@@ -22,6 +22,7 @@ dialogueBox = {
     h: 256,
   },
   timer: 0,
+  charactersDrawn: 0,
   state: "dialogueBoxExpanding",
   textPadding: 10,
 }
