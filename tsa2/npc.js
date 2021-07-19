@@ -57,6 +57,8 @@ class Npc{
 
 
 
+
+
 function loadDialogue(){
   dialogue = {
     text_shopkeeper: [
@@ -93,6 +95,14 @@ function loadDialogue(){
       {
         side: "right",
         text: "i fucking love air-conditioning",
+        textSize: 24,
+        image: loadImage("textures/npcs/dialogue/shopkeeper/shopkeeper_pensive.png"),
+      },
+    ],
+    text_shopkeeper_notenoughmoney: [
+      {
+        side: "right",
+        text: "You don't have enough money to buy that.",
         textSize: 24,
         image: loadImage("textures/npcs/dialogue/shopkeeper/shopkeeper_pensive.png"),
       },

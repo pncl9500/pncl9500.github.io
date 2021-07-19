@@ -213,7 +213,9 @@ function draw(){
 
   noStroke();
 
-  movePlayer();
+  //if (dialogueBox.hidden){
+    movePlayer();
+  //}
   //if the player is on top of a spawner, it activates
   testForPlayerOverSpawner();
   

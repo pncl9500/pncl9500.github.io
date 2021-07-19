@@ -217,7 +217,7 @@ function drawDialoguePortrait(){
       break;
     case "lowering":
       drawNpc = true;
-      dialogueBox.npc.targetY = 10 + windowHeight*0.7 + windowHeight/12;
+      dialogueBox.npc.targetY = 10 + windowHeight*0.7 + windowHeight/10;
       if (dialogueBox.timer > 10){
         dialogueBox.timer = 0;
         dialogueBox.charactersDrawn = 0,
