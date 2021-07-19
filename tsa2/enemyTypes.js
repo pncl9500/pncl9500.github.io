@@ -1,6 +1,6 @@
 enemyData = {
   gray: {
-    health: 6,
+    health: 5,
     speed: 1.2,
     damage: 10,
     w: 4,
@@ -15,7 +15,7 @@ enemyData = {
     moneyDrop: 1,
   },
   red: {
-    health: 16,
+    health: 10,
     speed: 1,
     damage: 10,
     w: 5,
@@ -30,7 +30,7 @@ enemyData = {
     moneyDrop: 2,
   },
   yellow: {
-    health: 5,
+    health: 4,
     speed: 2.2,
     damage: 14,
     w: 4,
@@ -45,7 +45,7 @@ enemyData = {
     moneyDrop: 1,
   },
   blue: {
-    health: 28,
+    health: 25,
     speed: 1,
     damage: 20,
     w: 7,
@@ -65,7 +65,7 @@ enemyData = {
     moneyDrop: 3,
   },
   blue_small: {
-    health: 5,
+    health: 3,
     speed: 2,
     damage: 12,
     w: 3,
@@ -80,7 +80,7 @@ enemyData = {
     moneyDrop: 1,
   },
   pink: {
-    health: 16,
+    health: 10,
     speed: 0.8,
     damage: 10,
     w: 4,
@@ -121,7 +121,7 @@ enemyData = {
     },
   },
   green: {
-    health: 26,
+    health: 15,
     speed: 0.8,
     damage: 10,
     w: 5,
