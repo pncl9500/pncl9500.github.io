@@ -278,3 +278,9 @@ function drawDialoguePortrait(){
     rectMode(CORNER);
   }
 }
+
+function drawHoles(){
+  for(h = 0; h < holes.length; h++){
+    holes[h].draw();
+  }
+}

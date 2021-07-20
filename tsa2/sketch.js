@@ -213,9 +213,9 @@ function draw(){
 
   noStroke();
 
-  //if (dialogueBox.hidden){
+  if (dialogueBox.hidden){
     movePlayer();
-  //}
+  }
   //if the player is on top of a spawner, it activates
   testForPlayerOverSpawner();
   
@@ -240,9 +240,11 @@ function draw(){
   drawMapDivisions();
   drawPickups();
   drawChests();
+  
   drawBullets();
   drawNPCs();
   drawPlayer();
+  
   drawEnemies();
 
   for (e = 0; e < enemyFragmentQueue.length; e++){
@@ -250,6 +252,7 @@ function draw(){
   }
   enemyFragmentQueue = [];
 
+  drawHoles();
   drawWalls();
   drawMapOutline();
   drawPlayerHealthBar()
@@ -302,11 +305,19 @@ function keyPressed(){
     case 70:
       for (p = 0; p < pickups.length; p++){
         if (pickups[p].checkForPickup()){
+          //the break is to prevent multiple pickups from being picked up at the same time
           break;
         }
       }
       for (c = 0; c < chests.length; c++){
         if (chests[c].checkForOpen()){
+          //the break is to prevent multiple chests from being opened at the same time, even though it doesnt actually work :\
+          break;
+        }
+      }
+      for (h = 0; h < holes.length; h++){
+        if (holes[h].checkForPlayerEnter()){
+          //holes dont usually spawn next to eachother, and if two holes were opened at the same time nothing that bad would happen, but just to be safe i put the break here
           break;
         }
       }

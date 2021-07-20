@@ -14,6 +14,8 @@ areaTypes = {
       lineg: 240,
       lineb: 240,
     },
+    hasHole: true,
+    holeArea: "blackMarket",
   },
   blackMarket: {
     structures:[
@@ -28,6 +30,7 @@ areaTypes = {
       lineg: 155,
       lineb: 155,
     },
+    hasHole: false,
   },
   desert: {
     structures:[
@@ -44,5 +47,6 @@ areaTypes = {
       lineg: 197,
       lineb: 121,
     },
+    hasHole: false,
   },
 }

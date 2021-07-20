@@ -74,6 +74,7 @@ class Enemy{
 
     this.bulletTimer = 0;
   }
+  
 
   draw(){
     this.bulletTimer -= 1;

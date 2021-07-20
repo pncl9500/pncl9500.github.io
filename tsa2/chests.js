@@ -195,7 +195,6 @@ function loadChests(){
         {item: "solidifier"},
         {item: "kill"},
         {item: "nothing_gun"},
-        {item: "blackmarketteleport"},
         {item: "inventorycrystal"},
         {item: "inventorycrystal"},
         {item: "inventorycrystal"},
@@ -209,6 +208,7 @@ function loadChests(){
       lootItemCount: "static",
       loot: [
         {item: "none"},
+        {item: "blackmarketteleport"},
         {item: "teleportBack"},
       ],
       cost: 0,
