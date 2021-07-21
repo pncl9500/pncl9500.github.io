@@ -194,11 +194,7 @@ function loadChests(){
         {item: "none"},
         {item: "solidifier"},
         {item: "kill"},
-        {item: "nothing_gun"},
-        {item: "inventorycrystal"},
-        {item: "inventorycrystal"},
-        {item: "inventorycrystal"},
-        {item: "inventorycrystal"},
+        {item: "nothing_gun"}
       ],
       cost: 0,
       needsKey: false,

@@ -174,7 +174,7 @@ enemyData = {
       g: 40,
       b: 40,
     },
-    loot: [],
+    loot: ["inventorycrystal"],
     //enemies that spawn on the death of the enemy
     spawnsFragmentsOnDeath: true,
     fragmentOffsetX: 0,
@@ -194,7 +194,7 @@ enemyData = {
       g: 110,
       b: 110,
     },
-    loot: [],
+    loot: ["inventorycrystal"],
     //enemies that spawn on the death of the enemy
     spawnsFragmentsOnDeath: true,
     fragmentOffsetX: 0,
@@ -214,7 +214,7 @@ enemyData = {
       g: 180,
       b: 180,
     },
-    loot: [],
+    loot: ["inventorycrystal"],
     //enemies that spawn on the death of the enemy
     spawnsFragmentsOnDeath: true,
     fragmentOffsetX: 0,
@@ -234,7 +234,7 @@ enemyData = {
       g: 100,
       b: 255,
     },
-    loot: [],
+    loot: ["inventorycrystal"],
     chestDrops: ["geode"],
     moneyDrop: 50,
   }
