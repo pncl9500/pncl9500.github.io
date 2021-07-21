@@ -204,7 +204,7 @@ enemyData = {
     moneyDrop: 0,
   },
   geode_3: {
-    health: 20,
+    health: 25,
     speed: 2,
     damage: 25,
     w: 16,
