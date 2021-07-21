@@ -27,7 +27,10 @@ player = {
   inventoryShown: -1,
   hoveredInventorySlot: false,
 
-  
+  statusEffects: {
+    //timers for all status effects
+    weaken: 0,
+  },
 
   firingTick: 0,
 
@@ -51,21 +54,31 @@ player = {
 
 function movePlayer(){
 
+  for (const key in player.statusEffects){
+    player.statusEffects[key] -= 1;
+    console.log(player.statusEffects[key]);
+  }
+
   player.xv *= player.friction;
   player.yv *= player.friction;
 
+  speedModifier = 1;
+  if (player.statusEffects.weaken > 0){
+    speedModifier *= 0.5;
+  }
+
   //move player
   if (keyIsDown(87)){
-    player.yv -= player.speed;
+    player.yv -= player.speed * speedModifier;
   }
   if (keyIsDown(83)){
-    player.yv += player.speed;
+    player.yv += player.speed * speedModifier;
   }
   if (keyIsDown(65)){
-    player.xv -= player.speed;
+    player.xv -= player.speed * speedModifier;
   }
   if (keyIsDown(68)){
-    player.xv += player.speed;
+    player.xv += player.speed * speedModifier;
   }
   player.x += player.xv;
 

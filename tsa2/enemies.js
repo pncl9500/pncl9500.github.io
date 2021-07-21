@@ -140,8 +140,8 @@ class Enemy{
 
         //shoot bullet
         if (enemyData[this.type].spawnsBullet && this.bulletTimer <= 0){
-          vectorX = this.x - (player.x + player.w/2);
-          vectorY = this.y - (player.y + player.h/2);
+          var vectorX = this.x - (player.x + player.w/2);
+          var vectorY = this.y - (player.y + player.h/2);
           this.bulletTimer = enemyData[this.type].fireRate;
           bullets.push(new Bullet(this.x, this.y, Math.atan2(vectorY, vectorX), enemyData[this.type].bulletProperties))
         }

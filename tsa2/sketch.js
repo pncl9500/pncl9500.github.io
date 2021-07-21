@@ -106,8 +106,8 @@ class Bullet{
 
     //collision with players
     //circle-circle collision because it would be frustrating if the player gets hit by a bomb explosion when they shouldnt due to it being rect-rect
-    this.distX = player.x - this.x;
-    this.distY = player.y - this.y;
+    this.distX = player.x + player.w/2 - this.x;
+    this.distY = player.y + player.h/2- this.y;
     if (Math.sqrt((this.distX * this.distX) + (this.distY * this.distY)) <= player.w/2 + this.properties.size/2){
       if (!this.properties.goesThroughPlayer){
         this.dead = true;
@@ -118,6 +118,9 @@ class Bullet{
         player.iFrames = player.iFramesOnHit;
         cam.shakeX = cam.damageShakeMultiplier * this.properties.damageToPlayer;
         cam.shakeY = cam.damageShakeMultiplier * this.properties.damageToPlayer;
+      }
+      if (typeof(this.properties.statusEffect) != "undefined"){
+        player.statusEffects[this.properties.statusEffect] = this.properties.statusEffectTimer;
       }
     }
     
