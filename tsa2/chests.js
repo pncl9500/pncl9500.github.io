@@ -31,6 +31,7 @@ class Chest{
   spawnChestLoot(){
     if (chestData[this.type].lootItemCount === "static"){
       for (l = 1; l < chestData[this.type].loot.length; l++){
+        //static cannot have specials because imimm not adding it yet ::::FDS:AF:DSA
         pickups.push(new Pickup(chestData[this.type].loot[l].item,this.x + this.w/2, this.y + this.h/2));
       }
     } else {
@@ -42,8 +43,36 @@ class Chest{
       }
       for (l = 0; l < chestData[this.type].lootItemCount; l++){
         this.selectedItem = "none"
-        this.selectedItem = this.pickTable[floor(random(0, this.pickTable.length))].item;
-        pickups.push(new Pickup(this.selectedItem,this.x + this.w/2, this.y + this.h/2))
+        this.selectedItem = this.pickTable[floor(random(0, this.pickTable.length))];
+        if (typeof(this.selectedItem.special) == "undefined"){
+          this.selectedItem.special = false;
+        }
+        if (this.selectedItem.special){
+          switch (this.selectedItem.item) {
+            case "reroll3":
+              for (i = 0; i < 3; i++){
+                this.spawnChestLoot();
+              }
+              break;
+            case "reroll10":
+              for (i = 0; i < 10; i++){
+                this.spawnChestLoot();
+              }
+              break;
+            case "randomitem":
+              var randomItem = itemPools.randomPool[floor(random(0, itemPools.randomPool.length))]
+              console.log(randomItem);
+              console.log(itemPools);
+              console.log(itemPools.randomPool);
+              pickups.push(new Pickup(randomItem,this.x + this.w/2, this.y + this.h/2))
+              break;
+            default:
+              break;
+          }
+        } else {
+          console.log(this.selectedItem.item);
+          pickups.push(new Pickup(this.selectedItem.item,this.x + this.w/2, this.y + this.h/2))
+        }
       }
     }
     
@@ -73,7 +102,7 @@ function loadChests(){
     },
     normal: {
       sprite: loadImage('textures/chests/chest_normal.png'),
-      lootItemCount: 1,
+      lootItemCount: 3,
       loot: [
         {item: "none", weight: 0},
         {item: "bomb", weight: 3},
@@ -85,12 +114,11 @@ function loadChests(){
     },
     normal_locked: {
       sprite: loadImage('textures/chests/chest_normal_locked.png'),
-      lootItemCount: 1,
+      lootItemCount: 3,
       loot: [
         {item: "none", weight: 0},
-        {item: "bomb", weight: 30},
-        {item: "medkit", weight: 20},
-        {item: "smg", weight: 5},
+        {item: "bomb", weight: 3},
+        {item: "medkit", weight: 2},
         {item: "key", weight: 1},
       ],
       cost: 0,
@@ -209,6 +237,46 @@ function loadChests(){
       ],
       cost: 0,
       needsKey: false,
+    },
+    sewer_loot: {
+      sprite: loadImage('textures/chests/chest_sewerloot.png'),
+      lootItemCount: 2,
+      loot: [
+        {item: "none", weight: 0},
+        {item: "key", weight: 20},
+        {item: "bomb", weight: 30},
+        {item: "medkit", weight: 30},
+        {item: "energydrink", weight: 10},
+        {item: "smg", weight: 10},
+        {item: "sniper", weight: 2},
+        {item: "minigun", weight: 1},
+      ],
+      cost: 0,
+      needsKey: false,
+    },
+    chest_great: {
+      sprite: loadImage('textures/chests/chest_great.png'),
+      lootItemCount: 1,
+      loot: [
+        {item: "none", weight: 0},
+        {item: "reroll3", weight: 10, special: true},
+        {item: "reroll10", weight: 1, special: true},
+        {item: "randomitem", weight: 10, special: true},
+      ],
+      cost: 0,
+      needsKey: false,
+    },
+    chest_great_locked: {
+      sprite: loadImage('textures/chests/chest_great_locked.png'),
+      lootItemCount: 1,
+      loot: [
+        {item: "none", weight: 0},
+        {item: "reroll3", weight: 10, special: true},
+        {item: "reroll10", weight: 1, special: true},
+        {item: "randomitem", weight: 20, special: true},
+      ],
+      cost: 0,
+      needsKey: true,
     }
   }
 }

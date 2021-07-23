@@ -11,7 +11,7 @@ player = {
   money: 0,
   moneyCountYOffset: 6,
   friction: 0.8,
-  speed: 0.25,
+  speed: 0.27,
   inventorySize: 8,
   inventory: [
     "pistol",
@@ -56,7 +56,6 @@ function movePlayer(){
 
   for (const key in player.statusEffects){
     player.statusEffects[key] -= 1;
-    console.log(player.statusEffects[key]);
   }
 
   player.xv *= player.friction;

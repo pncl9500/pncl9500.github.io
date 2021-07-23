@@ -120,6 +120,70 @@ function loadStructures(){
         }
       ],
       npcs: []
-    }
+    },
+    sewer_chest_container_1: {
+      tiles: [
+        [1,15,1],
+        [1,15,1],
+        [1,1,1],
+      ],
+      chests: [{
+        chestType: "sewer_loot",
+        x: 1.5,
+        y: 1.5,
+        hasRareChestVariation: true,
+        rareChestChance: 0.005,
+        rareChest: "chest_great",
+      }],
+      npcs: []
+    },
+    sewer_chest_container_2: {
+      tiles: [
+        [1,1,1],
+        [1,15,15],
+        [1,1,1],
+      ],
+      chests: [{
+        chestType: "sewer_loot",
+        x: 1.5,
+        y: 1.5,
+        hasRareChestVariation: true,
+        rareChestChance: 0.005,
+        rareChest: "chest_great",
+      }],
+      npcs: []
+    },
+    sewer_chest_container_3: {
+      tiles: [
+        [1,1,1],
+        [1,15,1],
+        [1,15,1],
+      ],
+      chests: [{
+        chestType: "sewer_loot",
+        x: 1.5,
+        y: 1.5,
+        hasRareChestVariation: true,
+        rareChestChance: 0.005,
+        rareChest: "chest_great",
+      }],
+      npcs: []
+    },
+    sewer_chest_container_4: {
+      tiles: [
+        [1,1,1],
+        [15,15,1],
+        [1,1,1],
+      ],
+      chests: [{
+        chestType: "sewer_loot",
+        x: 1.5,
+        y: 1.5,
+        hasRareChestVariation: true,
+        rareChestChance: 0.005,
+        rareChest: "chest_great",
+      }],
+      npcs: []
+    },
   }
 }

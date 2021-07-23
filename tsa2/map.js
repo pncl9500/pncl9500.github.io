@@ -1,6 +1,5 @@
 holeSize = 64;
 
-
 class Wall {
   constructor(
     x,
@@ -126,11 +125,23 @@ class Hole {
   draw() {
     fill(20, 10, 10);
     noStroke();
-    ellipse(this.x - cam.x + cam.offsetX, this.y - cam.y + cam.offsetY, holeSize, holeSize);
+    ellipse(
+      this.x - cam.x + cam.offsetX,
+      this.y - cam.y + cam.offsetY,
+      holeSize,
+      holeSize
+    );
   }
-  
-  checkForPlayerEnter(){
-    if (detect2BoxesCollision(player, {x: this.x - holeSize/2, y: this.y - holeSize/2, w: holeSize, h: holeSize})){
+
+  checkForPlayerEnter() {
+    if (
+      detect2BoxesCollision(player, {
+        x: this.x - holeSize / 2,
+        y: this.y - holeSize / 2,
+        w: holeSize,
+        h: holeSize,
+      })
+    ) {
       generateMap(this.area);
       return true;
     }
@@ -596,62 +607,92 @@ function generateMap(areaType) {
       tiles.push(column);
     }
 
-    //145 tiles will have 5 hardness
-    for (i = 0; i < 145; i++) {
-      tilesOverlapping = true;
-      while (tilesOverlapping === true) {
-        tileXpos = floor(random(0, gameMap.xDivisions));
-        tileYpos = floor(random(0, gameMap.yDivisions));
-        if (tiles[tileXpos][tileYpos] === 1) {
+    switch (areaTypes[areaType].generationType) {
+      case "random":
+        //145 tiles will have 5 hardness
+        for (i = 0; i < 145; i++) {
           tilesOverlapping = true;
-        } else {
-          tilesOverlapping = false;
-          tiles[tileXpos][tileYpos] = 1;
+          while (tilesOverlapping === true) {
+            tileXpos = floor(random(0, gameMap.xDivisions));
+            tileYpos = floor(random(0, gameMap.yDivisions));
+            if (tiles[tileXpos][tileYpos] === 1) {
+              tilesOverlapping = true;
+            } else {
+              tilesOverlapping = false;
+              tiles[tileXpos][tileYpos] = 1;
+            }
+          }
         }
-      }
-    }
 
-    //10 tiles will have 10 hardness and be darker
-    for (i = 0; i < 10; i++) {
-      tilesOverlapping = true;
-      while (tilesOverlapping === true) {
-        tileXpos = floor(random(0, gameMap.xDivisions));
-        tileYpos = floor(random(0, gameMap.yDivisions));
-        if (tiles[tileXpos][tileYpos] >= 1) {
+        //10 tiles will have 10 hardness and be darker
+        for (i = 0; i < 10; i++) {
           tilesOverlapping = true;
-        } else {
-          tilesOverlapping = false;
-          tiles[tileXpos][tileYpos] = 2;
+          while (tilesOverlapping === true) {
+            tileXpos = floor(random(0, gameMap.xDivisions));
+            tileYpos = floor(random(0, gameMap.yDivisions));
+            if (tiles[tileXpos][tileYpos] >= 1) {
+              tilesOverlapping = true;
+            } else {
+              tilesOverlapping = false;
+              tiles[tileXpos][tileYpos] = 2;
+            }
+          }
         }
-      }
-    }
 
-    //1 tile will have 1 hardness and spawn the geode boss
-    // tilesOverlapping = true;
-    // while (tilesOverlapping === true){
-    //   tileXpos = floor(random(0,gameMap.xDivisions));
-    //   tileYpos = floor(random(0,gameMap.yDivisions));
-    //   if (tiles[tileXpos][tileYpos] >= 1){
-    //     tilesOverlapping = true;
-    //   } else {
-    //     tilesOverlapping = false;
-    //     tiles[tileXpos][tileYpos] = 3;
-    //   }
-    // }
-
-    //5 tiles will have 1 hardness and spawn yellow enemies
-    for (i = 0; i < 5; i++) {
-      tilesOverlapping = true;
-      while (tilesOverlapping === true) {
-        tileXpos = floor(random(0, gameMap.xDivisions));
-        tileYpos = floor(random(0, gameMap.yDivisions));
-        if (tiles[tileXpos][tileYpos] === 1) {
+        //5 tiles will have 1 hardness and spawn yellow enemies
+        for (i = 0; i < 5; i++) {
           tilesOverlapping = true;
-        } else {
-          tilesOverlapping = false;
-          tiles[tileXpos][tileYpos] = 4;
+          while (tilesOverlapping === true) {
+            tileXpos = floor(random(0, gameMap.xDivisions));
+            tileYpos = floor(random(0, gameMap.yDivisions));
+            if (tiles[tileXpos][tileYpos] === 1) {
+              tilesOverlapping = true;
+            } else {
+              tilesOverlapping = false;
+              tiles[tileXpos][tileYpos] = 4;
+            }
+          }
         }
-      }
+        break;
+      case "lines":
+        //fill with horizontal lines every 2
+        for (y = 0; y < tiles.length; y+= 2){
+          for (x = 0; x < tiles[y].length; x++){
+            tiles[y][x] = 1;
+          }
+          //randomly skip or add an extra line
+          if (floor(random(1,5)) === 1){
+            y -= 1
+          }
+          if (floor(random(1,3)) === 1){
+            y += 1
+          }
+        }
+        //make random vertical lines of nothing
+        for (i = 0; i < 12; i++){
+          x = floor(random(0,gameMap.xDivisions));
+          start = floor(random(0,gameMap.yDivisions));
+          for (y = start; y < tiles.length && y < start + random(2,8); y++){
+            tiles[y][x] = 0;
+          }
+        }
+        //make random vertical lines of something
+        for (i = 0; i < 12; i++){
+          x = floor(random(0,gameMap.xDivisions));
+          start = floor(random(0,gameMap.yDivisions));
+          for (y = start; y < tiles.length && y < start + random(2,8); y++){
+            tiles[y][x] = 1;
+          }
+        }
+        //random gaps
+        for (i = 0; i < 30; i++){
+          x = floor(random(0,gameMap.xDivisions));
+          y = floor(random(0,gameMap.yDivisions));
+          tiles[y][x] = 0;
+        }
+        break;
+      default:
+        break;
     }
 
     //spawn structures
@@ -665,60 +706,84 @@ function generateMap(areaType) {
 
     makeWalls();
     repositionPlayer();
-    
+
     //map generator tries to place a hole, with 500 tries. if it runs out of tries.
     //a valid hole spot is at least half a map width away from the player, and accessible by the player without a bomb.
     //if the area does not have a hole then it does not attempt to make one.
-    if (areaTypes[areaType].hasHole){
-      for (i = 0; i < 500; i++){
-          holePositionX = floor(random((0,tiles.length)));
-          holePositionY = floor(random(0,tiles[0].length));
-          holeInPlayerRange = false;
-          floodFillTiles = [];
-          for (y = 0; y < tiles.length; y++){
-            row = [];
-            for (x = 0; x < tiles.length; x++){
-              row.push(min(1, tiles[y][x]));
-            }
-            floodFillTiles.push(row);
+    if (areaTypes[areaType].hasHole) {
+      for (i = 0; i < 500; i++) {
+        holePositionX = floor(random((0, tiles.length)));
+        holePositionY = floor(random(0, tiles[0].length));
+        holeInPlayerRange = false;
+        floodFillTiles = [];
+        for (y = 0; y < tiles.length; y++) {
+          row = [];
+          for (x = 0; x < tiles.length; x++) {
+            row.push(min(1, tiles[y][x]));
           }
-          playerTilePosX = floor(player.x / (gameMap.w/gameMap.xDivisions));
-          playerTilePosY = floor(player.y / (gameMap.w/gameMap.yDivisions));
-          floodFill(playerTilePosX,playerTilePosY);
-          if (floodFillTiles[holePositionY][holePositionX] === 2){
-            holeInPlayerRange = true;
-          }
-          
-          if (holeInPlayerRange && Math.sqrt(Math.pow(player.x - holePositionX * gameMap.w/gameMap.xDivisions + gameMap.w/gameMap.xDivisions/2,2) + Math.pow(player.y - holePositionY * gameMap.h/gameMap.yDivisions + gameMap.h/gameMap.yDivisions/2,2)) > gameMap.w/2){
-            holes.push(new Hole(holePositionX * (gameMap.w/gameMap.xDivisions) + (gameMap.w/gameMap.xDivisions)/2, holePositionY * (gameMap.h/gameMap.yDivisions) + (gameMap.w/gameMap.xDivisions)/2, areaTypes[areaType].holeArea));
-            validHoleSpot = true;
-            break;
-          }
+          floodFillTiles.push(row);
         }
+        playerTilePosX = floor(player.x / (gameMap.w / gameMap.xDivisions));
+        playerTilePosY = floor(player.y / (gameMap.w / gameMap.yDivisions));
+        floodFill(playerTilePosX, playerTilePosY);
+        if (floodFillTiles[holePositionY][holePositionX] === 2) {
+          holeInPlayerRange = true;
+        }
+
+        if (
+          holeInPlayerRange &&
+          Math.sqrt(
+            Math.pow(
+              player.x -
+                (holePositionX * gameMap.w) / gameMap.xDivisions +
+                gameMap.w / gameMap.xDivisions / 2,
+              2
+            ) +
+              Math.pow(
+                player.y -
+                  (holePositionY * gameMap.h) / gameMap.yDivisions +
+                  gameMap.h / gameMap.yDivisions / 2,
+                2
+              )
+          ) >
+            gameMap.w / 2
+        ) {
+          holes.push(
+            new Hole(
+              holePositionX * (gameMap.w / gameMap.xDivisions) +
+                gameMap.w / gameMap.xDivisions / 2,
+              holePositionY * (gameMap.h / gameMap.yDivisions) +
+                gameMap.w / gameMap.xDivisions / 2,
+              areaTypes[areaType].holeArea
+            )
+          );
+          validHoleSpot = true;
+          break;
+        }
+      }
     } else {
       validHoleSpot = true;
       //safety net in case it generates a hole for some reason
       holes = [];
     }
   }
-    
 }
 
-function floodFill(x,y){
-  if (floodFillTiles[y][x] !== 0){
+function floodFill(x, y) {
+  if (floodFillTiles[y][x] !== 0) {
     return;
   }
   floodFillTiles[y][x] = 2;
-  if (x > 0){
+  if (x > 0) {
     floodFill(x - 1, y);
   }
-  if (y > 0){
+  if (y > 0) {
     floodFill(x, y - 1);
   }
-  if (x < floodFillTiles[0].length - 1){
+  if (x < floodFillTiles[0].length - 1) {
     floodFill(x + 1, y);
   }
-  if (y < floodFillTiles.length - 1){
+  if (y < floodFillTiles.length - 1) {
     floodFill(x, y + 1);
   }
 }

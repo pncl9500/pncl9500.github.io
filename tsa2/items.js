@@ -525,3 +525,24 @@ function loadItems(){
   }  
 }
 
+itemPools = {
+  randomPool: [
+    "nothing_gun",
+    "pistol",
+    "grenadelauncher",
+    "sniper",
+    "minigun",
+    "excavator",
+    "solidifier",
+    "transportation_cannon",
+    "energydrink",
+    "inventorycrystal",
+    "bomb",
+    "medkit",
+    "key",
+    "desertTeleport",
+    "blackmarketteleport",
+    "teleportBack",
+  ]
+}
+
