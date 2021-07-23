@@ -591,6 +591,7 @@ function generateMap(areaType) {
     pickups = [];
     tiles = [];
     npcs = [];
+    holes = [];
     gameMap.r = areaTypes[areaType].mapPal.r;
     gameMap.g = areaTypes[areaType].mapPal.g;
     gameMap.b = areaTypes[areaType].mapPal.b;
@@ -746,7 +747,7 @@ function generateMap(areaType) {
                 2
               )
           ) >
-            gameMap.w / 2
+            gameMap.w / 1.5
         ) {
           holes.push(
             new Hole(
