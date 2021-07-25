@@ -73,7 +73,7 @@ class Bullet{
           if (this.properties.damageToEnemies > 0){
             enemies[e].doDamageAnimation();  
           }
-          enemies[e].health -= this.properties.damageToEnemies;
+          enemies[e].health -= this.properties.damageToEnemies + (floorEffects.includes("rageShrineBuff")); 
           if (!this.properties.goesThroughEnemies){
             this.dead = true;
             this.deathTimer = this.properties.lifeTime;

@@ -45,7 +45,6 @@ function drawEnemies(){
   rectMode(CENTER);
   noStroke();
   for (e = 0; e < enemies.length; e++){
-    console.log((Math.abs(enemies[e].x - player.x) + Math.abs(enemies[e].y - player.y)));
     if ((Math.abs(enemies[e].x - player.x) + Math.abs(enemies[e].y - player.y)) < 800){
       enemies[e].draw();
       if (enemies[e].health <= 0){
@@ -138,6 +137,10 @@ function drawPlayerHealthBar(){
   //black health bar background
   fill(0,0,0);
   rect(player.healthBarX - cam.x + cam.offsetX + player.w/2 - (player.healthBarScale)/2,player.healthBarY - player.healthBarYOffset - cam.y + cam.offsetY + player.h/2,max(player.healthBarScale, 1), player.healthBarHeight)
+  if (player.health < 1){
+    //this is here because for some reason if you had 0 health 1 pixel of red would appear
+    player.healthBarWidth = 0;
+  }
   //red part of health bar
   if (player.healthBarWidth > 0){
     fill(255,0,0);

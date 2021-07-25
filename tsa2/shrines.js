@@ -1,5 +1,11 @@
+floorEffects = [
+
+]
+
 shrines = [];
 shrineSize = 72;
+
+previousShrinesTriggered = [];
 
 class Shrine{
   constructor(x, y){
@@ -28,7 +34,8 @@ class Shrine_blood extends Shrine{
     if (detect2BoxesCollision(player, this)){
       player.maxHealth = Math.ceil(player.maxHealth/2);
       player.health = min(player.health, player.maxHealth);
-      chests.push(new Chest("chest_blood",player.x - player.w/2 - 16, player.y - 60))
+      chests.push(new Chest("chest_blood",player.x - player.w/2 - 16, player.y - 40))
+      previousShrinesTriggered.push(new Shrine_blood(0,0))
       return true;
     }
     return false;
@@ -50,6 +57,7 @@ class Shrine_life extends Shrine{
       player.maxHealth = Math.ceil(player.maxHealth*1.5);
       player.health = Math.ceil(player.health*1.5);
       player.money = Math.floor(player.money/2);
+      previousShrinesTriggered.push(new Shrine_life(0,0))
       return true;
     }
     return false;
@@ -78,6 +86,7 @@ class Shrine_wealth extends Shrine{
         player.selectedInventorySlot = min(player.selectedInventorySlot, player.inventorySize - 1);
         player.inventory.pop();
         inventoryBoxes.pop();
+        previousShrinesTriggered.push(new Shrine_wealth(0,0))
       }
       return true;
     }
@@ -97,7 +106,8 @@ class Shrine_protection extends Shrine{
 
   checkForPlayerInteraction(){
     if (detect2BoxesCollision(player,this)){
-      //will do later
+      floorEffects.push("protectionShrineBuff");
+      previousShrinesTriggered.push(new Shrine_protection(0,0))
       return true;
     }
     return false;
@@ -116,7 +126,8 @@ class Shrine_rage extends Shrine{
 
   checkForPlayerInteraction(){
     if (detect2BoxesCollision(player,this)){
-      //will do later
+      floorEffects.push("rageShrineBuff");
+      previousShrinesTriggered.push(new Shrine_rage(0,0))
       return true;
     }
     return false;
@@ -137,6 +148,7 @@ class Shrine_crystal extends Shrine{
     if (detect2BoxesCollision(player,this)){
       player.health = 1;
       pickups.push(new Pickup("inventorycrystal", player.x + player.w/2, player.y + player.h/2))
+      previousShrinesTriggered.push(new Shrine_crystal(0,0))
       return true;
     }
     return false;
@@ -167,16 +179,17 @@ class Shrine_emptiness extends Shrine{
       }
       pickups = [];
       player.inventory[0] = "nothing_gun";
+      previousShrinesTriggered.push(new Shrine_emptiness(0,0))
       return true;
     }
     return false;
   }
 }
 
-class Shrine_shattered extends Shrine{
+class Shrine_unstable extends Shrine{
   constructor(x,y){
     super(x, y);
-    this.sprite = "shrine_shattered";
+    this.sprite = "shrine_unstable";
     this.x = x;
     this.y = y;
     this.w = shrineSize;
@@ -197,16 +210,17 @@ class Shrine_shattered extends Shrine{
         pickups.splice(p, 1);
         p -= 1;
       }
+      previousShrinesTriggered.push(new Shrine_unstable(0,0))
       return true;
     }
     return false;
   }
 }
 
-class Shrine_unstable extends Shrine{
+class Shrine_shattered extends Shrine{
   constructor(x,y){
     super(x, y);
-    this.sprite = "shrine_unstable";
+    this.sprite = "shrine_shattered";
     this.x = x;
     this.y = y;
     this.w = shrineSize;
@@ -215,9 +229,17 @@ class Shrine_unstable extends Shrine{
 
   checkForPlayerInteraction(){
     if (detect2BoxesCollision(player,this)){
-      //will do later
-      return true;
-    }
+      g = 0;
+      for (var r = 0; r < previousShrinesTriggered.length - g; r++){
+        //shrine effects only trigger if the player is standing on it so this moves it to the player
+        previousShrinesTriggered[r].x = player.x - 1;
+        previousShrinesTriggered[r].y = player.y - 1;
+        previousShrinesTriggered[r].checkForPlayerInteraction();
+        //checkforplayerinteraction adds stuff to the previousShrinesTriggered array so the g is there to stop that
+        g += 1;
+      }
+        return true;
+      }
     return false;
   }
 }
@@ -235,6 +257,7 @@ class Shrine_absolute extends Shrine{
   checkForPlayerInteraction(){
     if (detect2BoxesCollision(player,this)){
       //will do later
+      previousShrinesTriggered.push(new Shrine_absolute(0,0))
       return true;
     }
     return false;
@@ -269,3 +292,5 @@ function loadShrineSprites(){
 //shrine_shattered - rarer than other shrines. converts all chests and pickups on the current floor to random shrines, except important ones like the excavator and teleport chests.
 //shrine_unstable - rarer than other shrines. repeats all shrine effects activated this game twice.
 //shrine_absolute - rarer than other shrines. spawns a strong enemy that goes through walls on the player every 2 seconds, but the player does 8x damage. for the whole game, obviously.
+
+

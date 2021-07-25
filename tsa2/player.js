@@ -67,6 +67,9 @@ function movePlayer(){
     speedModifier *= 0.5;
   }
 
+  if (floorEffects.includes("protectionShrineBuff")){
+    speedModifier *= 0.9;
+  }
   //move player
   if (keyIsDown(87)){
     player.yv -= player.speed * speedModifier;

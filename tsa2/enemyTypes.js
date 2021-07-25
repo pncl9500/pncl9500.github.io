@@ -2,7 +2,7 @@ enemyData = {
   gray: {
     health: 5,
     speed: 1.2,
-    damage: 10,
+    damage: 100,
     w: 4,
     h: 4,
     pal: {

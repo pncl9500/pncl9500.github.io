@@ -114,7 +114,7 @@ class Enemy{
         rect(this.x - cam.x + cam.offsetX, this.y - cam.y + cam.offsetY, this.w, this.h);
         this.direction = Math.atan2(player.y + player.h/2 - this.y, player.x + player.w/2 - this.x);
         //collision with walls (X)
-        this.x += cos(this.direction) * this.speed * enemySpeedMagnitude;;
+        this.x += cos(this.direction) * this.speed * enemySpeedMagnitude;
         for (w = 0; w < walls.length; w++){
           if (detect2BoxesCollision({x: this.x - this.w/2, y: this.y - this.h/2, w: this.w, h: this.h}, walls[w])){
             this.x -= cos(this.direction) * this.speed * enemySpeedMagnitude;;
@@ -132,7 +132,7 @@ class Enemy{
 
         //collision with player
         if (player.iFrames <= 0 && detect2BoxesCollision({x: this.x - this.w/2, y: this.y - this.h/2, w: this.w, h: this.h}, player)){
-          player.health -= enemyData[this.type].damage;
+          player.health -= enemyData[this.type].damage * (1 + (floorEffects.includes("rageShrineBuff"))) / (1 + floorEffects.includes("protectionShrineBuff"));
           player.iFrames = player.iFramesOnHit;
           cam.shakeX = cam.damageShakeMultiplier * enemyData[this.type].damage;
           cam.shakeY = cam.damageShakeMultiplier * enemyData[this.type].damage;

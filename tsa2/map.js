@@ -578,6 +578,7 @@ function repositionPlayer() {
 }
 
 function generateMap(areaType) {
+  floorEffects = [];
   validHoleSpot = false;
   while (!validHoleSpot) {
     enemyQueueTime = 35;
@@ -880,10 +881,10 @@ function spawnStructure(structureType) {
 
 function makeRandomShrine(x,y){
   shrineRNG = floor(random(0,6));
-  if (random(0,100) <= 0.05){
-    shrineRNG = 9
-    //0.05% chance for absolute shrine (kinda)
-  }
+  // if (random(0,100) <= 0.05){
+  //   shrineRNG = 9
+  //   //0.05% chance for absolute shrine (kinda)
+  // }
   if (random(0,100) <= 0.5){
     shrineRNG = 8
     //0.5% chance for unstable shrine (kinda)
