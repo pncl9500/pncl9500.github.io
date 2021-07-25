@@ -677,7 +677,7 @@ function generateMap(areaType) {
           }
         }
         //make random vertical lines of nothing
-        for (i = 0; i < 12; i++){
+        for (i = 0; i < 18; i++){
           x = floor(random(0,gameMap.xDivisions));
           start = floor(random(0,gameMap.yDivisions));
           for (y = start; y < tiles.length && y < start + random(2,8); y++){

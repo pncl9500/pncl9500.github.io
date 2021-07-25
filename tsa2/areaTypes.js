@@ -24,6 +24,31 @@ areaTypes = {
     xDivisions: 24,
     yDivisions: 24,
     hasHole: true,
+    holeArea: "sewer2",
+  },
+  sewer2: {
+    generationType: "lines",
+    structures:[
+      {structure: "sewer_chest_container_1", count: 1, chance:1},
+      {structure: "sewer_chest_container_2", count: 1, chance:1},
+      {structure: "sewer_chest_container_3", count: 1, chance:1},
+      {structure: "sewer_chest_container_4", count: 1, chance:1},
+      {structure: "shrine_generator", count: 1, chance: 1},
+      {structure: "shop", count: 1, chance: 1},
+    ],
+    mapPal: {
+      r: 69,
+      g: 99,
+      b: 64,
+      liner: 54,
+      lineg: 84,
+      lineb: 49,
+    },
+    w: 3072,
+    h: 3072,
+    xDivisions: 24,
+    yDivisions: 24,
+    hasHole: true,
     holeArea: "blackMarket",
   },
   debugArea: {
@@ -69,9 +94,9 @@ areaTypes = {
     hasHole: false,
   },
   blackMarket: {
-    generationType: "random",
+    generationType: "none",
     structures:[
-      {structure: "shop", count: 12, chance: 1},
+      {structure: "shop", count: 24, chance: 1},
       {structure: "desertPortal", count: 1, chance: 1},
     ],
     mapPal: {
