@@ -94,7 +94,7 @@ function drawWalls(){
   noStroke();
   //draw walls
   for (w = 0; w < walls.length; w++){
-    if ((Math.abs(walls[w].x - player.x) + Math.abs(walls[w].y - player.y)) < 1400){
+    if ((Math.abs(walls[w].x - player.x) + Math.abs(walls[w].y - player.y)) < 1250){
       walls[w].draw();
       if (walls[w].health <= 0){
         cam.shakeX += 8;

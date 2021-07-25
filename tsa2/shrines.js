@@ -278,19 +278,3 @@ function loadShrineSprites(){
     shrine_absolute: loadImage("textures/objects/shrines/shrine_absolute.png"),
   }  
 }
-
-//shrine effects
-//shrine_blood - halves max health, but spawns a blood chest
-//shrine_life - increases max health by 50%, but halves money
-//shrine_wealth - doubles money, but removes 1 inventory slot
-//shrine_protection - halves damage to player by 50% for current floor, but you are 10% slower.
-//shrine_rage - increases damage per shot by 1 for current floor, but damage to player is increased by 2x.
-//shrine_crystal - spawns an inventory crystal, but sets health to 1
-
-//special shrines
-//shrine_emptiness - rarer than other shrines. removes all pickups and inventory items, but doubles inventory space, as well as giving the player a nothing gun.
-//shrine_shattered - rarer than other shrines. converts all chests and pickups on the current floor to random shrines, except important ones like the excavator and teleport chests.
-//shrine_unstable - rarer than other shrines. repeats all shrine effects activated this game twice.
-//shrine_absolute - rarer than other shrines. spawns a strong enemy that goes through walls on the player every 2 seconds, but the player does 8x damage. for the whole game, obviously.
-
-
