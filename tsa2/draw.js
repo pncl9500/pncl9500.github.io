@@ -45,13 +45,16 @@ function drawEnemies(){
   rectMode(CENTER);
   noStroke();
   for (e = 0; e < enemies.length; e++){
-    enemies[e].draw();
-    if (enemies[e].health <= 0){
-      enemies[e].doFragmentSpawns();
-      enemies[e].dropLoot();
-      enemies[e].dropChests();
-      enemies.splice(e,1);
-      e -= 1;
+    console.log((Math.abs(enemies[e].x - player.x) + Math.abs(enemies[e].y - player.y)));
+    if ((Math.abs(enemies[e].x - player.x) + Math.abs(enemies[e].y - player.y)) < 800){
+      enemies[e].draw();
+      if (enemies[e].health <= 0){
+        enemies[e].doFragmentSpawns();
+        enemies[e].dropLoot();
+        enemies[e].dropChests();
+        enemies.splice(e,1);
+        e -= 1;
+      }
     }
   }
   rectMode(CORNER);
