@@ -95,16 +95,18 @@ function drawWalls(){
   noStroke();
   //draw walls
   for (w = 0; w < walls.length; w++){
-    walls[w].draw();
-    if (walls[w].health <= 0){
-      cam.shakeX += 8;
-      cam.shakeY += 8;
-      //spawn enemies if the wall spawns enemies
-      walls[w].spawnEnemiesOnDeath();
-      walls[w].spawnLootOnDeath();
-      walls[w].spawnChestsOnDeath();
-      walls.splice(w,1);
-      w -= 1;
+    if ((Math.abs(walls[w].x - player.x) + Math.abs(walls[w].y - player.y)) < 1400){
+      walls[w].draw();
+      if (walls[w].health <= 0){
+        cam.shakeX += 8;
+        cam.shakeY += 8;
+        //spawn enemies if the wall spawns enemies
+        walls[w].spawnEnemiesOnDeath();
+        walls[w].spawnLootOnDeath();
+        walls[w].spawnChestsOnDeath();
+        walls.splice(w,1);
+        w -= 1;
+      }
     }
   }
 }
