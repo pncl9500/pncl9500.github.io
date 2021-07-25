@@ -163,7 +163,7 @@ function preload(){
 }
 
 function setup(){
-  generateMap("sewer1");
+  generateMap("debugArea");
   document.addEventListener('contextmenu', event => event.preventDefault());
   noCursor();
   createCanvas(windowWidth, windowHeight);
