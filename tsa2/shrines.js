@@ -28,8 +28,7 @@ class Shrine_blood extends Shrine{
     if (detect2BoxesCollision(player, this)){
       player.maxHealth = Math.ceil(player.maxHealth/2);
       player.health = min(player.health, player.maxHealth);
-      console.log(player.health)
-      console.log(player.maxHealth)
+      chests.push(new Chest("chest_blood",player.x - player.w/2 - 16, player.y - 60))
       return true;
     }
     return false;
@@ -186,7 +185,18 @@ class Shrine_shattered extends Shrine{
 
   checkForPlayerInteraction(){
     if (detect2BoxesCollision(player,this)){
-      //will do later
+      for (c = 0; c < chests.length; c++){
+        if (!chestData[chests[c].type].important){
+          makeRandomShrine(chests[c].x + 16 - shrineSize/2, chests[c].y + 8 - shrineSize/2);
+          chests.splice(c, 1);
+          c -= 1;
+        }
+      }
+      for (p = 0; p < pickups.length; p++){
+        makeRandomShrine(pickups[p].x - shrineSize/2, pickups[p].y - shrineSize/2);
+        pickups.splice(p, 1);
+        p -= 1;
+      }
       return true;
     }
     return false;
@@ -256,6 +266,6 @@ function loadShrineSprites(){
 
 //special shrines
 //shrine_emptiness - rarer than other shrines. removes all pickups and inventory items, but doubles inventory space, as well as giving the player a nothing gun.
-//shrine_shattered - rarer than other shrines. converts all chests on the current floor to random shrines, except important ones like the excavator and teleport chests.
+//shrine_shattered - rarer than other shrines. converts all chests and pickups on the current floor to random shrines, except important ones like the excavator and teleport chests.
 //shrine_unstable - rarer than other shrines. repeats all shrine effects activated this game twice.
 //shrine_absolute - rarer than other shrines. spawns a strong enemy that goes through walls on the player every 2 seconds, but the player does 8x damage. for the whole game, obviously.

@@ -888,9 +888,9 @@ function makeRandomShrine(x,y){
     shrineRNG = 8
     //0.5% chance for unstable shrine (kinda)
   }
-  if (random(0,100) <= 2.5){
+  if (random(0,100) <= 2){
     shrineRNG = 7
-    //2.5% chance for shattered shrine (kinda)
+    //2% chance for shattered shrine (kinda)
   }
   if (random(0,100) <= 5){
     shrineRNG = 6

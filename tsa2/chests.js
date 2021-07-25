@@ -99,6 +99,8 @@ function loadChests(){
       ],
       cost: 0,
       needsKey: false,
+      //important chests are not converted by shattered shrine.
+      important: false,
     },
     normal: {
       sprite: loadImage('textures/chests/chest_normal.png'),
@@ -111,6 +113,8 @@ function loadChests(){
       ],
       cost: 0,
       needsKey: false,
+      //important chests are not converted by shattered shrine.
+      important: false,
     },
     normal_locked: {
       sprite: loadImage('textures/chests/chest_normal_locked.png'),
@@ -123,31 +127,8 @@ function loadChests(){
       ],
       cost: 0,
       needsKey: true,
-    },
-    great: {
-      sprite: loadImage('textures/chests/chest_great.png'),
-      lootItemCount: 10,
-      loot: [
-        {item: "none", weight: 0},
-        {item: "bomb", weight: 3},
-        {item: "medkit", weight: 2},
-        {item: "key", weight: 1},
-      ],
-      cost: 0,
-      needsKey: false,
-    },
-    great_locked: {
-      sprite: loadImage('textures/chests/chest_great_locked.png'),
-      lootItemCount: 10,
-      loot: [
-        {item: "none", weight: 0},
-        {item: "bomb", weight: 30},
-        {item: "medkit", weight: 20},
-        {item: "smg", weight: 5},
-        {item: "key", weight: 1},
-      ],
-      cost: 0,
-      needsKey: true,
+      //important chests are not converted by shattered shrine.
+      important: false,
     },
     case_supply: {
       sprite: loadImage('textures/chests/case_supply.png'),
@@ -161,6 +142,8 @@ function loadChests(){
       ],
       cost: 15,
       needsKey: false,
+      //important chests are not converted by shattered shrine.
+      important: false,
     },
     case_weapon: {
       sprite: loadImage('textures/chests/case_weapon.png'),
@@ -174,6 +157,8 @@ function loadChests(){
       ],
       cost: 30,
       needsKey: false,
+      //important chests are not converted by shattered shrine.
+      important: false,
     },
     case_omega: {
       sprite: loadImage('textures/chests/case_omega.png'),
@@ -184,6 +169,8 @@ function loadChests(){
       ],
       cost: 2500,
       needsKey: false,
+      //important chests are not converted by shattered shrine.
+      important: false,
     },
     case_gungun: {
       sprite: loadImage('textures/chests/case_gungun.png'),
@@ -194,6 +181,8 @@ function loadChests(){
       ],
       cost: 100,
       needsKey: false,
+      //important chests are not converted by shattered shrine.
+      important: false,
     },
     case_desertTeleport: {
       sprite: loadImage('textures/chests/case_desertTeleport.png'),
@@ -204,6 +193,8 @@ function loadChests(){
       ],
       cost: 50,
       needsKey: false,
+      //important chests are not converted by shattered shrine.
+      important: true,
     },
     case_excavator: {
       sprite: loadImage('textures/chests/case_excavator.png'),
@@ -214,6 +205,8 @@ function loadChests(){
       ],
       cost: 0,
       needsKey: false,
+      //important chests are not converted by shattered shrine.
+      important: true,
     },
     geode: {
       sprite: loadImage('textures/chests/chest_geode.png'),
@@ -226,6 +219,8 @@ function loadChests(){
       ],
       cost: 0,
       needsKey: false,
+      //important chests are not converted by shattered shrine.
+      important: false,
     },
     case_back: {
       sprite: loadImage('textures/chests/case_back.png'),
@@ -237,6 +232,8 @@ function loadChests(){
       ],
       cost: 0,
       needsKey: false,
+      //important chests are not converted by shattered shrine.
+      important: true,
     },
     sewer_loot: {
       sprite: loadImage('textures/chests/chest_sewerloot.png'),
@@ -253,6 +250,8 @@ function loadChests(){
       ],
       cost: 0,
       needsKey: false,
+      //important chests are not converted by shattered shrine.
+      important: false,
     },
     chest_great: {
       sprite: loadImage('textures/chests/chest_great.png'),
@@ -265,6 +264,8 @@ function loadChests(){
       ],
       cost: 0,
       needsKey: false,
+      //important chests are not converted by shattered shrine.
+      important: false,
     },
     chest_great_locked: {
       sprite: loadImage('textures/chests/chest_great_locked.png'),
@@ -277,6 +278,8 @@ function loadChests(){
       ],
       cost: 0,
       needsKey: true,
+      //important chests are not converted by shattered shrine.
+      important: false,
     },
     chest_blood: {
       sprite: loadImage('textures/chests/chest_blood.png'),
@@ -284,13 +287,15 @@ function loadChests(){
       loot: [
         {item: "none", weight: 0},
         {item: "smg", weight: 1},
-        {item: "sniper", weight: 5},
+        {item: "sniper", weight: 4},
         {item: "grenadelauncher", weight: 15},
         {item: "minigun", weight: 15},
-        {item: "bomb", weight: 10},
+        {item: "bomb", weight: 7},
       ],
       cost: 0,
       needsKey: true,
+      //important chests are not converted by shattered shrine.
+      important: false,
     }
   }
 }

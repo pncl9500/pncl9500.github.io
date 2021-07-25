@@ -94,6 +94,7 @@ areaTypes = {
       {structure: "shop", count: 1, chance: 1},
       {structure: "geode", count: 2, chance: 1},
       {structure: "pyramid", count: 1, chance: 1},
+      {structure: "shrine_generator", count: 1, chance: 1},
       {structure: "returnPortal", count: 1, chance: 1},
     ],
     mapPal: {
