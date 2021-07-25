@@ -15,8 +15,8 @@ player = {
   inventorySize: 8,
   inventory: [
     "pistol",
-    "transportation_cannon",
-    "kill",
+    "none",
+    "none",
     "none",
     "medkit",
     "key",

@@ -6,8 +6,8 @@ function drawMapDivisions(){
   noFill();
   stroke(gameMap.liner,gameMap.lineg,gameMap.lineb);
 
-  for (x = 0; x < gameMap.xDivisions; x++){
-    for (y = 0; y < gameMap.yDivisions; y++){
+  for (x = max(0,floor(player.x/(gameMap.w/gameMap.xDivisions)) - 7); x < min(gameMap.xDivisions, floor(player.x/(gameMap.w/gameMap.xDivisions)) + 7); x++){
+    for (y = max(0,floor(player.y/(gameMap.h/gameMap.yDivisions)) - 5); y < min(gameMap.xDivisions, floor(player.y/(gameMap.h/gameMap.yDivisions)) + 5); y++){
       rect(gameMap.x + (gameMap.w/gameMap.xDivisions) * x - cam.x + cam.offsetX, gameMap.y + (gameMap.h/gameMap.yDivisions) * y - cam.y + cam.offsetY, gameMap.w/gameMap.xDivisions,gameMap.h/gameMap.yDivisions)
     }
   }
