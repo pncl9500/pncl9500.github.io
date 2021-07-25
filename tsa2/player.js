@@ -15,8 +15,8 @@ player = {
   inventorySize: 8,
   inventory: [
     "pistol",
-    "none",
-    "none",
+    "transportation_cannon",
+    "kill",
     "none",
     "medkit",
     "key",
@@ -30,6 +30,7 @@ player = {
   statusEffects: {
     //timers for all status effects
     weaken: 0,
+    disable: 0,
   },
 
   firingTick: 0,
@@ -39,7 +40,7 @@ player = {
   healthBarWidth: 100,
   healthBarAnimationSmoothing: 4,
   healthBarScale: 0.2,
-  healthBarWidthMultiplier: 0.2,
+  healthBarWidthMultiplier: 0.25,
   healthBarHeight: 2,
   healthBarYOffset: 14,
 

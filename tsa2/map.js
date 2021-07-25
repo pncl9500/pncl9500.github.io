@@ -592,6 +592,7 @@ function generateMap(areaType) {
     tiles = [];
     npcs = [];
     holes = [];
+    shrines = [];
     gameMap.r = areaTypes[areaType].mapPal.r;
     gameMap.g = areaTypes[areaType].mapPal.g;
     gameMap.b = areaTypes[areaType].mapPal.b;
@@ -599,6 +600,11 @@ function generateMap(areaType) {
     gameMap.liner = areaTypes[areaType].mapPal.liner;
     gameMap.lineg = areaTypes[areaType].mapPal.lineg;
     gameMap.lineb = areaTypes[areaType].mapPal.lineb;
+
+    gameMap.xDivisions = areaTypes[areaType].xDivisions;
+    gameMap.yDivisions = areaTypes[areaType].yDivisions;
+    gameMap.w = areaTypes[areaType].w;
+    gameMap.h = areaTypes[areaType].h;
 
     for (h = 0; h < gameMap.yDivisions; h++) {
       column = [];
@@ -747,7 +753,7 @@ function generateMap(areaType) {
                 2
               )
           ) >
-            gameMap.w / 1.5
+            gameMap.w / 1.8
         ) {
           holes.push(
             new Hole(
@@ -790,11 +796,11 @@ function floodFill(x, y) {
 }
 
 function spawnStructure(structureType) {
-  structureWidth = structures[structureType].tiles.length;
   structureHeight = structures[structureType].tiles[0].length;
+  structureWidth = structures[structureType].tiles.length;
 
   structureX = floor(random(0, tiles.length - structureWidth));
-  structureY = floor(random(0, tiles.length - structureWidth));
+  structureY = floor(random(0, tiles.length - structureHeight));
 
   for (x = 0; x < structureWidth; x++) {
     for (y = 0; y < structureHeight; y++) {
@@ -853,5 +859,75 @@ function spawnStructure(structureType) {
         dialogue[structures[structureType].npcs[n].dialogue]
       )
     );
+  }
+
+  //spawn shrines
+  //needs to be H because S is used for structures
+  for (h = 0; h < structures[structureType].shrines.length; h++){
+    if (structures[structureType].shrines[h].spawnRandomShrine){
+      makeRandomShrine((structureY + structures[structureType].shrines[h].x) *
+      (gameMap.h / gameMap.yDivisions) -
+      shrineSize / 2,
+    (structureX + structures[structureType].shrines[h].y) *
+      (gameMap.w / gameMap.xDivisions) -
+      shrineSize / 2,)
+    } else {
+      //there is no case where the game does not get a random shrine for now so i will be lazy and not add this.
+    }
+  }
+}
+
+
+function makeRandomShrine(x,y){
+  shrineRNG = floor(random(0,6));
+  if (random(0,100) <= 0.05){
+    shrineRNG = 9
+    //0.05% chance for absolute shrine (kinda)
+  }
+  if (random(0,100) <= 0.5){
+    shrineRNG = 8
+    //0.5% chance for unstable shrine (kinda)
+  }
+  if (random(0,100) <= 2.5){
+    shrineRNG = 7
+    //2.5% chance for shattered shrine (kinda)
+  }
+  if (random(0,100) <= 5){
+    shrineRNG = 6
+    //5% chance for shrine of emptiness (yes)
+  }
+  switch (shrineRNG) {
+    case 0:
+      shrines.push(new Shrine_blood(x,y));
+      break;
+    case 1:
+      shrines.push(new Shrine_life(x,y));
+      break;
+    case 2:
+      shrines.push(new Shrine_wealth(x,y));
+      break;
+    case 3:
+      shrines.push(new Shrine_protection(x,y));
+      break;
+    case 4:
+      shrines.push(new Shrine_rage(x,y));
+      break;
+    case 5:
+      shrines.push(new Shrine_crystal(x,y));
+      break;
+    case 6:
+      shrines.push(new Shrine_emptiness(x,y));
+      break;
+    case 7:
+      shrines.push(new Shrine_shattered(x,y));
+      break;
+    case 8:
+      shrines.push(new Shrine_unstable(x,y));
+      break;
+    case 9:
+      shrines.push(new Shrine_absolute(x,y));
+      break;
+    default:
+      break;
   }
 }

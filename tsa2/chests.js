@@ -277,6 +277,20 @@ function loadChests(){
       ],
       cost: 0,
       needsKey: true,
+    },
+    chest_blood: {
+      sprite: loadImage('textures/chests/chest_blood.png'),
+      lootItemCount: 2,
+      loot: [
+        {item: "none", weight: 0},
+        {item: "smg", weight: 1},
+        {item: "sniper", weight: 5},
+        {item: "grenadelauncher", weight: 15},
+        {item: "minigun", weight: 15},
+        {item: "bomb", weight: 10},
+      ],
+      cost: 0,
+      needsKey: true,
     }
   }
 }

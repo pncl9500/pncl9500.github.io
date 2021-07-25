@@ -7,7 +7,8 @@ function loadStructures(){
         [2,2,2],
       ],
       chests: [],
-      npcs: []
+      npcs: [],
+      shrines: []
     },
     among: {
       tiles:[
@@ -18,7 +19,8 @@ function loadStructures(){
         [0,2,0,2,0],
       ],
       chests: [],
-      npcs: []
+      npcs: [],
+      shrines: []
     },
     geode: {
       tiles: [
@@ -29,7 +31,8 @@ function loadStructures(){
         [0,0,1,0,0],
       ],
       chests: [],
-      npcs: []
+      npcs: [],
+      shrines: []
     },
     shop: {
       tiles: [
@@ -63,7 +66,8 @@ function loadStructures(){
           sprite: loadImage('textures/npcs/overworld/shopkeeper.png'),
           dialogue: "text_shopkeeper",
         },
-      ]
+      ],
+      shrines: []
     },
     desertPortal: {
       tiles: [
@@ -81,7 +85,8 @@ function loadStructures(){
           hasRareChestVariation: false,
         }
       ],
-      npcs: []
+      npcs: [],
+      shrines: []
     },
     pyramid: {
       tiles: [
@@ -103,13 +108,16 @@ function loadStructures(){
           hasRareChestVariation: false,
         }
       ],
-      npcs: []
+      npcs: [],
+      shrines: []
     },
     returnPortal: {
       tiles: [
-        [16,16,16],
-        [16,15,16],
-        [16,16,16],
+        [15,15,15,15,15],
+        [15,16,16,16,15],
+        [15,16,15,16,15],
+        [15,16,16,16,15],
+        [15,15,15,15,15],
       ],
       chests: [
         {
@@ -119,7 +127,8 @@ function loadStructures(){
           hasRareChestVariation: false,
         }
       ],
-      npcs: []
+      npcs: [],
+      shrines: []
     },
     sewer_chest_container_1: {
       tiles: [
@@ -135,7 +144,8 @@ function loadStructures(){
         rareChestChance: 0.005,
         rareChest: "chest_great",
       }],
-      npcs: []
+      npcs: [],
+      shrines: []
     },
     sewer_chest_container_2: {
       tiles: [
@@ -151,7 +161,8 @@ function loadStructures(){
         rareChestChance: 0.005,
         rareChest: "chest_great",
       }],
-      npcs: []
+      npcs: [],
+      shrines: []
     },
     sewer_chest_container_3: {
       tiles: [
@@ -167,7 +178,8 @@ function loadStructures(){
         rareChestChance: 0.005,
         rareChest: "chest_great",
       }],
-      npcs: []
+      npcs: [],
+      shrines: []
     },
     sewer_chest_container_4: {
       tiles: [
@@ -183,7 +195,24 @@ function loadStructures(){
         rareChestChance: 0.005,
         rareChest: "chest_great",
       }],
-      npcs: []
+      npcs: [],
+      shrines: []
     },
+    shrine_generator: {
+      tiles: [
+        [0,0,0,0,0],
+        [0,2,0,2,0],
+        [0,0,0,0,0],
+        [0,2,0,2,0],
+        [0,0,0,0,0],
+      ],
+      chests: [],
+      npcs: [],
+      shrines: [{
+        spawnRandomShrine: true,
+        x: 2.5,
+        y: 2.5,
+      }],
+    }
   }
 }

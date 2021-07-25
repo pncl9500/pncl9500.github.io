@@ -53,7 +53,7 @@ class Bullet{
     this.v += this.properties.acceleration;
 
     //collides with enemies twice for extra collision juice
-    for (i = 0; i < 2; i++){
+    for (var i = 0; i < 2; i++){
       this.x += Math.cos(this.direction) * this.v * -0.5;
       this.y += Math.sin(this.direction) * this.v * -0.5;
       //collision with enemies
@@ -155,6 +155,7 @@ class Bullet{
 
 function preload(){
   //the loadImage thing doesnt work unless it is called in preload
+  loadShrineSprites();
   loadItems();
   loadChests();
   loadStructures();
@@ -162,7 +163,7 @@ function preload(){
 }
 
 function setup(){
-  generateMap("debugArea");
+  generateMap("sewer1");
   document.addEventListener('contextmenu', event => event.preventDefault());
   noCursor();
   createCanvas(windowWidth, windowHeight);
@@ -171,7 +172,7 @@ function setup(){
 
 
 function fireSelectedGun(){  
-  if (player.firingTick <= 0 && player.hoveredInventorySlot === false){
+  if (player.statusEffects.disable <= 0 && player.firingTick <= 0 && player.hoveredInventorySlot === false){
     player.firingTick = itemData[player.inventory[player.selectedInventorySlot]].fireRate;
     vectorX = (player.x - cam.x + cam.offsetX) - crosshair.x;
     vectorY = (player.y - cam.y + cam.offsetY) - crosshair.y;
@@ -216,9 +217,9 @@ function draw(){
 
   noStroke();
 
-  if (dialogueBox.hidden){
+  //if (dialogueBox.hidden){
     movePlayer();
-  }
+  //}
   //if the player is on top of a spawner, it activates
   testForPlayerOverSpawner();
   
@@ -241,6 +242,8 @@ function draw(){
 
   drawMap();
   drawMapDivisions();
+  drawHoles();
+  drawShrines();
   drawPickups();
   drawChests();
   
@@ -255,7 +258,6 @@ function draw(){
   }
   enemyFragmentQueue = [];
 
-  drawHoles();
   drawWalls();
   drawMapOutline();
   drawPlayerHealthBar()
@@ -321,6 +323,13 @@ function keyPressed(){
       for (h = 0; h < holes.length; h++){
         if (holes[h].checkForPlayerEnter()){
           //holes dont usually spawn next to eachother, and if two holes were opened at the same time nothing that bad would happen, but just to be safe i put the break here
+          break;
+        }
+      }
+      for (s = 0; s < shrines.length; s++){
+        if (shrines[s].checkForPlayerInteraction()){
+          shrines.splice(s, 1);
+          s -= 1;
           break;
         }
       }

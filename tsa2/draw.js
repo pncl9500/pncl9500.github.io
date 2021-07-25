@@ -125,22 +125,23 @@ function drawPlayer(){
 }
 
 function drawPlayerHealthBar(){
-  player.healthBarScale = Math.log(Math.log(Math.log(Math.log(player.maxHealth)))) * player.healthBarWidthMultiplier;
+  player.healthBarScale = player.maxHealth * player.healthBarWidthMultiplier;
   noStroke();
   player.healthBarWidth += (player.health - player.healthBarWidth)/player.healthBarAnimationSmoothing;
   player.healthBarX += (player.x - player.healthBarX)/player.healthBarMovementSmoothing
   player.healthBarY += (player.y - player.healthBarY)/player.healthBarMovementSmoothing
   //black health bar background
   fill(0,0,0);
-  rect(player.healthBarX - cam.x + cam.offsetX + player.w/2 - (player.maxHealth * player.healthBarScale)/2,player.healthBarY - player.healthBarYOffset - cam.y + cam.offsetY + player.h/2,player.maxHealth * player.healthBarScale, player.healthBarHeight)
+  rect(player.healthBarX - cam.x + cam.offsetX + player.w/2 - (player.healthBarScale)/2,player.healthBarY - player.healthBarYOffset - cam.y + cam.offsetY + player.h/2,max(player.healthBarScale, 1), player.healthBarHeight)
   //red part of health bar
   if (player.healthBarWidth > 0){
     fill(255,0,0);
-    rect(player.healthBarX - cam.x + cam.offsetX + player.w/2 - (player.healthBarWidth * player.healthBarScale)/2,player.healthBarY - player.healthBarYOffset - cam.y + cam.offsetY + player.h/2,player.healthBarWidth * player.healthBarScale, player.healthBarHeight)
+    rect(player.healthBarX - cam.x + cam.offsetX + player.w/2 - (player.healthBarWidth / player.maxHealth * player.healthBarScale)/2,player.healthBarY - player.healthBarYOffset - cam.y + cam.offsetY + player.h/2,max(player.healthBarWidth / player.maxHealth * player.healthBarScale, 1), player.healthBarHeight)
   }
 
   if (player.health <= 0){
     //placeholder text
+    textSize(6);
     fill(0);
     text("YOU HAVE BEEN KILLED but can still play the game because you cannot die yet", player.x - 80 - cam.x + cam.offsetX, player.y - 80 - cam.y + cam.offsetY);
   }
@@ -282,5 +283,11 @@ function drawDialoguePortrait(){
 function drawHoles(){
   for(h = 0; h < holes.length; h++){
     holes[h].draw();
+  }
+}
+
+function drawShrines(){
+  for (s = 0; s < shrines.length; s++){
+    shrines[s].draw();
   }
 }
