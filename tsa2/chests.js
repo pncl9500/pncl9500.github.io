@@ -287,7 +287,7 @@ function loadChests(){
       loot: [
         {item: "none", weight: 0},
         {item: "smg", weight: 1},
-        {item: "sniper", weight: 4},
+        {item: "sniper", weight: 15},
         {item: "grenadelauncher", weight: 15},
         {item: "minigun", weight: 15},
         {item: "bomb", weight: 7},

@@ -73,6 +73,9 @@ class Bullet{
           if (this.properties.damageToEnemies > 0){
             enemies[e].doDamageAnimation();  
           }
+          if (typeof(this.properties.lifeTimeLossOnEnemyContact) != "undefined"){
+            this.deathTimer += this.properties.lifeTimeLossOnEnemyContact;
+          }
           enemies[e].health -= this.properties.damageToEnemies + (floorEffects.includes("rageShrineBuff")); 
           if (!this.properties.goesThroughEnemies){
             this.dead = true;
@@ -292,7 +295,6 @@ function windowResized() {
 }
 
 function mousePressed(){
-  fullscreen(true);
   if (mouseButton === LEFT){
     if (itemData[player.inventory[player.selectedInventorySlot]].effectOnUse === "shoot" && itemData[player.inventory[player.selectedInventorySlot]].firePattern === "semiautomatic"){
       fireSelectedGun();
@@ -303,6 +305,9 @@ function mousePressed(){
 
 function keyPressed(){
   switch (keyCode) {
+    case 80:
+      fullscreen(true);
+      break;
     case 69:
     case 9:
       toggleInventoryDisplay();
