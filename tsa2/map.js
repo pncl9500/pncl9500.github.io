@@ -698,6 +698,20 @@ function generateMap(areaType) {
           y = floor(random(0,gameMap.yDivisions));
           tiles[y][x] = 0;
         }
+        //add 5 hives (nests) (tiles that spawn a bunch of yellow enemies)
+        for (h = 0; h < 5; h++){
+          h--;
+          validHiveSpot = false;
+          while (!validHiveSpot) {
+            hiveX = floor(random(0, tiles[0].length));
+            hiveY = floor(random(0, tiles.length));
+            if (tiles[hiveY][hiveX] === 1){
+              validHiveSpot = true;
+              tiles[hiveY][hiveX] = 4
+            }
+          }
+          h++;
+        }
         break;
       default:
         break;
