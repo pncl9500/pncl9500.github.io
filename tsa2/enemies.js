@@ -35,7 +35,7 @@ class Enemy{
     this.magnification = magnification;
 
     this.health = floor(enemyData[this.type].health * this.magnification);
-    this.damage = floor(enemyData[this.type].damage * this.magnification/5);
+    this.damage = floor(enemyData[this.type].damage * (this.magnification/5));
     this.speed = 0;
 
     this.targetSpeed = enemyData[this.type].speed
@@ -72,7 +72,7 @@ class Enemy{
       this.strokeWeight = this.targetStrokeWeight;
     }
 
-    this.bulletTimer = 0;
+    this.bulletTimer = enemyData[this.type].fireRate;
   }
   
 
@@ -132,10 +132,7 @@ class Enemy{
 
         //collision with player
         if (player.iFrames <= 0 && detect2BoxesCollision({x: this.x - this.w/2, y: this.y - this.h/2, w: this.w, h: this.h}, player)){
-          player.health -= enemyData[this.type].damage * (1 + (floorEffects.includes("rageShrineBuff"))) / (1 + floorEffects.includes("protectionShrineBuff"));
-          player.iFrames = player.iFramesOnHit;
-          cam.shakeX = cam.damageShakeMultiplier * enemyData[this.type].damage;
-          cam.shakeY = cam.damageShakeMultiplier * enemyData[this.type].damage;
+          doDamageToPlayer(enemyData[this.type].damage);
         }
 
         //shoot bullet
@@ -175,6 +172,13 @@ class Enemy{
       chests.push(new Chest(enemyData[this.type].chestDrops[c], this.x - 16, this.y - 8))
     }
   }
+}
+
+function doDamageToPlayer(damage){
+  player.health -= damage * (1 + (floorEffects.includes("rageShrineBuff"))) / (1 + floorEffects.includes("protectionShrineBuff"));
+  player.iFrames = player.iFramesOnHit;
+  cam.shakeX = Math.sqrt(cam.damageShakeMultiplier * damage) * 5;
+  cam.shakeY = Math.sqrt(cam.damageShakeMultiplier * damage) * 5;
 }
 
 function getEnemySpawnPosition(){

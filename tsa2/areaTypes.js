@@ -49,7 +49,26 @@ areaTypes = {
     xDivisions: 24,
     yDivisions: 24,
     hasHole: true,
-    holeArea: "blackMarket",
+    holeArea: "sewer3",
+  },
+  sewer3: {
+    generationType: "none",
+    structures:[
+      {structure: "bossArena_1", count: 1, chance:1},
+    ],
+    mapPal: {
+      r: 69,
+      g: 99,
+      b: 64,
+      liner: 54,
+      lineg: 84,
+      lineb: 49,
+    },
+    w: 5120,
+    h: 5120,
+    xDivisions: 32,
+    yDivisions: 32,
+    hasHole: false,
   },
   debugArea: {
     generationType: "random",
@@ -111,7 +130,8 @@ areaTypes = {
     h: 3072,
     xDivisions: 24,
     yDivisions: 24,
-    hasHole: false,
+    hasHole: true,
+    holeArea: "sewer1",
   },
   desert: {
     generationType: "random",
@@ -134,6 +154,7 @@ areaTypes = {
     h: 8192,
     xDivisions: 64,
     yDivisions: 64,
-    hasHole: false,
+    hasHole: true,
+    holeArea: "blackMarket",
   },
 }

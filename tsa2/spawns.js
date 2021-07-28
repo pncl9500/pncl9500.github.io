@@ -15,7 +15,11 @@ spawns = {
     ["geode_3"],
     ["geode_4"],
   ],
-  //spawns in the sewer one
+  //spawns in the sewer three (boss)
+  sewer3: [
+    [],
+  ],
+  //spawns in the sewer two
   sewer2: [
     [],
     [],

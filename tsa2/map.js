@@ -890,6 +890,25 @@ function spawnStructure(structureType) {
       //there is no case where the game does not get a random shrine for now so i will be lazy and not add this.
     }
   }
+
+  //spawn bosses
+  if (typeof(structures[structureType].bosses) != "undefined"){
+    for (b = 0; b < structures[structureType].bosses.length; b++){
+      switch (structures[structureType].bosses[b].type) {
+        case "sewer_mutant":
+          bosses.push(new Boss_SewerMutant((structureY + structures[structureType].bosses[b].x) *
+          (gameMap.h / gameMap.yDivisions) -
+          shrineSize / 2,
+        (structureX + structures[structureType].bosses[b].y) *
+          (gameMap.w / gameMap.xDivisions) -
+          shrineSize / 2));
+          break;
+      
+        default:
+          break;
+      }
+    }
+  }
 }
 
 

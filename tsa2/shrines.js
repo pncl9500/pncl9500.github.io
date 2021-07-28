@@ -167,7 +167,7 @@ class Shrine_emptiness extends Shrine{
 
   checkForPlayerInteraction(){
     if (detect2BoxesCollision(player,this)){
-      if (player.inventoryShown){
+      if (player.inventoryShown === 1){
         for (b = player.inventorySize; b < player.inventorySize * 2 - 1; b++){
           inventoryBoxes.push(new InventoryBox(b));
         }

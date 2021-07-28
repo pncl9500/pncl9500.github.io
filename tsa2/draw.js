@@ -24,6 +24,16 @@ function drawBullets(){
   }
 }
 
+function drawBosses(){
+  for (b = 0; b < bosses.length; b++){
+    bosses[b].draw();
+    if (bosses[b].dead){
+      bosses.splice(b, 1);
+      b -= 1;
+    }
+  }
+}
+
 //only for debugging. spawners are invisible in game.
 function drawSpawners(){
   for (s = 0; s < spawners.length; s++){

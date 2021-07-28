@@ -41,6 +41,7 @@ class Bullet{
     this.x = x;
     this.y = y;
     this.properties = properties;
+    console.log(this.properties);
     this.v = this.properties.speed;
     this.direction = direction;
     this.deathTimer = 0;
@@ -57,26 +58,50 @@ class Bullet{
       this.x += Math.cos(this.direction) * this.v * -0.5;
       this.y += Math.sin(this.direction) * this.v * -0.5;
       //collision with enemies
-    //the most recent enemy spawn is the one that is hit first
-    for (e = enemies.length - 1; e >= 0; e--){
+      //the most recent enemy spawn is the one that is hit first
+      for (e = enemies.length - 1; e >= 0; e--){
+        if (detect2BoxesCollision({
+          x: this.x - this.properties.size / 2,
+          y: this.y - this.properties.size / 2,
+          w: this.properties.size,
+          h: this.properties.size},{
+            x: enemies[e].x - enemies[e].w/2,
+            y: enemies[e].y - enemies[e].h/2,
+            w: enemies[e].w,
+            h: enemies[e].h,
+          })){
+          if (enemies[e].state === "active" && this.dead === false){
+            if (this.properties.damageToEnemies > 0){
+              enemies[e].doDamageAnimation();  
+            }
+            if (typeof(this.properties.lifeTimeLossOnEnemyContact) != "undefined"){
+              this.deathTimer += this.properties.lifeTimeLossOnEnemyContact;
+            }
+            enemies[e].health -= this.properties.damageToEnemies + (floorEffects.includes("rageShrineBuff")); 
+            if (!this.properties.goesThroughEnemies){
+              this.dead = true;
+              this.deathTimer = this.properties.lifeTime;
+            }
+          }
+        }
+      }
+    }
+
+    //collision with bosses
+    for (e = 0; e < bosses.length; e++){
       if (detect2BoxesCollision({
         x: this.x - this.properties.size / 2,
         y: this.y - this.properties.size / 2,
         w: this.properties.size,
-        h: this.properties.size},{
-          x: enemies[e].x - enemies[e].w/2,
-          y: enemies[e].y - enemies[e].h/2,
-          w: enemies[e].w,
-          h: enemies[e].h,
-        })){
-        if (enemies[e].state === "active" && this.dead === false){
+        h: this.properties.size},bosses[e].hitbox)){
+        if (this.dead === false){
+          bosses[e].health -= this.properties.damageToEnemies + (floorEffects.includes("rageShrineBuff")); 
           if (this.properties.damageToEnemies > 0){
-            enemies[e].doDamageAnimation();  
+            bosses[e].doDamageAnimation();  
           }
           if (typeof(this.properties.lifeTimeLossOnEnemyContact) != "undefined"){
             this.deathTimer += this.properties.lifeTimeLossOnEnemyContact;
           }
-          enemies[e].health -= this.properties.damageToEnemies + (floorEffects.includes("rageShrineBuff")); 
           if (!this.properties.goesThroughEnemies){
             this.dead = true;
             this.deathTimer = this.properties.lifeTime;
@@ -84,8 +109,6 @@ class Bullet{
         }
       }
     }
-    }
-
     
 
     //collision with walls
@@ -117,10 +140,7 @@ class Bullet{
         this.deathTimer = this.properties.lifeTime;
       }
       if (player.iFrames <= 0 && this.properties.damageToPlayer > 0){
-        player.health -= this.properties.damageToPlayer;
-        player.iFrames = player.iFramesOnHit;
-        cam.shakeX = cam.damageShakeMultiplier * this.properties.damageToPlayer;
-        cam.shakeY = cam.damageShakeMultiplier * this.properties.damageToPlayer;
+        doDamageToPlayer(this.properties.damageToPlayer);
       }
       if (typeof(this.properties.statusEffect) != "undefined"){
         player.statusEffects[this.properties.statusEffect] = this.properties.statusEffectTimer;
@@ -158,6 +178,7 @@ class Bullet{
 
 function preload(){
   //the loadImage thing doesnt work unless it is called in preload
+  loadBossSprites();
   loadShrineSprites();
   loadItems();
   loadChests();
@@ -166,7 +187,7 @@ function preload(){
 }
 
 function setup(){
-  generateMap("debugArea");
+  generateMap("sewer1");
   document.addEventListener('contextmenu', event => event.preventDefault());
   noCursor();
   createCanvas(windowWidth, windowHeight);
@@ -246,12 +267,13 @@ function draw(){
   drawMap();
   drawMapDivisions();
   drawHoles();
+  drawBosses();
+  drawNPCs();
   drawShrines();
   drawPickups();
   drawChests();
   
   drawBullets();
-  drawNPCs();
   drawPlayer();
   
   drawEnemies();
