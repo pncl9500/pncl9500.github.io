@@ -15,7 +15,7 @@ enemySpawnDistance = 80;
 enemySpeedMagnitude = 10;
 
 class Enemy{
-  constructor(type, x, y, magnification, doSpawnAnimation){
+  constructor(x, y, magnification, doSpawnAnimation){
 
 
     if (typeof(doSpawnAnimation) != "undefined"){
@@ -25,7 +25,6 @@ class Enemy{
     }
 
 
-    this.type = type;
 
 
     this.spawnPointX = x;
@@ -34,15 +33,15 @@ class Enemy{
     this.y = y;
     this.magnification = magnification;
 
-    this.health = floor(enemyData[this.type].health * this.magnification);
-    this.damage = floor(enemyData[this.type].damage * (this.magnification/5));
+    //this.health = floor(enemyData[this.type].health * this.magnification);
+    //this.damage = floor(enemyData[this.type].damage * (this.magnification/5));
     this.speed = 0;
 
-    this.targetSpeed = enemyData[this.type].speed
+    //this.targetSpeed = enemyData[this.type].speed
     this.speedSmoothing = 20;
 
-    this.targetW = enemyData[this.type].w;
-    this.targetH = enemyData[this.type].h;
+    //this.targetW = enemyData[this.type].w;
+    //this.targetH = enemyData[this.type].h;
     this.w = 1500;
     this.h = 1500;
     
@@ -51,7 +50,7 @@ class Enemy{
     this.direction = 0;
 
 
-    this.pal = enemyData[this.type].pal;
+    //this.pal = enemyData[this.type].pal;
     this.alpha = -1500;
     this.targetAlpha = 255;
 
@@ -72,7 +71,60 @@ class Enemy{
       this.strokeWeight = this.targetStrokeWeight;
     }
 
-    this.bulletTimer = enemyData[this.type].fireRate;
+    //this.bulletTimer = enemyData[this.type].fireRate;
+  }
+
+  setAttributes(x, y, magnification, doSpawnAnimation){
+    //other stuff
+    if (typeof(doSpawnAnimation) != "undefined"){
+      this.doSpawnAnimation = doSpawnAnimation;
+    } else {
+      this.doSpawnAnimation = true;
+    }
+
+
+    this.spawnPointX = x;
+    this.spawnPointY = y;
+    this.x = x;
+    this.y = y;
+    this.magnification = magnification;
+
+
+    this.targetSpeed = this.speed;
+    this.speed = 0;
+    this.speedSmoothing = 20;
+
+    this.targetW = this.w;
+    this.targetH = this.h;
+    this.w = 1500;
+    this.h = 1500;
+    
+    this.spawnAnimationSmoothing = 10;
+
+    this.direction = 0;
+
+
+    this.alpha = -1500;
+    this.targetAlpha = 255;
+
+    this.strokeWeight = 15;
+    this.targetStrokeWeight = 0;
+
+    this.state = "spawning";
+    this.spawnTimer = 85;
+    
+    this.damageAnimationLength = 5;
+    this.damageAnimationTick = 0;
+
+    if (!this.doSpawnAnimation){
+      this.w = this.targetW;
+      this.h = this.targetH;
+      this.state = "active";
+      this.spawnTimer = 0;
+      this.strokeWeight = this.targetStrokeWeight;
+    }
+
+    this.bulletTimer = this.fireRate;
   }
   
 
@@ -132,15 +184,16 @@ class Enemy{
 
         //collision with player
         if (player.iFrames <= 0 && detect2BoxesCollision({x: this.x - this.w/2, y: this.y - this.h/2, w: this.w, h: this.h}, player)){
-          doDamageToPlayer(enemyData[this.type].damage);
+          doDamageToPlayer(this.damage);
         }
 
         //shoot bullet
-        if (enemyData[this.type].spawnsBullet && this.bulletTimer <= 0){
-          var vectorX = this.x - (player.x + player.w/2);
-          var vectorY = this.y - (player.y + player.h/2);
-          this.bulletTimer = enemyData[this.type].fireRate;
-          bullets.push(new Bullet(this.x, this.y, Math.atan2(vectorY, vectorX), enemyData[this.type].bulletProperties))
+        if (this.spawnsBullet && this.bulletTimer <= 0){
+          this.bulletTimer = this.fireRate;
+          this.doBulletSpawn();
+          // var vectorX = this.x - (player.x + player.w/2);
+          // var vectorY = this.y - (player.y + player.h/2);
+          //bullets.push(new Bullet(this.x, this.y, Math.atan2(vectorY, vectorX), this.bulletProperties))
         }
         break;
       default:
@@ -153,23 +206,23 @@ class Enemy{
   }
 
   doFragmentSpawns(){
-    if (enemyData[this.type].spawnsFragmentsOnDeath){
-      for (this.f = 0; this.f < enemyData[this.type].fragmentSpawns.length; this.f++){
-        enemyFragmentQueue.push(new Enemy(enemyData[this.type].fragmentSpawns[this.f], this.x + random(enemyData[this.type].fragmentOffsetX * -1,enemyData[this.type].fragmentOffsetX), this.y + random(enemyData[this.type].fragmentOffsetY * -1,enemyData[this.type].fragmentOffsetY), this.magnification, false));
+    if (this.spawnsFragmentsOnDeath){
+      for (this.f = 0; this.f < this.fragmentSpawns.length; this.f++){
+        enemyFragmentQueue.push(getEnemy(this.fragmentSpawns[this.f], this.x + random(this.fragmentOffsetX * -1,this.fragmentOffsetX), this.y + random(this.fragmentOffsetY * -1,this.fragmentOffsetY), this.magnification, false));
       }
     }
   }
 
   dropLoot(){
-    player.money += enemyData[this.type].moneyDrop;
-    for (l = 0; l < enemyData[this.type].loot.length; l++){
-      pickups.push(new Pickup(enemyData[this.type].loot[l],this.x, this.y));
+    player.money += this.moneyDrop;
+    for (l = 0; l < this.loot.length; l++){
+      pickups.push(new Pickup(this.loot[l],this.x, this.y));
     }
   }
 
   dropChests(){
-    for (c = 0; c < enemyData[this.type].chestDrops.length; c++){
-      chests.push(new Chest(enemyData[this.type].chestDrops[c], this.x - 16, this.y - 8))
+    for (c = 0; c < this.chestDrops.length; c++){
+      chests.push(new Chest(this.chestDrops[c], this.x - 16, this.y - 8))
     }
   }
 }
@@ -207,17 +260,48 @@ function spawnEnemiesAroundPlayer(spawn){
       enemySpawnOffsetX = 0;
       enemySpawnOffsetY = 0;
       getEnemySpawnPosition();
-      enemyQueue.push(new Enemy(spawns[currentLevel][spawn][e], player.x + enemySpawnOffsetX, player.y + enemySpawnOffsetY, 1))
+      enemyQueue.push(getEnemy(spawns[currentLevel][spawn][e], player.x + enemySpawnOffsetX, player.y + enemySpawnOffsetY, 1))
     }
   } else {
     for (e = 0; e < spawns[currentLevel][spawns[currentLevel].length - 1].length; e++){
       enemySpawnOffsetX = 0;
       enemySpawnOffsetY = 0;
       getEnemySpawnPosition();
-      enemyQueue.push(new Enemy(spawns[currentLevel][spawns[currentLevel].length - 1][e], player.x + enemySpawnOffsetX, player.y + enemySpawnOffsetY, 1))
+      enemyQueue.push(getEnemy(spawns[currentLevel][spawns[currentLevel].length - 1][e], player.x + enemySpawnOffsetX, player.y + enemySpawnOffsetY, 1))
     }
   }
   
+}
+
+function getEnemy(enemyType, x, y, magnification, doSpawnAnimation){
+  switch (enemyType) {
+    case "gray":
+      return new Enemy_gray(x, y, magnification,doSpawnAnimation);
+      case "red":
+      return new Enemy_red(x, y, magnification,doSpawnAnimation);
+      case "yellow":
+      return new Enemy_yellow(x, y, magnification,doSpawnAnimation);
+      case "blue":
+      return new Enemy_blue(x, y, magnification,doSpawnAnimation);
+      case "blue_small":
+      return new Enemy_blue_small(x, y, magnification,doSpawnAnimation);
+      case "pink":
+      return new Enemy_pink(x, y, magnification,doSpawnAnimation);
+      case "green":
+      return new Enemy_green(x, y, magnification,doSpawnAnimation);
+      case "purple":
+      return new Enemy_purple(x, y, magnification,doSpawnAnimation);
+      case "geode_1":
+      return new Enemy_geode_1(x, y, magnification,doSpawnAnimation);
+      case "geode_2":
+      return new Enemy_geode_2(x, y, magnification,doSpawnAnimation);
+      case "geode_3":
+      return new Enemy_geode_3(x, y, magnification,doSpawnAnimation);
+      case "geode_4":
+      return new Enemy_geode_4(x, y, magnification,doSpawnAnimation);
+    default:
+      break;
+  }
 }
 
 

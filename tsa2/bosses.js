@@ -223,7 +223,7 @@ class Boss_SewerMutant extends Boss{
         break;
       case "summon":
         if (this.stateTimer > 40){
-          enemyQueue.push(new Enemy("green", this.x + this.w/2, this.y + this.h/2, 0.5, false))
+          enemyQueue.push(new Enemy_green(this.x + this.w/2, this.y + this.h/2, 0.5, false))
           this.state = "pause";
           this.stateTimer = 0;
         }
@@ -407,7 +407,8 @@ class Boss_SewerMutant extends Boss{
   }
 
   doDeathSpawns(){
-    holes.push(new Hole(gameMap.w/2, gameMap.h/2 - 160, "blackMarket"))
+    player.money += 25;
+    holes.push(new Hole(gameMap.w/2, gameMap.h/2 - 160, "blackMarket"));
     cam.shakeX += 30;
     cam.shakeY += 30;
   }

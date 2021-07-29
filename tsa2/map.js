@@ -76,7 +76,7 @@ class Wall {
   spawnEnemiesOnDeath() {
     for (this.s = 0; this.s < this.spawnsOnDestruction.length; this.s++) {
       enemyFragmentQueue.push(
-        new Enemy(
+        getEnemy(
           this.spawnsOnDestruction[this.s],
           this.x +
             random(this.spawnsOffsetX * -1, this.spawnsOffsetX) +

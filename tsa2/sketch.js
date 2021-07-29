@@ -41,7 +41,6 @@ class Bullet{
     this.x = x;
     this.y = y;
     this.properties = properties;
-    console.log(this.properties);
     this.v = this.properties.speed;
     this.direction = direction;
     this.deathTimer = 0;
