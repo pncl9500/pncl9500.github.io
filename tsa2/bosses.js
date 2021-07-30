@@ -408,7 +408,7 @@ class Boss_SewerMutant extends Boss{
 
   doDeathSpawns(){
     player.money += 25;
-    holes.push(new Hole(gameMap.w/2, gameMap.h/2 - 160, "blackMarket"));
+    holes.push(new Hole(gameMap.w/2, gameMap.h/2 - 160, "cave1"));
     cam.shakeX += 30;
     cam.shakeY += 30;
   }

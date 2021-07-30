@@ -127,6 +127,31 @@ class Enemy{
     this.bulletTimer = this.fireRate;
   }
   
+  move(){
+    this.speed = (this.targetSpeed - this.speed) / this.speedSmoothing;
+    this.direction = Math.atan2(player.y + player.h/2 - this.y, player.x + player.w/2 - this.x);
+    //collision with walls (X)
+    this.x += cos(this.direction) * this.speed * enemySpeedMagnitude;
+    for (w = 0; w < walls.length; w++){
+      if (detect2BoxesCollision({x: this.x - this.w/2, y: this.y - this.h/2, w: this.w, h: this.h}, walls[w])){
+        this.x -= cos(this.direction) * this.speed * enemySpeedMagnitude;;
+      }
+    }
+
+    this.y += sin(this.direction) * this.speed * enemySpeedMagnitude;
+
+    //collision with walls (Y)
+    for (w = 0; w < walls.length; w++){
+      if (detect2BoxesCollision({x: this.x - this.w/2, y: this.y - this.h/2, w: this.w, h: this.h}, walls[w])){
+        this.y -= sin(this.direction) * this.speed * enemySpeedMagnitude;
+      }
+    }
+
+    //collision with player
+    if (player.iFrames <= 0 && detect2BoxesCollision({x: this.x - this.w/2, y: this.y - this.h/2, w: this.w, h: this.h}, player)){
+      doDamageToPlayer(this.damage);
+    }
+  }
 
   draw(){
     this.bulletTimer -= 1;
@@ -158,34 +183,12 @@ class Enemy{
         break;
       case "active":
         noStroke();
-        this.speed = (this.targetSpeed - this.speed) / this.speedSmoothing;
         fill(this.pal.r, this.pal.g, this.pal.b);
         if (this.damageAnimationTick > 0){
           fill(240,240,240);
         }
         rect(this.x - cam.x + cam.offsetX, this.y - cam.y + cam.offsetY, this.w, this.h);
-        this.direction = Math.atan2(player.y + player.h/2 - this.y, player.x + player.w/2 - this.x);
-        //collision with walls (X)
-        this.x += cos(this.direction) * this.speed * enemySpeedMagnitude;
-        for (w = 0; w < walls.length; w++){
-          if (detect2BoxesCollision({x: this.x - this.w/2, y: this.y - this.h/2, w: this.w, h: this.h}, walls[w])){
-            this.x -= cos(this.direction) * this.speed * enemySpeedMagnitude;;
-          }
-        }
-
-        this.y += sin(this.direction) * this.speed * enemySpeedMagnitude;
-
-        //collision with walls (Y)
-        for (w = 0; w < walls.length; w++){
-          if (detect2BoxesCollision({x: this.x - this.w/2, y: this.y - this.h/2, w: this.w, h: this.h}, walls[w])){
-            this.y -= sin(this.direction) * this.speed * enemySpeedMagnitude;
-          }
-        }
-
-        //collision with player
-        if (player.iFrames <= 0 && detect2BoxesCollision({x: this.x - this.w/2, y: this.y - this.h/2, w: this.w, h: this.h}, player)){
-          doDamageToPlayer(this.damage);
-        }
+        this.move();
 
         //shoot bullet
         if (this.spawnsBullet && this.bulletTimer <= 0){
@@ -273,35 +276,14 @@ function spawnEnemiesAroundPlayer(spawn){
   
 }
 
+
+const enemyOfColor = new Map();
+
 function getEnemy(enemyType, x, y, magnification, doSpawnAnimation){
-  switch (enemyType) {
-    case "gray":
-      return new Enemy_gray(x, y, magnification,doSpawnAnimation);
-      case "red":
-      return new Enemy_red(x, y, magnification,doSpawnAnimation);
-      case "yellow":
-      return new Enemy_yellow(x, y, magnification,doSpawnAnimation);
-      case "blue":
-      return new Enemy_blue(x, y, magnification,doSpawnAnimation);
-      case "blue_small":
-      return new Enemy_blue_small(x, y, magnification,doSpawnAnimation);
-      case "pink":
-      return new Enemy_pink(x, y, magnification,doSpawnAnimation);
-      case "green":
-      return new Enemy_green(x, y, magnification,doSpawnAnimation);
-      case "purple":
-      return new Enemy_purple(x, y, magnification,doSpawnAnimation);
-      case "geode_1":
-      return new Enemy_geode_1(x, y, magnification,doSpawnAnimation);
-      case "geode_2":
-      return new Enemy_geode_2(x, y, magnification,doSpawnAnimation);
-      case "geode_3":
-      return new Enemy_geode_3(x, y, magnification,doSpawnAnimation);
-      case "geode_4":
-      return new Enemy_geode_4(x, y, magnification,doSpawnAnimation);
-    default:
-      break;
-  }
+  console.log(enemyOfColor);
+  console.log(enemyType);
+  console.log(enemyOfColor.get(enemyType));
+  return new (enemyOfColor.get(enemyType))(x, y, magnification, doSpawnAnimation);
 }
 
 

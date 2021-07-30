@@ -1,3 +1,5 @@
+
+
 class Enemy_gray extends Enemy {
   constructor(x, y, magnification, doSpawnAnimation){
     super(x, y, magnification, doSpawnAnimation);
@@ -24,6 +26,7 @@ class Enemy_gray extends Enemy {
     
   }
 }
+enemyOfColor.set("gray", Enemy_gray);
 class Enemy_red extends Enemy {
   constructor(x, y, magnification, doSpawnAnimation){
     super(x, y, magnification, doSpawnAnimation);
@@ -50,6 +53,7 @@ class Enemy_red extends Enemy {
     
   }
 }
+enemyOfColor.set("red", Enemy_red);
 
 class Enemy_yellow extends Enemy {
   constructor(x, y, magnification, doSpawnAnimation){
@@ -77,6 +81,7 @@ class Enemy_yellow extends Enemy {
     
   }
 }
+enemyOfColor.set("yellow", Enemy_yellow);
 
 class Enemy_blue extends Enemy {
   constructor(x, y, magnification, doSpawnAnimation){
@@ -109,6 +114,7 @@ class Enemy_blue extends Enemy {
     
   }
 }
+enemyOfColor.set("blue", Enemy_blue);
 
 class Enemy_blue_small extends Enemy {
   constructor(x, y, magnification, doSpawnAnimation){
@@ -136,6 +142,7 @@ class Enemy_blue_small extends Enemy {
     
   }
 }
+enemyOfColor.set("blue_small", Enemy_blue_small);
 
 class Enemy_pink extends Enemy {
   constructor(x, y, magnification, doSpawnAnimation){
@@ -189,6 +196,7 @@ class Enemy_pink extends Enemy {
     }))
   }
 }
+enemyOfColor.set("pink", Enemy_pink);
 
 class Enemy_green extends Enemy {
   constructor(x, y, magnification, doSpawnAnimation){
@@ -244,6 +252,7 @@ class Enemy_green extends Enemy {
     }))
   }
 }
+enemyOfColor.set("green", Enemy_green);
 
 class Enemy_purple extends Enemy {
   constructor(x, y, magnification, doSpawnAnimation){
@@ -299,6 +308,160 @@ class Enemy_purple extends Enemy {
     }))
   }
 }
+enemyOfColor.set("purple", Enemy_purple);
+
+class Enemy_tan extends Enemy {
+  constructor(x, y, magnification, doSpawnAnimation){
+    super(x, y, magnification, doSpawnAnimation);
+    //enemy specific stuff
+    this.health = 8;
+    this.speed = 1.1;
+    this.damage = 10;
+    this.w = 4;
+    this.h = 4;
+    this.pal = {
+      r: 205,
+      g: 190,
+      b: 140,
+    },
+    this.loot = [];
+    this.chestDrops = [];
+    this.moneyDrop = 1;
+    this.spawnsBullet = true;
+    this.fireRate = 240;
+
+    this.setAttributes(x, y, magnification, doSpawnAnimation);
+  }
+
+  doBulletSpawn(){
+    var vectorX = this.x - (player.x + player.w/2);
+    var vectorY = this.y - (player.y + player.h/2);
+    for (i = -2; i < 3; i++){
+      bullets.push(new Bullet(this.x, this.y, Math.atan2(vectorY, vectorX) + i * 0.15, {
+        speed: 3,
+        friction: 1,
+        acceleration: 0,
+        lifeTime: 170,
+        size: 5,
+        pal: {
+          r: 160,
+          g: 110,
+          b: 60,
+        },
+        damagesTerrain: true,
+        goesThroughTerrain: false,
+        destructionLevel: 3,
+        damageToTerrain: 5,
+        goesThroughEnemies: true,
+        damageToEnemies: 0,
+        goesThroughPlayer: false,
+        damageToPlayer: 15,
+        effectOnDeath: "none",
+        shakeXOnDeath: 0,
+        shakeYOnDeath: 0,
+        visual: "circle",
+      }))
+    }
+  }
+}
+enemyOfColor.set("tan", Enemy_tan);
+
+class Enemy_navy extends Enemy {
+  constructor(x, y, magnification, doSpawnAnimation){
+    super(x, y, magnification, doSpawnAnimation);
+    //enemy specific stuff
+    this.health = 5;
+    this.speed = 0;
+    this.damage = 12;
+    this.w = 4;
+    this.h = 4;
+    this.pal = {
+      r: 0,
+      g: 50,
+      b: 120,
+    },
+    this.loot = [];
+    this.chestDrops = [];
+    this.moneyDrop = 1;
+    //doesn't actually spawn a bullet
+    this.spawnsBullet = true;
+    this.fireRate = 60;
+
+    this.setAttributes(x, y, magnification, doSpawnAnimation);
+  }
+
+  doBulletSpawn(){
+    this.direction = Math.atan2(player.y + player.h/2 - this.y, player.x + player.w/2 - this.x);
+    this.speed = 1;
+  }
+
+  move(){
+    this.speed *= 0.95;
+    //this.direction = Math.atan2(player.y + player.h/2 - this.y, player.x + player.w/2 - this.x);
+    //collision with walls (X)
+    this.x += cos(this.direction) * this.speed * enemySpeedMagnitude;
+    for (w = 0; w < walls.length; w++){
+      if (detect2BoxesCollision({x: this.x - this.w/2, y: this.y - this.h/2, w: this.w, h: this.h}, walls[w])){
+        this.x -= cos(this.direction) * this.speed * enemySpeedMagnitude;;
+      }
+    }
+
+    this.y += sin(this.direction) * this.speed * enemySpeedMagnitude;
+
+    //collision with walls (Y)
+    for (w = 0; w < walls.length; w++){
+      if (detect2BoxesCollision({x: this.x - this.w/2, y: this.y - this.h/2, w: this.w, h: this.h}, walls[w])){
+        this.y -= sin(this.direction) * this.speed * enemySpeedMagnitude;
+      }
+    }
+
+    //collision with player
+    if (player.iFrames <= 0 && detect2BoxesCollision({x: this.x - this.w/2, y: this.y - this.h/2, w: this.w, h: this.h}, player)){
+      doDamageToPlayer(this.damage);
+    }
+  }
+}
+enemyOfColor.set("navy", Enemy_navy);
+
+class Enemy_mustard extends Enemy {
+  constructor(x, y, magnification, doSpawnAnimation){
+    super(x, y, magnification, doSpawnAnimation);
+    //enemy specific stuff
+    this.health = 28;
+    this.speed = 0.8;
+    this.damage = 12;
+    this.w = 12;
+    this.h = 12;
+    this.pal = {
+      r: 160,
+      g: 160,
+      b: 20,
+    },
+    this.loot = [];
+    this.chestDrops = [];
+    this.moneyDrop = 2;
+    this.spawnsBullet = true;
+    this.fireRate = 240;
+    this.enemiesSpawned = 0;
+    this.spawnsFragmentsOnDeath = true,
+    this.fragmentOffsetX = 8,
+    this.fragmentOffsetY = 8,
+    this.fragmentSpawns = ["yellow","yellow","yellow"],
+
+    this.setAttributes(x, y, magnification, doSpawnAnimation);
+  }
+
+  doBulletSpawn(){
+    if (this.enemiesSpawned < 20){
+      this.enemiesSpawned += 1;
+      enemies.push(new Enemy_yellow(this.x, this.y, 0.8, false));
+    }
+    
+  }
+}
+enemyOfColor.set("mustard", Enemy_mustard);
+
+
 
 class Enemy_geode_1 extends Enemy {
   constructor(x, y, magnification, doSpawnAnimation){
@@ -330,6 +493,7 @@ class Enemy_geode_1 extends Enemy {
     
   }
 }
+enemyOfColor.set("geode_1", Enemy_geode_1);
 
 class Enemy_geode_2 extends Enemy {
   constructor(x, y, magnification, doSpawnAnimation){
@@ -361,6 +525,7 @@ class Enemy_geode_2 extends Enemy {
     
   }
 }
+enemyOfColor.set("geode_2", Enemy_geode_2);
 
 class Enemy_geode_3 extends Enemy {
   constructor(x, y, magnification, doSpawnAnimation){
@@ -392,6 +557,7 @@ class Enemy_geode_3 extends Enemy {
     
   }
 }
+enemyOfColor.set("geode_3", Enemy_geode_3);
 
 class Enemy_geode_4 extends Enemy {
   constructor(x, y, magnification, doSpawnAnimation){
@@ -420,3 +586,4 @@ class Enemy_geode_4 extends Enemy {
     
   }
 }
+enemyOfColor.set("geode_4", Enemy_geode_4);
