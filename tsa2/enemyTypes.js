@@ -392,11 +392,11 @@ class Enemy_navy extends Enemy {
 
   doBulletSpawn(){
     this.direction = Math.atan2(player.y + player.h/2 - this.y, player.x + player.w/2 - this.x);
-    this.speed = 1;
+    this.speed = 0.9;
   }
 
   move(){
-    this.speed *= 0.95;
+    this.speed *= 0.96;
     //this.direction = Math.atan2(player.y + player.h/2 - this.y, player.x + player.w/2 - this.x);
     //collision with walls (X)
     this.x += cos(this.direction) * this.speed * enemySpeedMagnitude;
