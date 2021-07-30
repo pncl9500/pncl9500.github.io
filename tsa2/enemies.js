@@ -280,9 +280,6 @@ function spawnEnemiesAroundPlayer(spawn){
 const enemyOfColor = new Map();
 
 function getEnemy(enemyType, x, y, magnification, doSpawnAnimation){
-  console.log(enemyOfColor);
-  console.log(enemyType);
-  console.log(enemyOfColor.get(enemyType));
   return new (enemyOfColor.get(enemyType))(x, y, magnification, doSpawnAnimation);
 }
 

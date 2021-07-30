@@ -609,11 +609,16 @@ function generateMap(areaType) {
 
     for (h = 0; h < gameMap.yDivisions; h++) {
       column = [];
+      tilesWithStructuresColumn = [];
       for (w = 0; w < gameMap.xDivisions; w++) {
         column.push(0);
+        tilesWithStructuresColumn.push(0);
       }
       tiles.push(column);
+      tilesWithStructures.push(tilesWithStructuresColumn);
     }
+
+
 
     switch (areaTypes[areaType].generationType) {
       case "random":
@@ -810,17 +815,36 @@ function floodFill(x, y) {
   }
 }
 
+tilesWithStructures = [];
+
 function spawnStructure(structureType) {
-  structureHeight = structures[structureType].tiles[0].length;
-  structureWidth = structures[structureType].tiles.length;
+  var validStructurePosition = false;
+  var iterations = 0;
+  while (validStructurePosition === false && iterations < 100) {
+    iterations += 1;
+    var validStructurePosition = true;
 
-  structureX = floor(random(0, tiles.length - structureWidth));
-  structureY = floor(random(0, tiles.length - structureHeight));
+    var structureHeight = structures[structureType].tiles[0].length;
+    var structureWidth = structures[structureType].tiles.length;
 
+    var structureX = floor(random(0, tiles.length - structureWidth));
+    var structureY = floor(random(0, tiles.length - structureHeight));
+
+    for (x = 0; x < structureWidth; x++) {
+      for (y = 0; y < structureHeight; y++) {
+        if (tilesWithStructures[x + structureX][y + structureY] === 1){
+          validStructurePosition = false;
+        }
+      }
+    }
+
+  }
+  
   for (x = 0; x < structureWidth; x++) {
     for (y = 0; y < structureHeight; y++) {
       tiles[x + structureX][y + structureY] =
-        structures[structureType].tiles[x][y];
+      structures[structureType].tiles[x][y];
+      tilesWithStructures[x + structureX][y + structureY] = 1;
     }
   }
 

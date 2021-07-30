@@ -204,7 +204,7 @@ areaTypes = {
     hasHole: false,
   },
   blackMarket: {
-    generationType: "none",
+    generationType: "lines",
     structures:[
       {structure: "shop", count: 24, chance: 1},
       {structure: "desertPortal", count: 1, chance: 1},
