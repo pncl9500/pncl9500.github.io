@@ -25,6 +25,7 @@ areaTypes = {
     yDivisions: 24,
     hasHole: true,
     holeArea: "sewer2",
+    chestCostMultiplier: 1,
   },
   sewer2: {
     generationType: "lines",
@@ -50,6 +51,7 @@ areaTypes = {
     yDivisions: 24,
     hasHole: true,
     holeArea: "sewer3",
+    chestCostMultiplier: 1.33,
   },
   sewer3: {
     generationType: "lines",
@@ -75,6 +77,7 @@ areaTypes = {
     yDivisions: 24,
     hasHole: true,
     holeArea: "sewer4",
+    chestCostMultiplier: 1.66,
   },
   sewer4: {
     generationType: "none",
@@ -94,6 +97,7 @@ areaTypes = {
     xDivisions: 32,
     yDivisions: 32,
     hasHole: false,
+    chestCostMultiplier: 1,
   },
   cave1: {
     generationType: "cave",
@@ -116,6 +120,7 @@ areaTypes = {
     yDivisions: 24,
     hasHole: true,
     holeArea: "cave2",
+    chestCostMultiplier: 2,
   },
   cave2: {
     generationType: "cave",
@@ -138,6 +143,7 @@ areaTypes = {
     yDivisions: 24,
     hasHole: true,
     holeArea: "cave3",
+    chestCostMultiplier: 2.5,
   },
   cave3: {
     generationType: "cave",
@@ -160,6 +166,7 @@ areaTypes = {
     yDivisions: 24,
     hasHole: true,
     holeArea: "blackMarket",
+    chestCostMultiplier: 3,
   },
   
   debugArea: {
@@ -184,6 +191,7 @@ areaTypes = {
     yDivisions: 24,
     hasHole: true,
     holeArea: "sewer1",
+    chestCostMultiplier: 4.5,
   },
   library: {
     generationType: "none",
@@ -203,6 +211,7 @@ areaTypes = {
     xDivisions: 12,
     yDivisions: 2,
     hasHole: false,
+    chestCostMultiplier: 1,
   },
   blackMarket: {
     generationType: "lines",
@@ -224,6 +233,7 @@ areaTypes = {
     yDivisions: 24,
     hasHole: true,
     holeArea: "sewer1",
+    chestCostMultiplier: 2.5,
   },
   desert: {
     generationType: "random",
@@ -248,5 +258,6 @@ areaTypes = {
     yDivisions: 64,
     hasHole: true,
     holeArea: "blackMarket",
+    chestCostMultiplier: 3.5,
   },
 }

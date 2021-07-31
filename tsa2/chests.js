@@ -16,7 +16,7 @@ class Chest{
       noStroke();
       textSize(6);
       fill(0);
-      text(chestData[this.type].cost, this.x - cam.x + cam.offsetX, this.y - cam.y + cam.offsetY - 6)
+      text(Math.ceil(chestData[this.type].cost * areaTypes[currentLevel].chestCostMultiplier), this.x - cam.x + cam.offsetX, this.y - cam.y + cam.offsetY - 6)
     }
   }
 
@@ -24,7 +24,7 @@ class Chest{
     if (detect2BoxesCollision(this, player) && this.dead === false && player.money >= chestData[this.type].cost){
       this.spawnChestLoot();
       this.dead = true;
-      player.money -= chestData[this.type].cost;
+      player.money -= Math.ceil(chestData[this.type].cost * areaTypes[currentLevel].chestCostMultiplier);
     }
   }
 
