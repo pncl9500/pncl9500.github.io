@@ -454,7 +454,7 @@ class Enemy_mustard extends Enemy {
   doBulletSpawn(){
     if (this.enemiesSpawned < 20){
       this.enemiesSpawned += 1;
-      enemies.push(new Enemy_yellow(this.x, this.y, 0.8, false));
+      enemyFragmentQueue.push(new Enemy_yellow(this.x, this.y, 0.8, false));
     }
     
   }

@@ -1,6 +1,7 @@
 
 
 enemies = [];
+closeEnemies = [];
 enemyQueue = [];
 enemyQueueTick = 20;
 enemyQueueTime = 35;

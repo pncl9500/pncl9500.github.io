@@ -1,4 +1,5 @@
 
+
 cam = {
   x: 0,
   y: 0,
@@ -210,10 +211,14 @@ function fireSelectedGun(){
 }
 
 function draw(){
+  if (frameCount % 60 === 0){
+    sortEnemiesByDistanceFromPlayer();
+  }
   
   enemyQueueTick -= 1;
   if (enemyQueue.length > 0 && enemyQueueTick <= 0){
     enemies.push(enemyQueue[enemyQueue.length - 1]);
+    closeEnemies.push(enemyQueue[enemyQueue.length - 1]);
     enemyQueue.splice(enemyQueue.length - 1,1)
     enemyQueueTick = enemyQueueTime;
     if (enemyQueue.length >= 30){
@@ -279,6 +284,7 @@ function draw(){
 
   for (e = 0; e < enemyFragmentQueue.length; e++){
     enemies.push(enemyFragmentQueue[e])
+    closeEnemies.push(enemyFragmentQueue[e])
   }
   enemyFragmentQueue = [];
 
@@ -399,6 +405,7 @@ function mouseReleased(){
               cam.shakeX = 100;
               cam.shakeY = 100;
               enemies = [];
+              closeEnemies = [];
               spawners = [];
               enemyQueue = [];
               player.inventory[player.hoveredInventorySlot] = "none";

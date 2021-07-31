@@ -592,6 +592,7 @@ function generateMap(areaType) {
     walls = [];
     chests = [];
     enemies = [];
+    closeEnemies = [];
     spawners = [];
     pickups = [];
     tiles = [];
