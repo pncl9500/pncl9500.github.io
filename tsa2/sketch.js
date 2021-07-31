@@ -211,9 +211,9 @@ function fireSelectedGun(){
 }
 
 function draw(){
-  if (frameCount % 60 === 0){
-    sortEnemiesByDistanceFromPlayer();
-  }
+  // if (frameCount % 1 === 0){
+  //   sortEnemiesByDistanceFromPlayer();
+  // }
   
   enemyQueueTick -= 1;
   if (enemyQueue.length > 0 && enemyQueueTick <= 0){
