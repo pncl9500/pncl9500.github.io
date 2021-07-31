@@ -1,3 +1,5 @@
+
+
 holeSize = 64;
 
 class Wall {
@@ -577,6 +579,8 @@ function repositionPlayer() {
   removeSpawnVoids();
 }
 
+tileBuffer = [];
+
 function generateMap(areaType) {
   floorEffects = [];
   validHoleSpot = false;
@@ -591,6 +595,8 @@ function generateMap(areaType) {
     spawners = [];
     pickups = [];
     tiles = [];
+    tileBuffer = [];
+    tilesWithStructures = [];
     npcs = [];
     holes = [];
     shrines = [];
@@ -608,14 +614,18 @@ function generateMap(areaType) {
     gameMap.h = areaTypes[areaType].h;
 
     for (h = 0; h < gameMap.yDivisions; h++) {
+      //these might be rows i think... arrays are hard please help
       column = [];
       tilesWithStructuresColumn = [];
+      tileBufferColumn = [];
       for (w = 0; w < gameMap.xDivisions; w++) {
         column.push(0);
         tilesWithStructuresColumn.push(0);
+        tileBufferColumn.push(0);
       }
       tiles.push(column);
       tilesWithStructures.push(tilesWithStructuresColumn);
+      tileBuffer.push(tileBufferColumn);
     }
 
 
@@ -718,6 +728,105 @@ function generateMap(areaType) {
           h++;
         }
         break;
+      case "cave":
+        //do random generation. 1/4 is tile 1.
+        for (i = 0; i < (gameMap.xDivisions*gameMap.yDivisions)/4; i++) {
+          tilesOverlapping = true;
+          while (tilesOverlapping === true) {
+            tileXpos = floor(random(0, gameMap.xDivisions));
+            tileYpos = floor(random(0, gameMap.yDivisions));
+            if (tiles[tileXpos][tileYpos] === 1) {
+              tilesOverlapping = true;
+            } else {
+              tilesOverlapping = false;
+              tiles[tileXpos][tileYpos] = 1;
+            }
+          }
+        }
+        //do random generation. 1/4 is tile 2.
+        for (i = 0; i < (gameMap.xDivisions*gameMap.yDivisions)/4; i++) {
+          tilesOverlapping = true;
+          while (tilesOverlapping === true) {
+            tileXpos = floor(random(0, gameMap.xDivisions));
+            tileYpos = floor(random(0, gameMap.yDivisions));
+            if (tiles[tileXpos][tileYpos] === 1) {
+              tilesOverlapping = true;
+            } else {
+              tilesOverlapping = false;
+              tiles[tileXpos][tileYpos] = 2;
+            }
+          }
+        }
+        //do the cellular automata. 2 iterations
+        for (i = 0; i < 2; i++){
+          
+          for (var xx = 0; xx < gameMap.xDivisions; xx++){
+            for (var yy = 0; yy < gameMap.yDivisions; yy++){
+              switch (tiles[yy][xx]) {
+                case 0:
+                  if (getNeighbors(xx, yy, 1) > 4){
+                    tileBuffer[yy][xx] = 1;
+                    break;
+                  }
+                  tileBuffer[yy][xx] = 0;
+                  break;
+                case 1:
+                  if (getNeighbors(xx, yy, 0) > 4){
+                    tileBuffer[yy][xx] = 0;
+                    break;
+                  }
+                  if (getNeighbors(xx, yy, 0) === 4){
+                    tileBuffer[yy][xx] = 2;
+                    break;
+                  }
+                  tileBuffer[yy][xx] = 1;
+                  break;
+                case 2:
+                  if (getNeighbors(xx, yy, 0) >= 1){
+                    tileBuffer[yy][xx] = 1;
+                    break;
+                  }
+                  tileBuffer[yy][xx] = 2;
+                  break;
+                default:
+                  break;
+              }
+            }
+          }
+          //swap tilebuffer with tiles
+          swapBufferAndTiles();
+        }
+        //do another cellular automata where any air without 8 nearby air becomes rock
+          
+          for (var xx = 0; xx < gameMap.xDivisions; xx++){
+            for (var yy = 0; yy < gameMap.yDivisions; yy++){
+              switch (tiles[yy][xx]) {
+                case 0:
+                  if (getNeighbors(xx, yy, 0) >= 8){
+                    tileBuffer[yy][xx] = 1;
+                    break;
+                  }
+                  tileBuffer[yy][xx] = 0;
+                  break;
+                case 1:
+                  tileBuffer[yy][xx] = 1;
+                  break;
+                case 2:
+                  tileBuffer[yy][xx] = 2;
+                  break;
+                default:
+                  break;
+              }
+            }
+          }
+          //swap tilebuffer with tiles
+          swapBufferAndTiles();
+        //replace all 2s and 3s with 1s
+        for (x = 0; x < gameMap.xDivisions; x++){
+          for (y = 0; y < gameMap.xDivisions; y++){
+            tiles[y][x] = min(1, tiles[y][x])
+          }
+        }
       default:
         break;
     }
@@ -794,6 +903,51 @@ function generateMap(areaType) {
       holes = [];
     }
   }
+}
+
+function swapBufferAndTiles(){
+  tiles = [];
+  for (h = 0; h < gameMap.yDivisions; h++) {
+    //these might be rows i think... arrays are hard please help
+    column = [];
+    for (w = 0; w < gameMap.xDivisions; w++) {
+      column.push(tileBuffer[h][w]);
+    }
+    tiles.push(column);
+  }
+}
+
+function getNeighbors(x, y, neighborType){
+  count = 0;
+  if (typeof(tiles[y + 1]) != "undefined"){
+    if (tiles[y + 1][x] === neighborType){
+      count += 1;
+    }
+    if (tiles[y + 1][x + 1] === neighborType){
+      count += 1;
+    }
+    if (tiles[y + 1][x - 1] === neighborType){
+      count += 1;
+    }
+  }
+  if (typeof(tiles[y - 1]) != "undefined"){
+    if (tiles[y - 1][x] === neighborType){
+      count += 1;
+    }
+    if (tiles[y - 1][x + 1] === neighborType){
+      count += 1;
+    }
+    if (tiles[y - 1][x - 1] === neighborType){
+      count += 1;
+    }
+  }
+  if (tiles[y][x + 1] === neighborType){
+    count += 1;
+  }
+  if (tiles[y][x - 1] === neighborType){
+    count += 1;
+  }
+  return count;
 }
 
 function floodFill(x, y) {

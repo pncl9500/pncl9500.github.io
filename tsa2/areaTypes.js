@@ -96,7 +96,7 @@ areaTypes = {
     hasHole: false,
   },
   cave1: {
-    generationType: "random",
+    generationType: "cave",
     structures:[
       {structure: "shrine_generator", count: 1, chance: 1},
       {structure: "geode", count: 1, chance: 1},
@@ -118,7 +118,7 @@ areaTypes = {
     holeArea: "cave2",
   },
   cave2: {
-    generationType: "random",
+    generationType: "cave",
     structures:[
       {structure: "shrine_generator", count: 1, chance: 1},
       {structure: "geode", count: 1, chance: 1},
@@ -140,7 +140,7 @@ areaTypes = {
     holeArea: "cave3",
   },
   cave3: {
-    generationType: "random",
+    generationType: "cave",
     structures:[
       {structure: "shrine_generator", count: 1, chance: 1},
       {structure: "geode", count: 1, chance: 1},
@@ -161,6 +161,7 @@ areaTypes = {
     hasHole: true,
     holeArea: "blackMarket",
   },
+  
   debugArea: {
     generationType: "random",
     structures:[
