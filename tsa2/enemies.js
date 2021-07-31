@@ -107,6 +107,9 @@ class Enemy{
     this.alpha = -1500;
     this.targetAlpha = 255;
 
+    this.strokeAlpha = -250;
+    this.targetStrokeAlpha = 255;
+
     this.strokeWeight = 15;
     this.targetStrokeWeight = 0;
 
@@ -169,10 +172,14 @@ class Enemy{
         this.fillColor = color(this.pal.r, this.pal.g, this.pal.b);
         this.fillColor.setAlpha(this.alpha)
 
+        this.strokeAlpha += (this.targetStrokeAlpha - this.strokeAlpha)/(this.spawnAnimationSmoothing * 1.5);
+        this.strokeColor = color(this.pal.r, this.pal.g, this.pal.b);
+        this.strokeColor.setAlpha(this.strokeAlpha);
+
         fill(this.fillColor);
 
         strokeWeight(this.strokeWeight);
-        stroke(this.pal.r, this.pal.g, this.pal.b);
+        stroke(this.strokeColor);
         rect(this.x - cam.x + cam.offsetX, this.y - cam.y + cam.offsetY, this.w, this.h);
         this.spawnTimer -= 1;
         if (this.spawnTimer <= 0){
