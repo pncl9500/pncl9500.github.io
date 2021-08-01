@@ -523,7 +523,63 @@ function loadItems(){
       },
       droppable: true,
     },
-  }  
+    /* shotgun: {
+      inventorySprite: loadImage('textures/items/inventory/blackmarketteleport.png'),
+      inventoryLeftClickFunctionName: "Left Click: Equip",
+      name: "Buckboy",
+      effectOnLeftClick: "none",
+      consumeEffect: "spawnBullet",
+      consumeBulletProperties: {
+        speed: 0,
+        friction: 0,
+        acceleration: 0,
+        lifeTime: 240,
+        size: 8,
+        pal: {
+          r: 8,
+          g: 8,
+          b: 12,
+        },
+        damagesTerrain: false,
+        goesThroughTerrain: true,
+        destructionLevel: 0,
+        damageToTerrain: 0,
+        goesThroughEnemies: true,
+        damageToEnemies: 0,
+        goesThroughPlayer: true,
+        damageToPlayer: 0,
+        effectOnDeath: "spawnBullet",
+        shakeXOnDeath: 10,
+        shakeYOnDeath: 10,
+        spawnedBulletProperties: {
+          speed: 0,
+          friction: 0,
+          acceleration: 0,
+          lifeTime: 8,
+          size: 192,
+          pal: {
+            r: 255,
+            g: 125,
+            b: 0,
+          },
+          damagesTerrain: true,
+          goesThroughTerrain: true,
+          destructionLevel: 6,
+          damageToTerrain: 50,
+          goesThroughEnemies: true,
+          damageToEnemies: 4,
+          goesThroughPlayer: true,
+          damageToPlayer: 50,
+          effectOnDeath: "none",
+          shakeXOnDeath: 0,
+          shakeYOnDeath: 0,
+          visual: "circle",
+        },
+        visual: "circle"
+      },
+      droppable: true,
+    }*/
+  };  
 }
 
 itemPools = {
@@ -545,5 +601,4 @@ itemPools = {
     "blackmarketteleport",
     "teleportBack",
   ]
-}
-
+};

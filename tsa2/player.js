@@ -50,7 +50,7 @@ player = {
 
   iFramesOnHit: 60,
   iFrames: 0,
-}
+};
 
 
 function movePlayer(){
@@ -89,7 +89,7 @@ function movePlayer(){
   for (w = 0; w < walls.length; w++){
     if (detect2BoxesCollision(player, walls[w])){
       player.x -= player.xv;
-      player.xv *= walls[w].bounciness * -1
+      player.xv *= walls[w].bounciness * -1;
       //player.xv = 0;
     }
   }
@@ -100,7 +100,7 @@ function movePlayer(){
   for (w = 0; w < walls.length; w++){
     if (detect2BoxesCollision(player, walls[w])){
       player.y -= player.yv;
-      player.yv *= walls[w].bounciness * -1
+      player.yv *= walls[w].bounciness * -1;
       //player.yv = 0;
     }
   }

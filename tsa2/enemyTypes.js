@@ -13,7 +13,7 @@ class Enemy_gray extends Enemy {
       r: 200,
       g: 200,
       b: 200,
-    },
+    };
     this.loot = [];
     this.chestDrops = [];
     this.moneyDrop = 1;
@@ -40,7 +40,7 @@ class Enemy_red extends Enemy {
       r: 220,
       g: 0,
       b: 0,
-    },
+    };
     this.loot = [];
     this.chestDrops = [];
     this.moneyDrop = 2;
@@ -68,7 +68,7 @@ class Enemy_yellow extends Enemy {
       r: 240,
       g: 240,
       b: 0,
-    },
+    };
     this.loot = [];
     this.chestDrops = [];
     this.moneyDrop = 1;
@@ -129,7 +129,7 @@ class Enemy_blue_small extends Enemy {
       r: 55,
       g: 95,
       b: 255,
-    },
+    };
     this.loot = [];
     this.chestDrops = [];
     this.moneyDrop = 1;
@@ -157,7 +157,7 @@ class Enemy_pink extends Enemy {
       r: 235,
       g: 40,
       b: 240,
-    },
+    };
     this.loot = [];
     this.chestDrops = [];
     this.moneyDrop = 1;
@@ -193,7 +193,7 @@ class Enemy_pink extends Enemy {
       shakeXOnDeath: 0,
       shakeYOnDeath: 0,
       visual: "circle",
-    }))
+    }));
   }
 }
 enemyOfColor.set("pink", Enemy_pink);
@@ -211,7 +211,7 @@ class Enemy_green extends Enemy {
       r: 68,
       g: 181,
       b: 48,
-    },
+    };
     this.loot = [];
     this.chestDrops = [];
     this.moneyDrop = 2;
@@ -249,7 +249,7 @@ class Enemy_green extends Enemy {
       visual: "circle",
       statusEffect: "weaken",
       statusEffectTimer: 240,
-    }))
+    }));
   }
 }
 enemyOfColor.set("green", Enemy_green);
@@ -267,7 +267,7 @@ class Enemy_purple extends Enemy {
       r: 123,
       g: 33,
       b: 219,
-    },
+    };
     this.loot = [];
     this.chestDrops = [];
     this.moneyDrop = 2;
@@ -305,7 +305,7 @@ class Enemy_purple extends Enemy {
       visual: "circle",
       statusEffect: "disable",
       statusEffectTimer: 120,
-    }))
+    }));
   }
 }
 enemyOfColor.set("purple", Enemy_purple);
@@ -323,7 +323,7 @@ class Enemy_tan extends Enemy {
       r: 205,
       g: 190,
       b: 140,
-    },
+    };
     this.loot = [];
     this.chestDrops = [];
     this.moneyDrop = 1;
@@ -360,7 +360,7 @@ class Enemy_tan extends Enemy {
         shakeXOnDeath: 0,
         shakeYOnDeath: 0,
         visual: "circle",
-      }))
+      }));
     }
   }
 }
@@ -379,7 +379,7 @@ class Enemy_navy extends Enemy {
       r: 0,
       g: 50,
       b: 120,
-    },
+    };
     this.loot = [];
     this.chestDrops = [];
     this.moneyDrop = 1;
@@ -402,7 +402,7 @@ class Enemy_navy extends Enemy {
     this.x += cos(this.direction) * this.speed * enemySpeedMagnitude;
     for (w = 0; w < walls.length; w++){
       if (detect2BoxesCollision({x: this.x - this.w/2, y: this.y - this.h/2, w: this.w, h: this.h}, walls[w])){
-        this.x -= cos(this.direction) * this.speed * enemySpeedMagnitude;;
+        this.x -= cos(this.direction) * this.speed * enemySpeedMagnitude;
       }
     }
 
@@ -436,17 +436,17 @@ class Enemy_mustard extends Enemy {
       r: 160,
       g: 160,
       b: 20,
-    },
+    };
     this.loot = [];
     this.chestDrops = [];
     this.moneyDrop = 2;
     this.spawnsBullet = true;
     this.fireRate = 240;
     this.enemiesSpawned = 0;
-    this.spawnsFragmentsOnDeath = true,
-    this.fragmentOffsetX = 8,
-    this.fragmentOffsetY = 8,
-    this.fragmentSpawns = ["yellow","yellow","yellow"],
+    this.spawnsFragmentsOnDeath = true;
+    this.fragmentOffsetX = 8;
+    this.fragmentOffsetY = 8;
+    this.fragmentSpawns = ["yellow","yellow","yellow"];
 
     this.setAttributes(x, y, magnification, doSpawnAnimation);
   }
@@ -476,15 +476,15 @@ class Enemy_geode_1 extends Enemy {
       r: 40,
       g: 40,
       b: 40,
-    },
+    };
     this.loot = ["inventorycrystal"];
     this.chestDrops = [];
     this.moneyDrop = 0;
     this.spawnsBullet = false;
-    this.spawnsFragmentsOnDeath = true,
-    this.fragmentOffsetX = 0,
-    this.fragmentOffsetY = 0,
-    this.fragmentSpawns = ["geode_2"],
+    this.spawnsFragmentsOnDeath = true;
+    this.fragmentOffsetX = 0;
+    this.fragmentOffsetY = 0;
+    this.fragmentSpawns = ["geode_2"];
 
     this.setAttributes(x, y, magnification, doSpawnAnimation);
   }
@@ -508,15 +508,15 @@ class Enemy_geode_2 extends Enemy {
       r: 110,
       g: 110,
       b: 110,
-    },
+    };
     this.loot = ["inventorycrystal"];
     this.chestDrops = [];
     this.moneyDrop = 0;
     this.spawnsBullet = false;
-    this.spawnsFragmentsOnDeath = true,
-    this.fragmentOffsetX = 0,
-    this.fragmentOffsetY = 0,
-    this.fragmentSpawns = ["geode_3"],
+    this.spawnsFragmentsOnDeath = true;
+    this.fragmentOffsetX = 0;
+    this.fragmentOffsetY = 0;
+    this.fragmentSpawns = ["geode_3"];
 
     this.setAttributes(x, y, magnification, doSpawnAnimation);
   }
@@ -540,15 +540,15 @@ class Enemy_geode_3 extends Enemy {
       r: 180,
       g: 180,
       b: 180,
-    },
+    };
     this.loot = ["inventorycrystal"];
     this.chestDrops = [];
     this.moneyDrop = 0;
     this.spawnsBullet = false;
-    this.spawnsFragmentsOnDeath = true,
-    this.fragmentOffsetX = 0,
-    this.fragmentOffsetY = 0,
-    this.fragmentSpawns = ["geode_4"],
+    this.spawnsFragmentsOnDeath = true;
+    this.fragmentOffsetX = 0;
+    this.fragmentOffsetY = 0;
+    this.fragmentSpawns = ["geode_4"];
 
     this.setAttributes(x, y, magnification, doSpawnAnimation);
   }
@@ -572,12 +572,12 @@ class Enemy_geode_4 extends Enemy {
       r: 195,
       g: 100,
       b: 255,
-    },
+    };
     this.loot = ["inventorycrystal"];
     this.chestDrops = ["geode"];
     this.moneyDrop = 50;
     this.spawnsBullet = false;
-    this.spawnsFragmentsOnDeath = false,
+    this.spawnsFragmentsOnDeath = false;
 
     this.setAttributes(x, y, magnification, doSpawnAnimation);
   }

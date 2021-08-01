@@ -138,7 +138,7 @@ class Enemy{
     this.x += cos(this.direction) * this.speed * enemySpeedMagnitude;
     for (w = 0; w < walls.length; w++){
       if (detect2BoxesCollision({x: this.x - this.w/2, y: this.y - this.h/2, w: this.w, h: this.h}, walls[w])){
-        this.x -= cos(this.direction) * this.speed * enemySpeedMagnitude;;
+        this.x -= cos(this.direction) * this.speed * enemySpeedMagnitude;
       }
     }
 
@@ -171,7 +171,7 @@ class Enemy{
         this.strokeWeight += (this.targetStrokeWeight - this.strokeWeight)/(this.spawnAnimationSmoothing * 1.5);
 
         this.fillColor = color(this.pal.r, this.pal.g, this.pal.b);
-        this.fillColor.setAlpha(this.alpha)
+        this.fillColor.setAlpha(this.alpha);
 
         this.strokeAlpha += (this.targetStrokeAlpha - this.strokeAlpha)/(this.spawnAnimationSmoothing * 1.5);
         this.strokeColor = color(this.pal.r, this.pal.g, this.pal.b);
@@ -233,7 +233,7 @@ class Enemy{
 
   dropChests(){
     for (c = 0; c < this.chestDrops.length; c++){
-      chests.push(new Chest(this.chestDrops[c], this.x - 16, this.y - 8))
+      chests.push(new Chest(this.chestDrops[c], this.x - 16, this.y - 8));
     }
   }
 }
@@ -271,14 +271,14 @@ function spawnEnemiesAroundPlayer(spawn){
       enemySpawnOffsetX = 0;
       enemySpawnOffsetY = 0;
       getEnemySpawnPosition();
-      enemyQueue.push(getEnemy(spawns[currentLevel][spawn][e], player.x + enemySpawnOffsetX, player.y + enemySpawnOffsetY, 1))
+      enemyQueue.push(getEnemy(spawns[currentLevel][spawn][e], player.x + enemySpawnOffsetX, player.y + enemySpawnOffsetY, 1));
     }
   } else {
     for (e = 0; e < spawns[currentLevel][spawns[currentLevel].length - 1].length; e++){
       enemySpawnOffsetX = 0;
       enemySpawnOffsetY = 0;
       getEnemySpawnPosition();
-      enemyQueue.push(getEnemy(spawns[currentLevel][spawns[currentLevel].length - 1][e], player.x + enemySpawnOffsetX, player.y + enemySpawnOffsetY, 1))
+      enemyQueue.push(getEnemy(spawns[currentLevel][spawns[currentLevel].length - 1][e], player.x + enemySpawnOffsetX, player.y + enemySpawnOffsetY, 1));
     }
   }
   
@@ -306,11 +306,12 @@ class Spawner{
 
   draw(){
     //only for debugging. spawners are invisible in game.
-    var c = color(255,0,0)
+    // @pncl9500 what the fuck is this
+    var c = color(255,0,0);
     if (this.triggered === true){
-      var c = color(0,0,255)
+      c = color(0,0,255);
     }
-    c.setAlpha(50)
+    c.setAlpha(50); // fourth argument to color() works too...
     fill(c);
     noStroke();
     rect(this.x - cam.x + cam.offsetX, this.y - cam.y + cam.offsetY, this.w, this.h);
