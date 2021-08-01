@@ -12,9 +12,7 @@ cam = {
   shakeY: 0,
 
   damageShakeMultiplier: 0.2,
-}
-
-
+};
 
 crosshair = {
   x: 0,
@@ -27,7 +25,7 @@ crosshair = {
   textOffsetX: -2,
   textOffsetY: -24,
   spaceInBetweenText: 4,
-}
+};
 
 function detect2BoxesCollision(rect1, rect2){
   return (rect1.x < rect2.x + rect2.w &&
@@ -165,7 +163,7 @@ class Bullet{
     cam.shakeY += this.properties.shakeYOnDeath;
     switch (this.properties.effectOnDeath) {
       case "makeWall":
-        walls.push(new Wall(this.x - this.properties.size/2, this.y - this.properties.size/2, this.properties.size, this.properties.size,{r: 190, g: 180, b: 175},1,20,0.5))
+        walls.push(new Wall(this.x - this.properties.size/2, this.y - this.properties.size/2, this.properties.size, this.properties.size,{r: 190, g: 180, b: 175},1,20,0.5));
         break;
       case "spawnBullet":
         bullets.push(new Bullet(this.x, this.y, 0, this.properties.spawnedBulletProperties));
@@ -219,7 +217,7 @@ function draw(){
   if (enemyQueue.length > 0 && enemyQueueTick <= 0){
     enemies.push(enemyQueue[enemyQueue.length - 1]);
     closeEnemies.push(enemyQueue[enemyQueue.length - 1]);
-    enemyQueue.splice(enemyQueue.length - 1,1)
+    enemyQueue.splice(enemyQueue.length - 1,1);
     enemyQueueTick = enemyQueueTime;
     if (enemyQueue.length >= 30){
       enemyQueueTime /= 1.05;
@@ -253,7 +251,7 @@ function draw(){
   
 
 
-  cam.zoom = 1 + (abs(player.xv) + abs(player.yv))/20
+  cam.zoom = 1 + (abs(player.xv) + abs(player.yv))/20;
   
   cam.x += (player.x - cam.x + player.w/2 + crosshair.x) / cam.smoothing;
   cam.y += (player.y - cam.y + player.h/2 + crosshair.y) / cam.smoothing;
@@ -283,14 +281,14 @@ function draw(){
   drawEnemies();
 
   for (e = 0; e < enemyFragmentQueue.length; e++){
-    enemies.push(enemyFragmentQueue[e])
-    closeEnemies.push(enemyFragmentQueue[e])
+    enemies.push(enemyFragmentQueue[e]);
+    closeEnemies.push(enemyFragmentQueue[e]);
   }
   enemyFragmentQueue = [];
 
   drawWalls();
   drawMapOutline();
-  drawPlayerHealthBar()
+  drawPlayerHealthBar();
   drawInventoryBoxes();
   //idk it works i guess
   //the effect of the weird canvasscale stuff is to make the dialoguebox appear from the npc that spawns it
@@ -303,7 +301,7 @@ function draw(){
           {x: (npcs[n].x - cam.x + cam.offsetX + npcs[n].w/2)*canvasScale, y: (npcs[n].y - cam.y + cam.offsetY + npcs[n].h/2)*canvasScale, targetX: (npcs[n].x - cam.x + cam.offsetX + npcs[n].w/2)*canvasScale, targetY: (npcs[n].y - cam.y + cam.offsetY + npcs[n].h/2)*canvasScale},
           {x: (npcs[n].x - cam.x + cam.offsetX + npcs[n].w/2)*canvasScale, y: (npcs[n].y - cam.y + cam.offsetY + npcs[n].h/2)*canvasScale, targetX: (npcs[n].x - cam.x + cam.offsetX + npcs[n].w/2)*canvasScale, targetY: (npcs[n].y - cam.y + cam.offsetY + npcs[n].h/2)*canvasScale},
           {x: (npcs[n].x - cam.x + cam.offsetX + npcs[n].w/2)*canvasScale, y: (npcs[n].y - cam.y + cam.offsetY + npcs[n].h/2)*canvasScale, targetX: (npcs[n].x - cam.x + cam.OffsetX + npcs[n].w/2)*canvasScale, targetY: (npcs[n].y - cam.y + cam.offsetY + npcs[n].h/2)*canvasScale},
-        ]
+        ];
         break;
       }
     }
@@ -371,14 +369,20 @@ function keyPressed(){
       if (!(dialogueBox.hidden) && (dialogueBox.state === "npcPopup")){
         dialogueBox.state = "lowering";
       }
+      break;
     default:
       break;
   }
 
 
   //1-9 hotkeys
-  for (k = 49; k < 57; k++){
-    if (keyCode === k && itemData[player.inventory[k - 49]].effectOnLeftClick === "equip"){
+  // for (k = 49; k < 57; k++){
+  //   if (keyCode === k && itemData[player.inventory[k - 49]].effectOnLeftClick === "equip"){
+  //     player.selectedInventorySlot = k - 49;
+  //   }
+  // }
+  if(keyCode >= 49 && keyCode <= 56){
+    if (itemData[player.inventory[keyCode - 49]].effectOnLeftClick === "equip"){
       player.selectedInventorySlot = k - 49;
     }
   }
@@ -398,7 +402,7 @@ function mouseReleased(){
         if (itemData[player.inventory[player.hoveredInventorySlot]].effectOnLeftClick === "consume"){
           switch (itemData[player.inventory[player.hoveredInventorySlot]].consumeEffect) {
             case "increaseHealth":
-              player.health = min(player.maxHealth, player.health + itemData[player.inventory[player.hoveredInventorySlot]].consumeEffectAmount)
+              player.health = min(player.maxHealth, player.health + itemData[player.inventory[player.hoveredInventorySlot]].consumeEffectAmount);
               player.inventory[player.hoveredInventorySlot] = "none";
               break;
             case "killAllEnemies":
@@ -411,7 +415,7 @@ function mouseReleased(){
               player.inventory[player.hoveredInventorySlot] = "none";
               break;
             case "spawnBullet":
-              bullets.push(new Bullet(player.x + player.w/2, player.y + player.w/2, 0, itemData[player.inventory[player.hoveredInventorySlot]].consumeBulletProperties))
+              bullets.push(new Bullet(player.x + player.w/2, player.y + player.w/2, 0, itemData[player.inventory[player.hoveredInventorySlot]].consumeBulletProperties));
               player.inventory[player.hoveredInventorySlot] = "none";
               break;
             case "increasePlayerSpeed":
@@ -439,8 +443,8 @@ function mouseReleased(){
         if (player.hoveredInventorySlot !== false && itemData[player.inventory[player.hoveredInventorySlot]].droppable){
           pickups.push(new Pickup(player.inventory[player.hoveredInventorySlot], player.x + player.w/2, player.y + player.h/2));
           player.inventory[player.hoveredInventorySlot] = "none";
-          break;
         }
+        break;
     default:
       break;
   }

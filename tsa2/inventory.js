@@ -2,12 +2,12 @@ pickups = [];
 
 class Pickup{
   constructor(item,x,y){
-    this.item = item
+    this.item = item;
     this.x = x;
     this.y = y;
     this.xv = random(-1.5,1.5);
     this.yv = random(-1.5,1.5);
-    this.friction = 0.95
+    this.friction = 0.95;
     this.size = 0;
     this.targetSize = 16;
     //animation stuff
@@ -31,7 +31,7 @@ class Pickup{
     rect(this.x - this.size/2 - cam.x + cam.offsetX, this.y - this.size/2 - cam.y + cam.offsetY, this.size, this.size);
 
     //make image
-    image(itemData[this.item].inventorySprite,this.x - this.size/2 - cam.x + cam.offsetX + this.padding, this.y - this.size/2 - cam.y + cam.offsetY + this.padding, this.size - this.padding * 2, this.size - this.padding * 2)
+    image(itemData[this.item].inventorySprite,this.x - this.size/2 - cam.x + cam.offsetX + this.padding, this.y - this.size/2 - cam.y + cam.offsetY + this.padding, this.size - this.padding * 2, this.size - this.padding * 2);
 
     this.x += this.xv;
 
@@ -39,7 +39,7 @@ class Pickup{
     for (w = 0; w < walls.length; w++){
       if (detect2BoxesCollision({x: this.x - this.targetSize/2, y: this.y - this.targetSize/2, w: this.targetSize, h: this.targetSize}, walls[w])){
         this.x -= this.xv;
-        this.xv *= -1
+        this.xv *= -1;
       }
     }
 
@@ -49,7 +49,7 @@ class Pickup{
     for (w = 0; w < walls.length; w++){
       if (detect2BoxesCollision({x: this.x - this.targetSize/2, y: this.y - this.targetSize/2, w: this.targetSize, h: this.targetSize}, walls[w])){
         this.y -= this.yv;
-        this.yv *= -1
+        this.yv *= -1;
       }
     }
   }
@@ -124,6 +124,7 @@ class InventoryBox{
         this.targetSize = 0;
         this.smoothing = this.smoothing/2 + 1;
         this.selectedSize += (this.targetSelectedSize - this.selectedSize)/this.smoothing;
+        break;
       default:
         break;
     }
@@ -138,7 +139,7 @@ class InventoryBox{
 
     //make image
     if (player.inventory[this.slot] != "none"){
-      image(itemData[player.inventory[this.slot]].inventorySprite,this.x - this.size/2 - this.selectedSize- cam.x + cam.offsetX + this.padding, this.y - this.size/2 - this.selectedSize - cam.y + cam.offsetY + this.padding, this.size - this.padding * 2 + this.selectedSize*2, this.size - this.padding * 2 + this.selectedSize*2)
+      image(itemData[player.inventory[this.slot]].inventorySprite,this.x - this.size/2 - this.selectedSize- cam.x + cam.offsetX + this.padding, this.y - this.size/2 - this.selectedSize - cam.y + cam.offsetY + this.padding, this.size - this.padding * 2 + this.selectedSize*2, this.size - this.padding * 2 + this.selectedSize*2);
     }
 
     //if the slot is 0, text is drawn which is the player's money counter
@@ -146,7 +147,7 @@ class InventoryBox{
       noStroke();
       fill(0);
       textSize(5);
-      text(`Money: ${player.money}`, this.x - this.size/2 - this.selectedSize - cam.x + cam.offsetX + this.padding, this.y - this.size/2 - this.selectedSize - cam.y + cam.offsetY + this.padding - player.moneyCountYOffset)
+      text(`Money: ${player.money}`, this.x - this.size/2 - this.selectedSize - cam.x + cam.offsetX + this.padding, this.y - this.size/2 - this.selectedSize - cam.y + cam.offsetY + this.padding - player.moneyCountYOffset);
     }
   }
 }
@@ -161,7 +162,7 @@ function drawInventoryBoxes(){
   for (l = 0; l < inventoryBoxes.length; l++){
     inventoryBoxes[l].draw();
     if (inventoryBoxes[l].timer < 1){
-      inventoryBoxes.splice(l,1)
+      inventoryBoxes.splice(l,1);
       l -= 1;
     }
   }

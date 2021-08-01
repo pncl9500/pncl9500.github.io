@@ -11,12 +11,12 @@ class Chest{
   }
 
   draw(){
-    image(chestData[this.type].sprite,this.x - cam.x + cam.offsetX, this.y - cam.y + cam.offsetY, this.w, this.h)
+    image(chestData[this.type].sprite,this.x - cam.x + cam.offsetX, this.y - cam.y + cam.offsetY, this.w, this.h);
     if (chestData[this.type].cost !== 0){
       noStroke();
       textSize(6);
       fill(0);
-      text(Math.ceil(chestData[this.type].cost * areaTypes[currentLevel].chestCostMultiplier), this.x - cam.x + cam.offsetX, this.y - cam.y + cam.offsetY - 6)
+      text(Math.ceil(chestData[this.type].cost * areaTypes[currentLevel].chestCostMultiplier), this.x - cam.x + cam.offsetX, this.y - cam.y + cam.offsetY - 6);
     }
   }
 
@@ -42,7 +42,7 @@ class Chest{
         }
       }
       for (l = 0; l < chestData[this.type].lootItemCount; l++){
-        this.selectedItem = "none"
+        this.selectedItem = "none";
         this.selectedItem = this.pickTable[floor(random(0, this.pickTable.length))];
         if (typeof(this.selectedItem.special) == "undefined"){
           this.selectedItem.special = false;
@@ -60,18 +60,18 @@ class Chest{
               }
               break;
             case "randomitem":
-              var randomItem = itemPools.randomPool[floor(random(0, itemPools.randomPool.length))]
+              var randomItem = itemPools.randomPool[floor(random(0, itemPools.randomPool.length))];
               console.log(randomItem);
               console.log(itemPools);
               console.log(itemPools.randomPool);
-              pickups.push(new Pickup(randomItem,this.x + this.w/2, this.y + this.h/2))
+              pickups.push(new Pickup(randomItem,this.x + this.w/2, this.y + this.h/2));
               break;
             default:
               break;
           }
         } else {
           console.log(this.selectedItem.item);
-          pickups.push(new Pickup(this.selectedItem.item,this.x + this.w/2, this.y + this.h/2))
+          pickups.push(new Pickup(this.selectedItem.item,this.x + this.w/2, this.y + this.h/2));
         }
       }
     }
@@ -301,5 +301,5 @@ function loadChests(){
       //important chests are not converted by shattered shrine.
       important: false,
     }
-  }
+  };
 }
