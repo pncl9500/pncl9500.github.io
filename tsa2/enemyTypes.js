@@ -467,7 +467,7 @@ class Enemy_geode_1 extends Enemy {
   constructor(x, y, magnification, doSpawnAnimation){
     super(x, y, magnification, doSpawnAnimation);
     //enemy specific stuff
-    this.health = 40;
+    this.health = 100;
     this.speed = 0.8;
     this.damage = 30;
     this.w = 32;
@@ -499,7 +499,7 @@ class Enemy_geode_2 extends Enemy {
   constructor(x, y, magnification, doSpawnAnimation){
     super(x, y, magnification, doSpawnAnimation);
     //enemy specific stuff
-    this.health = 30;
+    this.health = 70;
     this.speed = 1.2;
     this.damage = 30;
     this.w = 24;
@@ -531,7 +531,7 @@ class Enemy_geode_3 extends Enemy {
   constructor(x, y, magnification, doSpawnAnimation){
     super(x, y, magnification, doSpawnAnimation);
     //enemy specific stuff
-    this.health = 25;
+    this.health = 40;
     this.speed = 2;
     this.damage = 25;
     this.w = 16;
@@ -563,8 +563,8 @@ class Enemy_geode_4 extends Enemy {
   constructor(x, y, magnification, doSpawnAnimation){
     super(x, y, magnification, doSpawnAnimation);
     //enemy specific stuff
-    this.health = 10;
-    this.speed = 4.7;
+    this.health = 15;
+    this.speed = 4.8;
     this.damage = 16;
     this.w = 8;
     this.h = 8;
@@ -587,3 +587,47 @@ class Enemy_geode_4 extends Enemy {
   }
 }
 enemyOfColor.set("geode_4", Enemy_geode_4);
+
+class Enemy_dijon extends Enemy {
+  constructor(x, y, magnification, doSpawnAnimation){
+    super(x, y, magnification, doSpawnAnimation);
+    //enemy specific stuff
+    this.health = 175;
+    this.speed = 3;
+    this.damage = 10;
+    this.w = 24;
+    this.h = 24;
+    this.pal = {
+      r: 225,
+      g: 200,
+      b: 115,
+    };
+    this.loot = [];
+    this.chestDrops = [];
+    this.moneyDrop = 50;
+    this.spawnsBullet = true;
+    this.spawnsFragmentsOnDeath = false;
+    this.fireRate = 60;
+
+    this.setAttributes(x, y, magnification, doSpawnAnimation);
+  }
+
+  doBulletSpawn(){
+    this.rng = floor(random(0, 3));
+    switch (this.rng) {
+      case 0:
+        enemyFragmentQueue.push(new Enemy_yellow(this.x, this.y, 0.8, false));
+        break;
+      case 1:
+        enemyFragmentQueue.push(new Enemy_mustard(this.x, this.y, 0.6, false));
+        break;
+      case 2:
+        enemyFragmentQueue.push(new Enemy_navy(this.x, this.y, 0.8, false));
+        break;
+      default:
+        break;
+    }
+  }
+}
+enemyOfColor.set("dijon", Enemy_dijon);
+

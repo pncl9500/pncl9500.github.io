@@ -214,6 +214,17 @@ function loadStructures(){
         y: 2.5,
       }],
     },
+    supernest: {
+      tiles: [
+        [18,18,18],
+        [18,17,18],
+        [18,18,18],
+      ],
+      chests: [],
+      npcs: [],
+      shrines: [],
+      bosses: [],
+    },
     bossArena_1: {
       tiles: [
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,],

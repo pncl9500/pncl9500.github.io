@@ -102,8 +102,7 @@ areaTypes = {
   cave1: {
     generationType: "cave",
     structures:[
-      {structure: "shrine_generator", count: 1, chance: 1},
-      {structure: "geode", count: 1, chance: 1},
+      {structure: "shrine_generator", count: 1, chance: 1},      
       {structure: "shop", count: 1, chance: 1},
     ],
     mapPal: {
@@ -149,8 +148,8 @@ areaTypes = {
     generationType: "cave",
     structures:[
       {structure: "shrine_generator", count: 1, chance: 1},
-      {structure: "geode", count: 1, chance: 1},
       {structure: "shop", count: 1, chance: 1},
+      {structure: "supernest", count: 1, chance: 1},
     ],
     mapPal: {
       r: 80,

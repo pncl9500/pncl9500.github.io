@@ -528,6 +528,73 @@ function makeWalls() {
             )
           );
           break;
+        case 17:
+            //super nest
+            walls.push(
+              new Wall(
+                (w * gameMap.w) / gameMap.xDivisions,
+                (h * gameMap.h) / gameMap.yDivisions,
+                gameMap.w / gameMap.xDivisions,
+                gameMap.h / gameMap.yDivisions,
+                { r: 100, g: 100, b: 85 },
+                1,
+                10,
+                0.7,
+                [
+                  "yellow",
+                  "yellow",
+                  "yellow",
+                  "yellow",
+                  "yellow",
+                  "yellow",
+                  "yellow",
+                  "yellow",
+                  "mustard",
+                  "mustard",
+                  "navy",
+                  "navy",
+                  "navy",
+                  "navy",
+                  "dijon",
+                ],
+                30,
+                30,
+                1,
+                [],
+                []
+              )
+            );
+            break;
+        case 18:
+          //nest, but without chest
+          walls.push(
+            new Wall(
+              (w * gameMap.w) / gameMap.xDivisions,
+              (h * gameMap.h) / gameMap.yDivisions,
+              gameMap.w / gameMap.xDivisions,
+              gameMap.h / gameMap.yDivisions,
+              { r: 130, g: 130, b: 120 },
+              1,
+              10,
+              0.7,
+              [
+                "yellow",
+                "yellow",
+                "yellow",
+                "yellow",
+                "yellow",
+                "yellow",
+                "yellow",
+                "yellow",
+              ],
+              50,
+              50,
+              1,
+              [],
+              []
+            )
+          );
+          break;
         default:
           break;
       }
@@ -827,6 +894,20 @@ function generateMap(areaType) {
           for (y = 0; y < gameMap.xDivisions; y++){
             tiles[y][x] = min(1, tiles[y][x])
           }
+        }
+        //add 5 hives (nests) (tiles that spawn a bunch of yellow enemies)
+        for (h = 0; h < 5; h++){
+          h--;
+          validHiveSpot = false;
+          while (!validHiveSpot) {
+            hiveX = floor(random(0, tiles[0].length));
+            hiveY = floor(random(0, tiles.length));
+            if (tiles[hiveY][hiveX] === 1){
+              validHiveSpot = true;
+              tiles[hiveY][hiveX] = 4
+            }
+          }
+          h++;
         }
       default:
         break;
