@@ -259,4 +259,4 @@ areaTypes = {
     holeArea: "blackMarket",
     chestCostMultiplier: 3.5,
   },
-}
+};

@@ -981,4 +981,4 @@ spawns = {
     ["purple", "purple", "pink", "pink", "pink", "pink", "pink", "pink", "pink", "yellow", "yellow", "yellow", "yellow", "yellow", "yellow", "yellow", "purple", "purple"],
     ["purple", "purple", "purple", "pink", "pink", "pink", "pink", "pink", "pink", "pink", "yellow", "yellow", "yellow", "yellow", "yellow", "yellow", "yellow", "purple", "purple"],
   ]
-}
+};

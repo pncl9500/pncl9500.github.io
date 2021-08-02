@@ -753,10 +753,10 @@ function generateMap(areaType) {
           }
           //randomly skip or add an extra line
           if (floor(random(1,5)) === 1){
-            y -= 1
+            y -= 1;
           }
           if (floor(random(1,3)) === 1){
-            y += 1
+            y += 1;
           }
         }
         //make random vertical lines of nothing
@@ -790,7 +790,7 @@ function generateMap(areaType) {
             hiveY = floor(random(0, tiles.length));
             if (tiles[hiveY][hiveX] === 1){
               validHiveSpot = true;
-              tiles[hiveY][hiveX] = 4
+              tiles[hiveY][hiveX] = 4;
             }
           }
           h++;
@@ -828,8 +828,8 @@ function generateMap(areaType) {
         //do the cellular automata. 2 iterations
         for (i = 0; i < 2; i++){
           
-          for (var xx = 0; xx < gameMap.xDivisions; xx++){
-            for (var yy = 0; yy < gameMap.yDivisions; yy++){
+          for (xx = 0; xx < gameMap.xDivisions; xx++){
+            for (yy = 0; yy < gameMap.yDivisions; yy++){
               switch (tiles[yy][xx]) {
                 case 0:
                   if (getNeighbors(xx, yy, 1) > 4){
@@ -866,8 +866,8 @@ function generateMap(areaType) {
         }
         //do another cellular automata where any air without 8 nearby air becomes rock
           
-          for (var xx = 0; xx < gameMap.xDivisions; xx++){
-            for (var yy = 0; yy < gameMap.yDivisions; yy++){
+          for (xx = 0; xx < gameMap.xDivisions; xx++){
+            for (yy = 0; yy < gameMap.yDivisions; yy++){
               switch (tiles[yy][xx]) {
                 case 0:
                   if (getNeighbors(xx, yy, 0) >= 8){
@@ -892,7 +892,7 @@ function generateMap(areaType) {
         //replace all 2s and 3s with 1s
         for (x = 0; x < gameMap.xDivisions; x++){
           for (y = 0; y < gameMap.xDivisions; y++){
-            tiles[y][x] = min(1, tiles[y][x])
+            tiles[y][x] = min(1, tiles[y][x]);
           }
         }
         //add 5 hives (nests) (tiles that spawn a bunch of yellow enemies)
@@ -904,11 +904,12 @@ function generateMap(areaType) {
             hiveY = floor(random(0, tiles.length));
             if (tiles[hiveY][hiveX] === 1){
               validHiveSpot = true;
-              tiles[hiveY][hiveX] = 4
+              tiles[hiveY][hiveX] = 4;
             }
           }
           h++;
         }
+        break;
       default:
         break;
     }
@@ -1056,15 +1057,20 @@ tilesWithStructures = [];
 function spawnStructure(structureType) {
   var validStructurePosition = false;
   var iterations = 0;
+  var structureHeight = structures[structureType].tiles[0].length;
+  var structureWidth = structures[structureType].tiles.length;
+
+  var structureX = floor(random(0, tiles.length - structureWidth));
+  var structureY = floor(random(0, tiles.length - structureHeight));
   while (validStructurePosition === false && iterations < 100) {
     iterations += 1;
-    var validStructurePosition = true;
+    validStructurePosition = true;
 
-    var structureHeight = structures[structureType].tiles[0].length;
-    var structureWidth = structures[structureType].tiles.length;
+    structureHeight = structures[structureType].tiles[0].length;
+    structureWidth = structures[structureType].tiles.length;
 
-    var structureX = floor(random(0, tiles.length - structureWidth));
-    var structureY = floor(random(0, tiles.length - structureHeight));
+    structureX = floor(random(0, tiles.length - structureWidth));
+    structureY = floor(random(0, tiles.length - structureHeight));
 
     for (x = 0; x < structureWidth; x++) {
       for (y = 0; y < structureHeight; y++) {
@@ -1145,7 +1151,7 @@ function spawnStructure(structureType) {
       shrineSize / 2,
     (structureX + structures[structureType].shrines[h].y) *
       (gameMap.w / gameMap.xDivisions) -
-      shrineSize / 2,)
+      shrineSize / 2);
     } else {
       //there is no case where the game does not get a random shrine for now so i will be lazy and not add this.
     }
@@ -1175,19 +1181,19 @@ function spawnStructure(structureType) {
 function makeRandomShrine(x,y){
   shrineRNG = floor(random(0,6));
   // if (random(0,100) <= 0.05){
-  //   shrineRNG = 9
+  //   shrineRNG = 9;
   //   //0.05% chance for absolute shrine (kinda)
   // }
   if (random(0,100) <= 0.5){
-    shrineRNG = 8
+    shrineRNG = 8;
     //0.5% chance for unstable shrine (kinda)
   }
   if (random(0,100) <= 2){
-    shrineRNG = 7
+    shrineRNG = 7;
     //2% chance for shattered shrine (kinda)
   }
   if (random(0,100) <= 5){
-    shrineRNG = 6
+    shrineRNG = 6;
     //5% chance for shrine of emptiness (yes)
   }
   switch (shrineRNG) {
