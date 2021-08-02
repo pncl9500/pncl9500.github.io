@@ -21,7 +21,7 @@ class Chest{
   }
 
   checkForOpen(){
-    if (detect2BoxesCollision(this, player) && this.dead === false && player.money >= chestData[this.type].cost){
+    if (detect2BoxesCollision(this, player) && this.dead === false && player.money >= Math.ceil(chestData[this.type].cost * areaTypes[currentLevel].chestCostMultiplier)){
       this.spawnChestLoot();
       this.dead = true;
       player.money -= Math.ceil(chestData[this.type].cost * areaTypes[currentLevel].chestCostMultiplier);
