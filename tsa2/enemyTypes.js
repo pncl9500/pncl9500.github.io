@@ -93,8 +93,8 @@ class Enemy_blue extends Enemy {
     this.w = 7;
     this.h = 7;
     this.pal = {
-      r: 40,
-      g: 80,
+      r: 70,
+      g: 110,
       b: 255,
     };
     this.loot = [];
@@ -126,8 +126,8 @@ class Enemy_blue_small extends Enemy {
     this.w = 3;
     this.h = 3;
     this.pal = {
-      r: 55,
-      g: 95,
+      r: 80,
+      g: 120,
       b: 255,
     };
     this.loot = [];
@@ -216,7 +216,7 @@ class Enemy_green extends Enemy {
     this.chestDrops = [];
     this.moneyDrop = 2;
     this.spawnsBullet = true;
-    this.fireRate = 360;
+    this.fireRate = 240;
 
     this.setAttributes(x, y, magnification, doSpawnAnimation);
   }
@@ -224,12 +224,13 @@ class Enemy_green extends Enemy {
   doBulletSpawn(){
     var vectorX = this.x - (player.x + player.w/2);
     var vectorY = this.y - (player.y + player.h/2);
+    //big bubble
     bullets.push(new Bullet(this.x, this.y, Math.atan2(vectorY, vectorX), {
       speed: 6,
       friction: 0.95,
       acceleration: 0,
       lifeTime: 360,
-      size: 48,
+      size: 72,
       pal: {
         r: 68,
         g: 181,
@@ -250,6 +251,33 @@ class Enemy_green extends Enemy {
       statusEffect: "weaken",
       statusEffectTimer: 240,
     }));
+    //lil bubble
+    bullets.push(new Bullet(this.x, this.y, Math.atan2(vectorY, vectorX), {
+      speed: 6,
+      friction: 0.944,
+      acceleration: 0,
+      lifeTime: 360,
+      size: 36,
+      pal: {
+        r: 88,
+        g: 191,
+        b: 58,
+      },
+      damagesTerrain: false,
+      goesThroughTerrain: true,
+      destructionLevel: 0,
+      damageToTerrain: 0,
+      goesThroughEnemies: true,
+      damageToEnemies: 0,
+      goesThroughPlayer: true,
+      damageToPlayer: 10,
+      effectOnDeath: "none",
+      shakeXOnDeath: 0,
+      shakeYOnDeath: 0,
+      visual: "circle",
+      statusEffect: "weaken",
+      statusEffectTimer: 360,
+    }));
   }
 }
 enemyOfColor.set("green", Enemy_green);
@@ -264,9 +292,9 @@ class Enemy_purple extends Enemy {
     this.w = 5;
     this.h = 5;
     this.pal = {
-      r: 123,
-      g: 33,
-      b: 219,
+      r: 140,
+      g: 90,
+      b: 255,
     };
     this.loot = [];
     this.chestDrops = [];
@@ -320,8 +348,8 @@ class Enemy_tan extends Enemy {
     this.w = 4;
     this.h = 4;
     this.pal = {
-      r: 205,
-      g: 190,
+      r: 235,
+      g: 200,
       b: 140,
     };
     this.loot = [];
@@ -631,3 +659,59 @@ class Enemy_dijon extends Enemy {
 }
 enemyOfColor.set("dijon", Enemy_dijon);
 
+
+class Enemy_orange extends Enemy {
+  constructor(x, y, magnification, doSpawnAnimation){
+    super(x, y, magnification, doSpawnAnimation);
+    //enemy specific stuff
+    this.health = 4;
+    this.speed = 2.3;
+    this.damage = 10;
+    this.w = 4;
+    this.h = 4;
+    this.pal = {
+      //OK SO LISTEN i know that it seems like "ooh whoever wrote this code thought that 255 divided by 2 is
+      //125 BUT ITS NOT TRUE i just ROUNDED 127.5 DOWN TO 125 BECAUSE IT LOOKS NICER
+      r: 255,
+      g: 125,
+      b: 0,
+    };
+    this.loot = [];
+    this.chestDrops = [];
+    this.moneyDrop = 1;
+    this.spawnsBullet = true;
+    this.fireRate = 6;
+
+    this.setAttributes(x, y, magnification, doSpawnAnimation);
+  }
+
+  doBulletSpawn(){
+    var vectorX = this.x - (player.x + player.w/2);
+    var vectorY = this.y - (player.y + player.h/2);
+    bullets.push(new Bullet(this.x, this.y, Math.atan2(vectorY, vectorX), {
+      speed: 0,
+      friction: 1,
+      acceleration: 0,
+      lifeTime: 340,
+      size: 6,
+      pal: {
+        r: 255,
+        g: 125,
+        b: 0,
+      },
+      damagesTerrain: false,
+      goesThroughTerrain: true,
+      destructionLevel: 3,
+      damageToTerrain: 5,
+      goesThroughEnemies: true,
+      damageToEnemies: 0,
+      goesThroughPlayer: true,
+      damageToPlayer: 10,
+      effectOnDeath: "none",
+      shakeXOnDeath: 0,
+      shakeYOnDeath: 0,
+      visual: "circle",
+    }));
+  }
+}
+enemyOfColor.set("orange", Enemy_orange);

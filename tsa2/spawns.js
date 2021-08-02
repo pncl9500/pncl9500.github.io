@@ -13,6 +13,7 @@ spawns = {
     ["tan"],
     ["navy"],
     ["mustard"],
+    ["orange"],
     ["geode_1"],
     ["geode_2"],
     ["geode_3"],
