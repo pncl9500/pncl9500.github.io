@@ -489,8 +489,64 @@ class Enemy_mustard extends Enemy {
 }
 enemyOfColor.set("mustard", Enemy_mustard);
 
+class Enemy_orange extends Enemy {
+  constructor(x, y, magnification, doSpawnAnimation){
+    super(x, y, magnification, doSpawnAnimation);
+    //enemy specific stuff
+    this.health = 4;
+    this.speed = 2.3;
+    this.damage = 10;
+    this.w = 4;
+    this.h = 4;
+    this.pal = {
+      //OK SO LISTEN i know that it seems like "ooh whoever wrote this code thought that 255 divided by 2 is
+      //125 BUT ITS NOT TRUE i just ROUNDED 127.5 DOWN TO 125 BECAUSE IT LOOKS NICER
+      r: 255,
+      g: 125,
+      b: 0,
+    };
+    this.loot = [];
+    this.chestDrops = [];
+    this.moneyDrop = 1;
+    this.spawnsBullet = true;
+    this.fireRate = 10;
+
+    this.setAttributes(x, y, magnification, doSpawnAnimation);
+  }
+
+  doBulletSpawn(){
+    var vectorX = this.x - (player.x + player.w/2);
+    var vectorY = this.y - (player.y + player.h/2);
+    bullets.push(new Bullet(this.x, this.y, Math.atan2(vectorY, vectorX), {
+      speed: 0,
+      friction: 1,
+      acceleration: 0,
+      lifeTime: 340,
+      size: 12,
+      pal: {
+        r: 255,
+        g: 125,
+        b: 0,
+      },
+      damagesTerrain: false,
+      goesThroughTerrain: true,
+      destructionLevel: 3,
+      damageToTerrain: 5,
+      goesThroughEnemies: true,
+      damageToEnemies: 0,
+      goesThroughPlayer: true,
+      damageToPlayer: 25,
+      effectOnDeath: "none",
+      shakeXOnDeath: 0,
+      shakeYOnDeath: 0,
+      visual: "circle",
+    }));
+  }
+}
+enemyOfColor.set("orange", Enemy_orange);
 
 
+//minibosses
 class Enemy_geode_1 extends Enemy {
   constructor(x, y, magnification, doSpawnAnimation){
     super(x, y, magnification, doSpawnAnimation);
@@ -660,58 +716,3 @@ class Enemy_dijon extends Enemy {
 enemyOfColor.set("dijon", Enemy_dijon);
 
 
-class Enemy_orange extends Enemy {
-  constructor(x, y, magnification, doSpawnAnimation){
-    super(x, y, magnification, doSpawnAnimation);
-    //enemy specific stuff
-    this.health = 4;
-    this.speed = 2.3;
-    this.damage = 10;
-    this.w = 4;
-    this.h = 4;
-    this.pal = {
-      //OK SO LISTEN i know that it seems like "ooh whoever wrote this code thought that 255 divided by 2 is
-      //125 BUT ITS NOT TRUE i just ROUNDED 127.5 DOWN TO 125 BECAUSE IT LOOKS NICER
-      r: 255,
-      g: 125,
-      b: 0,
-    };
-    this.loot = [];
-    this.chestDrops = [];
-    this.moneyDrop = 1;
-    this.spawnsBullet = true;
-    this.fireRate = 6;
-
-    this.setAttributes(x, y, magnification, doSpawnAnimation);
-  }
-
-  doBulletSpawn(){
-    var vectorX = this.x - (player.x + player.w/2);
-    var vectorY = this.y - (player.y + player.h/2);
-    bullets.push(new Bullet(this.x, this.y, Math.atan2(vectorY, vectorX), {
-      speed: 0,
-      friction: 1,
-      acceleration: 0,
-      lifeTime: 340,
-      size: 6,
-      pal: {
-        r: 255,
-        g: 125,
-        b: 0,
-      },
-      damagesTerrain: false,
-      goesThroughTerrain: true,
-      destructionLevel: 3,
-      damageToTerrain: 5,
-      goesThroughEnemies: true,
-      damageToEnemies: 0,
-      goesThroughPlayer: true,
-      damageToPlayer: 10,
-      effectOnDeath: "none",
-      shakeXOnDeath: 0,
-      shakeYOnDeath: 0,
-      visual: "circle",
-    }));
-  }
-}
-enemyOfColor.set("orange", Enemy_orange);
