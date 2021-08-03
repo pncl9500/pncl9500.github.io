@@ -270,6 +270,7 @@ function spawnEnemiesAroundPlayer(spawn){
     for (e = 0; e < spawns[currentLevel][spawn].length; e++){
       enemySpawnOffsetX = 0;
       enemySpawnOffsetY = 0;
+      getEnemySpawnPosition();
       enemyQueue.push(getEnemy(spawns[currentLevel][spawn][e], player.x + enemySpawnOffsetX, player.y + enemySpawnOffsetY, 1));
     }
   } else {
