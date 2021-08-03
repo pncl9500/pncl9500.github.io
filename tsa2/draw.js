@@ -11,6 +11,12 @@ function drawMapDivisions(){
       rect(gameMap.x + (gameMap.w/gameMap.xDivisions) * x - cam.x + cam.offsetX, gameMap.y + (gameMap.h/gameMap.yDivisions) * y - cam.y + cam.offsetY, gameMap.w/gameMap.xDivisions,gameMap.h/gameMap.yDivisions)
     }
   }
+
+  // for (x = 0; x < gameMap.xDivisions; x++){
+  //   for (y = 0; y < gameMap.yDivisions; y++){
+  //     rect((gameMap.x + (gameMap.w/gameMap.xDivisions) * x - cam.x + cam.offsetX) / 2, (gameMap.y + (gameMap.h/gameMap.yDivisions) * y - cam.y + cam.offsetY) / 2, gameMap.w/gameMap.xDivisions,gameMap.h/gameMap.yDivisions)
+  //   }
+  // }
 }
 
 function drawBullets(){
