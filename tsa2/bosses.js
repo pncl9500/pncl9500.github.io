@@ -514,7 +514,7 @@ class Boss_GeodeMutant extends Boss{
         if (this.stateTimer % 35 === 0){
           for (var i = -2; i < 3; i++){
             bullets.push(new Bullet(this.x + this.w/2, this.y + this.h/2, (this.angle + 90 + i*20) * Math.PI/180,{
-              speed: 3,
+              speed: 1.5,
               friction: 1,
               acceleration: 0.2,
               lifeTime: 240,
@@ -660,7 +660,7 @@ class Boss_GeodeMutant extends Boss{
           this.bulletPositionX = Math.cos(this.bulletAngle) * 800 + this.x + this.w/2;
           this.bulletPositionY = Math.sin(this.bulletAngle) * 800 + this.y + this.h/2;
           bullets.push(new Bullet(this.bulletPositionX, this.bulletPositionY, this.bulletAngle,{
-            speed: 3,
+            speed: 2,
             friction: 1,
             acceleration: 0.05,
             lifeTime: 240,
@@ -685,7 +685,7 @@ class Boss_GeodeMutant extends Boss{
             visual: "circle",
           }))
         }
-        if (this.stateTimer > 335){
+        if (this.stateTimer > 360){
           this.pointTowardsPlayer(0);
           this.state = "encase"
           this.sprite = "encase"
@@ -698,7 +698,7 @@ class Boss_GeodeMutant extends Boss{
         if (this.stateTimer % 40 === 0){
           for (i = 0; i < 24; i++){
             bullets.push(new Bullet(this.x + this.w/2, this.y + this.h/2, (this.angle + i*15) * Math.PI/180,{
-              speed: 4,
+              speed: 2.5,
               friction: 1,
               acceleration: 0.1,
               lifeTime: 240,
