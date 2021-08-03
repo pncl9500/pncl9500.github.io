@@ -659,6 +659,7 @@ function generateMap(areaType) {
     walls = [];
     chests = [];
     enemies = [];
+    bullets = [];
     closeEnemies = [];
     spawners = [];
     pickups = [];
@@ -1169,7 +1170,14 @@ function spawnStructure(structureType) {
           (gameMap.w / gameMap.xDivisions) -
           shrineSize / 2));
           break;
-      
+        case "geode_mutant":
+          bosses.push(new Boss_GeodeMutant((structureY + structures[structureType].bosses[b].x) *
+          (gameMap.h / gameMap.yDivisions) -
+          shrineSize / 2,
+        (structureX + structures[structureType].bosses[b].y) *
+          (gameMap.w / gameMap.xDivisions) -
+          shrineSize / 2));
+          break;
         default:
           break;
       }

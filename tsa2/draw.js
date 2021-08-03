@@ -14,6 +14,7 @@ function drawMapDivisions(){
 }
 
 function drawBullets(){
+  fill(0,255,255);
   for (b = 0; b < bullets.length; b++){
     bullets[b].draw();
     if (bullets[b].deathTimer >= bullets[b].properties.lifeTime){
@@ -25,11 +26,11 @@ function drawBullets(){
 }
 
 function drawBosses(){
-  for (b = 0; b < bosses.length; b++){
-    bosses[b].draw();
-    if (bosses[b].dead){
-      bosses.splice(b, 1);
-      b -= 1;
+  for (bb = 0; bb < bosses.length; bb++){
+    bosses[bb].draw();
+    if (bosses[bb].dead){
+      bosses.splice(bb, 1);
+      bb -= 1;
     }
   }
 }

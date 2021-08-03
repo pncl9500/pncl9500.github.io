@@ -164,10 +164,29 @@ areaTypes = {
     xDivisions: 24,
     yDivisions: 24,
     hasHole: true,
-    holeArea: "blackMarket",
+    holeArea: "cave4",
     chestCostMultiplier: 3,
   },
-  
+  cave4: {
+    generationType: "none",
+    structures:[
+      {structure: "bossArena_2", count: 1, chance:1},
+    ],
+    mapPal: {
+      r: 80,
+      g: 80,
+      b: 80,
+      liner: 65,
+      lineg: 65,
+      lineb: 65,
+    },
+    w: 5120,
+    h: 5120,
+    xDivisions: 32,
+    yDivisions: 32,
+    hasHole: false,
+    chestCostMultiplier: 1,
+  },
   debugArea: {
     generationType: "random",
     structures:[

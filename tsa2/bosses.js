@@ -78,6 +78,10 @@ function loadBossSprites(){
   bossSprites = {
     sewerMutant: {
       idle: loadImage("textures/bosses/sewermutant/idle.png")
+    },
+    geodeMutant: {
+      idle: loadImage("textures/bosses/geodemutant/idle.png"),
+      encase: loadImage("textures/bosses/geodemutant/encase.png")
     }
   }
 }
@@ -89,8 +93,8 @@ class Boss_SewerMutant extends Boss{
     this.y = y;
     this.w = 72;
     this.h = 72;
-    this.contactDamage = Math.ceil(max(1, Math.log(player.maxHealth)*5 + 10));
-    this.maxHealth = 300;
+    this.contactDamage = Math.ceil(max(1, Math.log(player.maxHealth)*5 + 10))/2;
+    this.maxHealth = 400;
     this.health = this.maxHealth;
     this.dead = false;
     //a number that maxes the hitbox of the boss smaller. more number is more small
@@ -218,7 +222,6 @@ class Boss_SewerMutant extends Boss{
             },
             visual: "circle"
           }))
-          console.log(bullets[bullets.length - 1]);
         }
         break;
       case "summon":
@@ -359,7 +362,6 @@ class Boss_SewerMutant extends Boss{
             this.xv *= -1;
           }
         }
-        this.yv *= 0.992;
         this.y += this.yv;
         this.updateHitBox();
         for (w = 0; w < walls.length; w++){
@@ -411,5 +413,448 @@ class Boss_SewerMutant extends Boss{
     holes.push(new Hole(gameMap.w/2, gameMap.h/2 - 160, "cave1"));
     cam.shakeX += 30;
     cam.shakeY += 30;
+  }
+}
+
+class Boss_GeodeMutant extends Boss{
+  constructor(x, y){
+    super(x, y);
+    this.x = x;
+    this.y = y;
+    this.w = 72;
+    this.h = 72;
+    this.contactDamage = Math.ceil(max(1, Math.log(player.maxHealth)*5 + 10))/1.5;
+    this.maxHealth = 800;
+    this.health = this.maxHealth;
+    this.dead = false;
+    //a number that maxes the hitbox of the boss smaller. more number is more small
+    this.hitboxReduction = 16;
+    this.hitbox = {
+      x: this.x + this.hitboxReduction/2,
+      y: this.y + this.hitboxReduction/2,
+      w: this.w - this.hitboxReduction,
+      h: this.h - this.hitboxReduction,
+    }
+    this.bossType = "geodeMutant";
+    this.sprite = "idle";
+
+    this.state = "waiting";
+    this.stateTimer = 0;
+
+    this.xv = 0;
+    this.yv = 0;
+    this.previousAttack = -1;
+  }
+
+
+  doAction(){
+    this.stateTimer += 1;
+    switch (this.state) {
+      case "waiting":
+        this.sprite = "idle"
+        this.vectorX = (this.hitbox.x + this.w/2 - this.hitboxReduction/2) - (player.x + player.w/2);
+        this.vectorY = (this.hitbox.y + this.h/2 - this.hitboxReduction/2) - (player.y + player.h/2);
+        if (Math.sqrt((Math.pow(this.vectorX, 2)) + Math.pow(this.vectorY, 2)) < 240 || this.health < this.maxHealth){
+          this.state = "waitScream";
+          this.stateTimer = 0;
+        }
+        break;
+      case "waitScream":
+        if (this.stateTimer > 80){
+          this.state = "pause";
+          this.stateTimer = 0;
+        }
+        break;
+      case "pause":
+        this.xv = 0;
+        this.yv = 0;
+        if (this.stateTimer > 25){
+          this.attack = floor(random(0,5))
+          
+          while (this.attack === this.previousAttack) {
+            this.attack = floor(random(0,5));
+          }
+          //the first attack is always quake
+          if (this.previousAttack === -1){
+            this.attack = 3;
+          }
+          //this.attack = 4;
+          console.log(this.attack);
+          switch (this.attack) {
+            case 0:
+              this.state = "encaseWait"
+              break;
+            case 1:
+              this.state = "machineGun"
+              break;
+            case 2:
+              this.state = "summon"
+              enemyQueue.push(new Enemy_crystal(random(gameMap.w/2 - 192, gameMap.w/2 + 192), random(gameMap.h/2 - 320, gameMap.h/2 + 64), 1, true));
+              break;
+            case 3:
+              this.state = "quakeWait"
+              break;
+            case 4:
+              this.state = "erupt"
+              break;
+            default:
+              break;
+          }
+          this.previousAttack = this.attack;
+          this.stateTimer = 0;
+        }
+        break;
+      case "summon":
+        if (this.stateTimer > 20){
+          this.state = "pause";
+          this.stateTimer = 0;
+        }
+        break;
+      case "erupt":
+        if (this.stateTimer % 35 === 0){
+          for (var i = -2; i < 3; i++){
+            bullets.push(new Bullet(this.x + this.w/2, this.y + this.h/2, (this.angle + 90 + i*20) * Math.PI/180,{
+              speed: 3,
+              friction: 1,
+              acceleration: 0.2,
+              lifeTime: 240,
+              size: 12,
+              pal: {
+                r: 230,
+                g: 80,
+                b: 255,
+              },
+              damagesTerrain: true,
+              goesThroughTerrain: true,
+              destructionLevel: 3,
+              damageToTerrain: 5,
+              goesThroughEnemies: true,
+              damageToEnemies: 0,
+              lifeTimeLossOnEnemyContact: 0,
+              goesThroughPlayer: true,
+              damageToPlayer: this.contactDamage,
+              effectOnDeath: "none",
+              shakeXOnDeath: 0,
+              shakeYOnDeath: 0,
+              visual: "circle",
+            }))
+          }
+        }
+        if (this.stateTimer % 20 === 0){
+          bullets.push(new Bullet(player.x + random(-128, 128), player.y + random(-128, 128), 0, {
+            speed: 0,
+            friction: 0,
+            acceleration: 0,
+            lifeTime: 90,
+            size: 64,
+            pal: {
+              r: 0,
+              g: 0,
+              b: 0,
+            },
+            damagesTerrain: false,
+            goesThroughTerrain: true,
+            destructionLevel: 0,
+            damageToTerrain: 0,
+            goesThroughEnemies: true,
+            damageToEnemies: 0,
+            goesThroughPlayer: true,
+            damageToPlayer: 0,
+            effectOnDeath: "spawnBullet",
+            shakeXOnDeath: 1,
+            shakeYOnDeath: 1,
+            spawnedBulletProperties: {
+              speed: 0,
+              friction: 0,
+              acceleration: 0,
+              lifeTime: 8,
+              size: 64,
+              pal: {
+                r: 180,
+                g: 35,
+                b: 0,
+              },
+              damagesTerrain: true,
+              goesThroughTerrain: true,
+              destructionLevel: 6,
+              damageToTerrain: 50,
+              goesThroughEnemies: true,
+              damageToEnemies: 0,
+              goesThroughPlayer: true,
+              damageToPlayer: this.contactDamage * 2,
+              effectOnDeath: "none",
+              shakeXOnDeath: 0,
+              shakeYOnDeath: 0,
+              visual: "circle",
+            },
+            visual: "circle",
+          }))
+        }
+        this.pointTowardsPlayer(0);
+        this.xv += -0.01 * Math.cos((this.angle + 90) * Math.PI/180);
+        this.yv += -0.01 * Math.sin((this.angle + 90) * Math.PI/180);
+        this.xv *= 0.98;
+        this.yv *= 0.98;
+        this.x += this.xv;
+        this.updateHitBox();
+        for (w = 0; w < walls.length; w++){
+          if (detect2BoxesCollision(this.hitbox, walls[w])){
+            this.x -= this.xv;
+            this.updateHitBox();
+            this.xv *= -1;
+          }
+        }
+        this.y += this.yv;
+        this.updateHitBox();
+        for (w = 0; w < walls.length; w++){
+          if (detect2BoxesCollision(this.hitbox, walls[w])){
+            this.y -= this.yv;
+            this.updateHitBox();
+            this.yv *= -1;
+          }
+        }
+        if (this.stateTimer > 280){
+          this.state = "pause";
+          this.stateTimer = 0;
+        }
+        break;
+      case "machineGun":
+        this.pointTowardsPlayer(0);
+        if (floor(this.stateTimer/25) % 2 === 1 && this.stateTimer % 3 === 0){
+          bullets.push(new Bullet(this.x + this.w/2, this.y + this.h/2, (this.angle + 90) * Math.PI/180,{
+            speed: 12,
+            friction: 1,
+            acceleration: 0,
+            lifeTime: 240,
+            size: 8,
+            pal: {
+              r: 255,
+              g: 125,
+              b: 255,
+            },
+            damagesTerrain: true,
+            goesThroughTerrain: true,
+            destructionLevel: 3,
+            damageToTerrain: 5,
+            goesThroughEnemies: true,
+            damageToEnemies: 0,
+            lifeTimeLossOnEnemyContact: 0,
+            goesThroughPlayer: true,
+            damageToPlayer: this.contactDamage,
+            effectOnDeath: "none",
+            shakeXOnDeath: 0,
+            shakeYOnDeath: 0,
+            visual: "circle",
+          }))
+        }
+        if (this.stateTimer > 149){
+          this.state = "pause";
+          this.stateTimer = 0;
+        }
+        break;
+      case "encaseWait":
+        if (this.stateTimer > 10 && this.stateTimer < 200 && this.stateTimer % 2 === 0){
+          //get a random angle to spawn a bullet
+          this.bulletAngle = random(2 * Math.PI)
+          //turn the angle into a point in a circle around the boss
+          this.bulletPositionX = Math.cos(this.bulletAngle) * 800 + this.x + this.w/2;
+          this.bulletPositionY = Math.sin(this.bulletAngle) * 800 + this.y + this.h/2;
+          bullets.push(new Bullet(this.bulletPositionX, this.bulletPositionY, this.bulletAngle,{
+            speed: 3,
+            friction: 1,
+            acceleration: 0.05,
+            lifeTime: 240,
+            size: 8,
+            pal: {
+              r: 255,
+              g: 125,
+              b: 255,
+            },
+            damagesTerrain: false,
+            goesThroughTerrain: true,
+            destructionLevel: 3,
+            damageToTerrain: 5,
+            goesThroughEnemies: false,
+            damageToEnemies: 0,
+            lifeTimeLossOnEnemyContact: 0,
+            goesThroughPlayer: true,
+            damageToPlayer: this.contactDamage,
+            effectOnDeath: "none",
+            shakeXOnDeath: 0,
+            shakeYOnDeath: 0,
+            visual: "circle",
+          }))
+        }
+        if (this.stateTimer > 335){
+          this.pointTowardsPlayer(0);
+          this.state = "encase"
+          this.sprite = "encase"
+          this.xv = 0;
+          this.yv = 0;
+          this.stateTimer = 0;
+        }
+        break;
+      case "encase":
+        if (this.stateTimer % 40 === 0){
+          for (i = 0; i < 24; i++){
+            bullets.push(new Bullet(this.x + this.w/2, this.y + this.h/2, (this.angle + i*15) * Math.PI/180,{
+              speed: 4,
+              friction: 1,
+              acceleration: 0.1,
+              lifeTime: 240,
+              size: 8,
+              pal: {
+                r: 255,
+                g: 125,
+                b: 255,
+              },
+              damagesTerrain: true,
+              goesThroughTerrain: true,
+              destructionLevel: 3,
+              damageToTerrain: 5,
+              goesThroughEnemies: true,
+              damageToEnemies: 0,
+              lifeTimeLossOnEnemyContact: 0,
+              goesThroughPlayer: true,
+              damageToPlayer: this.contactDamage,
+              effectOnDeath: "none",
+              shakeXOnDeath: 0,
+              shakeYOnDeath: 0,
+              visual: "circle",
+            }))
+          }
+        }
+        this.pointTowardsPlayer(0);
+        this.xv += -0.02 * Math.cos((this.angle + 90) * Math.PI/180);
+        this.yv += -0.02 * Math.sin((this.angle + 90) * Math.PI/180);
+        this.xv *= 0.98;
+        this.yv *= 0.98;
+        this.x += this.xv;
+        this.updateHitBox();
+        for (w = 0; w < walls.length; w++){
+          if (detect2BoxesCollision(this.hitbox, walls[w])){
+            this.x -= this.xv;
+            this.updateHitBox();
+            this.xv *= -1;
+          }
+        }
+        this.y += this.yv;
+        this.updateHitBox();
+        for (w = 0; w < walls.length; w++){
+          if (detect2BoxesCollision(this.hitbox, walls[w])){
+            this.y -= this.yv;
+            this.updateHitBox();
+            this.yv *= -1;
+          }
+        }
+        if (this.stateTimer > 360){
+          this.state = "pause"
+          this.sprite = "idle"
+          this.stateTimer = 0;
+        }
+        break;
+      case "quakeWait":
+        if (this.stateTimer > 60){
+          this.state = "quake";
+          this.stateTimer = 0;
+          //make "branches"
+          this.earthQuakeSpots = [];
+          for (b = 0; b < 12; b++){
+            this.makeEarthQuakeBranch();
+          };
+        }
+        break;
+      case "quake":
+        for (e = 0; e < 5; e++){
+          if (this.earthQuakeSpots.length > 0){
+            bullets.push(new Bullet(this.earthQuakeSpots[0].x, this.earthQuakeSpots[0].y, 0, {
+              speed: 0,
+              friction: 0,
+              acceleration: 0,
+              lifeTime: 80,
+              size: 24,
+              pal: {
+                r: 0,
+                g: 0,
+                b: 0,
+              },
+              damagesTerrain: false,
+              goesThroughTerrain: true,
+              destructionLevel: 0,
+              damageToTerrain: 0,
+              goesThroughEnemies: true,
+              damageToEnemies: 0,
+              goesThroughPlayer: true,
+              damageToPlayer: 0,
+              effectOnDeath: "spawnBullet",
+              shakeXOnDeath: 1,
+              shakeYOnDeath: 1,
+              spawnedBulletProperties: {
+                speed: 0,
+                friction: 0,
+                acceleration: 0,
+                lifeTime: 8,
+                size: 48,
+                pal: {
+                  r: 180,
+                  g: 35,
+                  b: 0,
+                },
+                damagesTerrain: true,
+                goesThroughTerrain: true,
+                destructionLevel: 6,
+                damageToTerrain: 50,
+                goesThroughEnemies: true,
+                damageToEnemies: 0,
+                goesThroughPlayer: true,
+                damageToPlayer: this.contactDamage * 2,
+                effectOnDeath: "none",
+                shakeXOnDeath: 0,
+                shakeYOnDeath: 0,
+                visual: "circle",
+              },
+              visual: "circle",
+            }))
+            this.earthQuakeSpots.splice(0,1);
+          }
+        }
+        if (this.stateTimer > 190){
+          this.state = "pause";
+          this.stateTimer = 0;
+        }
+        break;
+      default:
+        break;
+    }
+  }
+
+  doDeathSpawns(){
+    player.money += 50;
+    holes.push(new Hole(gameMap.w/2, gameMap.h/2 - 160, "blackMarket"));
+    cam.shakeX += 30;
+    cam.shakeY += 30;
+  }
+
+  makeEarthQuakeBranch(){
+    this.branchAngle = random(0, 2 * Math.PI);
+    this.quakeX = this.x + this.w/2;
+    this.quakeY = this.y + this.h/2; 
+    this.quakeDeathChance = 0;
+    this.makeQuake()
+  }
+
+  makeQuake(){
+    this.quakeDeathChance += 0.08;
+    this.quakeX += Math.cos(this.branchAngle) * 30;
+    this.quakeY += Math.sin(this.branchAngle) * 30;
+    //this.quakeX = player.x + random(-100,100)
+    //this.quakeY = player.y + random(-100,100)
+    this.earthQuakeSpots.push({x:this.quakeX, y:this.quakeY});
+    if (random(0,5) > this.quakeDeathChance){
+      if (random(0,4 > 3)){
+        this.branchAngle += random(-0.5, 0.5);
+      }
+      this.makeQuake();
+    }
   }
 }

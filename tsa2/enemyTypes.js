@@ -716,3 +716,58 @@ class Enemy_dijon extends Enemy {
 enemyOfColor.set("dijon", Enemy_dijon);
 
 
+
+
+class Enemy_crystal extends Enemy {
+  constructor(x, y, magnification, doSpawnAnimation){
+    super(x, y, magnification, doSpawnAnimation);
+    //enemy specific stuff
+    this.health = 16;
+    this.speed = 0;
+    this.damage = 35;
+    this.w = 16;
+    this.h = 16;
+    this.pal = {
+      r: 235,
+      g: 130,
+      b: 240,
+    };
+    this.loot = [];
+    this.chestDrops = [];
+    this.moneyDrop = 1;
+    this.spawnsBullet = true;
+    this.fireRate = 90;
+
+    this.setAttributes(x, y, magnification, doSpawnAnimation);
+  }
+
+  doBulletSpawn(){
+    var vectorX = this.x - (player.x + player.w/2);
+    var vectorY = this.y - (player.y + player.h/2);
+    bullets.push(new Bullet(this.x, this.y, Math.atan2(vectorY, vectorX), {
+      speed: 8,
+      friction: 1,
+      acceleration: 0,
+      lifeTime: 170,
+      size: 12,
+      pal: {
+        r: 190,
+        g: 160,
+        b: 255,
+      },
+      damagesTerrain: false,
+      goesThroughTerrain: false,
+      destructionLevel: 3,
+      damageToTerrain: 5,
+      goesThroughEnemies: true,
+      damageToEnemies: 0,
+      goesThroughPlayer: true,
+      damageToPlayer: 30,
+      effectOnDeath: "none",
+      shakeXOnDeath: 0,
+      shakeYOnDeath: 0,
+      visual: "circle",
+    }));
+  }
+}
+enemyOfColor.set("crystal", Enemy_crystal);
