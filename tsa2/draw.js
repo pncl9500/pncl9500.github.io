@@ -12,9 +12,14 @@ function drawMapDivisions(){
     }
   }
 
+  // lowestDivisionXPosition = gameMap.x - cam.x + cam.offsetX;
+  // lowestDivisionYPosition = gameMap.y - cam.y + cam.offsetY;
+  // highestDivisionXPosition = gameMap.x + gameMap.w - cam.x + cam.offsetX - (gameMap.w/gameMap.xDivisions)/2;
+  // highestDivisionYPosition = gameMap.y + gameMap.h - cam.y + cam.offsetY - (gameMap.h/gameMap.yDivisions)/2;
+  // //parallax thing
   // for (x = 0; x < gameMap.xDivisions; x++){
   //   for (y = 0; y < gameMap.yDivisions; y++){
-  //     rect((gameMap.x + (gameMap.w/gameMap.xDivisions) * x - cam.x + cam.offsetX) / 2, (gameMap.y + (gameMap.h/gameMap.yDivisions) * y - cam.y + cam.offsetY) / 2, gameMap.w/gameMap.xDivisions,gameMap.h/gameMap.yDivisions)
+  //     rect(min(highestDivisionXPosition,max(lowestDivisionXPosition, (gameMap.x + (gameMap.w/gameMap.xDivisions) * x - cam.x + cam.offsetX)/2)), min(highestDivisionYPosition,max(lowestDivisionYPosition,(gameMap.y + (gameMap.h/gameMap.yDivisions) * y - cam.y + cam.offsetY)/2)), gameMap.w/gameMap.xDivisions/2,gameMap.h/gameMap.yDivisions/2)
   //   }
   // }
 }
