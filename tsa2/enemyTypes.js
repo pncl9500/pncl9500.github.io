@@ -545,6 +545,68 @@ class Enemy_orange extends Enemy {
 }
 enemyOfColor.set("orange", Enemy_orange);
 
+class Enemy_metal extends Enemy {
+  constructor(x, y, magnification, doSpawnAnimation){
+    super(x, y, magnification, doSpawnAnimation);
+    //enemy specific stuff
+    this.health = 10;
+    this.speed = 0.9;
+    this.damage = 10;
+    this.w = 6;
+    this.h = 6;
+    this.pal = {
+      r: 80,
+      g: 80,
+      b: 80,
+    };
+    this.loot = [];
+    this.chestDrops = [];
+    this.moneyDrop = 1;
+    this.spawnsBullet = true;
+    this.fireRate = 160;
+
+    this.setAttributes(x, y, magnification, doSpawnAnimation);
+  }
+
+  doBulletSpawn(){
+    var vector = createVector(this.x - (player.x + player.w/2), this.y - (player.y + player.h/2))
+    vector.normalize();
+    var bulletX = this.x;
+    var bulletY = this.y;
+    for (i = 0; i < 50; i++){
+      bulletX += vector.x * -16;
+      bulletY += vector.y * -16;
+      bullets.push(new Bullet(bulletX, bulletY, Math.atan2(vector.y, vector.x), {
+        speed: 0, friction: 0, acceleration: 0, lifeTime: 60, size: 6,
+        pal: {
+          r: 255,
+          g: 0,
+          b: 0,
+        },
+        damagesTerrain: false, goesThroughTerrain: true, destructionLevel: 0, damageToTerrain: 0, goesThroughEnemies: true, damageToEnemies: 0,
+        goesThroughPlayer: true,
+        damageToPlayer: 0,
+        effectOnDeath: "spawnBullet", shakeXOnDeath: 0, shakeYOnDeath: 0,
+        spawnedBulletProperties: {
+          speed: 0, friction: 0, acceleration: 0, lifeTime: 2, size: 16,
+          pal: {
+            r: 255,
+            g: 20,
+            b: 20,
+          },
+          damagesTerrain: false, goesThroughTerrain: true, destructionLevel: 0, damageToTerrain: 0, goesThroughEnemies: true, damageToEnemies: 0,
+          goesThroughPlayer: true,
+          damageToPlayer: 28,
+          effectOnDeath: "none", shakeXOnDeath: 0, shakeYOnDeath: 0,
+          visual: "circle",
+        },
+        visual: "circle",
+      }));
+    }
+  }
+}
+enemyOfColor.set("metal", Enemy_metal);
+
 
 //minibosses
 class Enemy_geode_1 extends Enemy {

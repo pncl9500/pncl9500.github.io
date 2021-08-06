@@ -187,6 +187,28 @@ areaTypes = {
     hasHole: false,
     chestCostMultiplier: 1,
   },
+  lab1:{
+    generationType: "rooms",
+    structures:[
+      {structure: "shrine_generator", count: 1, chance: 1},      
+      {structure: "shop", count: 1, chance: 1},
+    ],
+    mapPal: {
+      r: 140,
+      g: 165,
+      b: 190,
+      liner: 125,
+      lineg: 150,
+      lineb: 175,
+    },
+    w: 3072,
+    h: 3072,
+    xDivisions: 24,
+    yDivisions: 24,
+    hasHole: true,
+    holeArea: "blackMarket",
+    chestCostMultiplier: 4,
+  },
   debugArea: {
     generationType: "random",
     structures:[
@@ -216,13 +238,21 @@ areaTypes = {
     structures:[
       
     ],
+    // mapPal: {
+    //   r: 110,
+    //   g: 55,
+    //   b: 0,
+    //   liner: 200,
+    //   lineg: 70,
+    //   lineb: 0,
+    // },
     mapPal: {
-      r: 110,
-      g: 55,
-      b: 0,
-      liner: 200,
-      lineg: 70,
-      lineb: 0,
+      r: 140,
+      g: 165,
+      b: 190,
+      liner: 125,
+      lineg: 150,
+      lineb: 175,
     },
     w: 1536,
     h: 1536,

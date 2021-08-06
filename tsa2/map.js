@@ -911,6 +911,20 @@ function generateMap(areaType) {
           h++;
         }
         break;
+      case "rooms":
+        //make room layout
+        roomLayout = [];
+        for (y = 0; y < gameMap.yDivisions; y+= 3){
+          roomLayoutColumn = [];
+          for (x = 0; x < gameMap.xDivisions; x+= 3){
+            roomLayoutColumn.push(floor(random(1,4)));
+          }
+          roomLayout.push(roomLayoutColumn);
+        }
+        console.log(roomLayout);
+        //take every tile in the layout column, look at the neighbors that have a similar number in the layout
+        //then make walls in the real tilemap
+        break;
       default:
         break;
     }
