@@ -325,7 +325,7 @@ function loadChests(){
         {item: "bomb", weight: 7},
       ],
       cost: 0,
-      needsKey: true,
+      needsKey: false,
       //important chests are not converted by shattered shrine.
       important: false,
     }
