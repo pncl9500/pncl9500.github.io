@@ -214,6 +214,25 @@ function loadStructures(){
         y: 2.5,
       }],
     },
+    item_chest_generator: {
+      tiles: [
+        [0,0,0,0,0],
+        [0,2,0,2,0],
+        [0,0,0,0,0],
+        [0,2,0,2,0],
+        [0,0,0,0,0],
+      ],
+      chests: [{
+        chestType: "item_locked",
+        x: 2.5,
+        y: 2.5,
+        hasRareChestVariation: true,
+        rareChestChance: 0.005,
+        rareChest: "chest_great_locked",
+      }],
+      npcs: [],
+      shrines: [],
+    },
     supernest: {
       tiles: [
         [18,18,18],

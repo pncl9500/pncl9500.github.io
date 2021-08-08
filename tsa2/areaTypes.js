@@ -9,6 +9,7 @@ areaTypes = {
       {structure: "sewer_chest_container_3", count: 1, chance:1},
       {structure: "sewer_chest_container_4", count: 1, chance:1},
       {structure: "shrine_generator", count: 1, chance: 1},
+      {structure: "item_chest_generator", count: 1, chance: 1},
       {structure: "shop", count: 1, chance: 1},
     ],
     mapPal: {
@@ -35,6 +36,7 @@ areaTypes = {
       {structure: "sewer_chest_container_3", count: 1, chance:1},
       {structure: "sewer_chest_container_4", count: 1, chance:1},
       {structure: "shrine_generator", count: 1, chance: 1},
+      {structure: "item_chest_generator", count: 1, chance: 1},
       {structure: "shop", count: 1, chance: 1},
     ],
     mapPal: {
@@ -61,6 +63,7 @@ areaTypes = {
       {structure: "sewer_chest_container_3", count: 1, chance:1},
       {structure: "sewer_chest_container_4", count: 1, chance:1},
       {structure: "shrine_generator", count: 1, chance: 1},
+      {structure: "item_chest_generator", count: 1, chance: 1},
       {structure: "shop", count: 1, chance: 1},
     ],
     mapPal: {
@@ -102,7 +105,8 @@ areaTypes = {
   cave1: {
     generationType: "cave",
     structures:[
-      {structure: "shrine_generator", count: 1, chance: 1},      
+      {structure: "shrine_generator", count: 1, chance: 1},  
+      {structure: "item_chest_generator", count: 1, chance: 1},    
       {structure: "shop", count: 1, chance: 1},
     ],
     mapPal: {
@@ -125,6 +129,7 @@ areaTypes = {
     generationType: "cave",
     structures:[
       {structure: "shrine_generator", count: 1, chance: 1},
+      {structure: "item_chest_generator", count: 1, chance: 1},
       {structure: "geode", count: 1, chance: 1},
       {structure: "shop", count: 1, chance: 1},
     ],
@@ -148,6 +153,7 @@ areaTypes = {
     generationType: "cave",
     structures:[
       {structure: "shrine_generator", count: 1, chance: 1},
+      {structure: "item_chest_generator", count: 1, chance: 1},
       {structure: "shop", count: 1, chance: 1},
       {structure: "supernest", count: 1, chance: 1},
     ],
@@ -191,6 +197,7 @@ areaTypes = {
     generationType: "rooms",
     structures:[
       {structure: "shrine_generator", count: 1, chance: 1},      
+      {structure: "item_chest_generator", count: 1, chance: 1},
       {structure: "shop", count: 1, chance: 1},
     ],
     mapPal: {

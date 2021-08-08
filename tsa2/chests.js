@@ -21,10 +21,21 @@ class Chest{
   }
 
   checkForOpen(){
-    if (detect2BoxesCollision(this, player) && this.dead === false && player.money >= Math.ceil(chestData[this.type].cost * areaTypes[currentLevel].chestCostMultiplier)){
+    if ((!chestData[this.type].needsKey || player.inventory.includes("key")) && detect2BoxesCollision(this, player) && this.dead === false && player.money >= Math.ceil(chestData[this.type].cost * areaTypes[currentLevel].chestCostMultiplier)){
       this.spawnChestLoot();
       this.dead = true;
       player.money -= Math.ceil(chestData[this.type].cost * areaTypes[currentLevel].chestCostMultiplier);
+      //dont put any stuff below the key removal because there's a return
+      if (chestData[this.type].needsKey){
+        for (var k = 0; k < player.inventory.length; k++){
+          console.log(k);
+          console.log(player.inventory[k]);
+          if (player.inventory[k] === "key"){
+            player.inventory[k] = "none"; 
+            return;
+          }
+        }
+      }
     }
   }
 
@@ -211,6 +222,23 @@ function loadChests(){
       needsKey: false,
       //important chests are not converted by shattered shrine.
       important: true,
+    },
+    item_locked: {
+      sprite: loadImage('textures/chests/chest_item_locked.png'),
+      lootItemCount: 1,
+      loot: [
+        {item: "none", weight: 0},
+        {item: "energydrink", weight: 6},
+        {item: "inventorycrystal", weight: 4},
+        {item: "smg", weight: 6},
+        {item: "sniper", weight: 4},
+        {item: "grenadelauncher", weight: 3},
+        {item: "minigun", weight: 2},
+      ],
+      cost: 0,
+      needsKey: true,
+      //important chests are not converted by shattered shrine.
+      important: false,
     },
     geode: {
       sprite: loadImage('textures/chests/chest_geode.png'),
