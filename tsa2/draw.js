@@ -24,11 +24,13 @@ function drawMapDivisions(){
   // lowestDivisionYPosition = gameMap.y - cam.y + cam.offsetY;
   // highestDivisionXPosition = gameMap.x + gameMap.w - cam.x + cam.offsetX - (gameMap.w/gameMap.xDivisions)/2;
   // highestDivisionYPosition = gameMap.y + gameMap.h - cam.y + cam.offsetY - (gameMap.h/gameMap.yDivisions)/2;
-  // //parallax test
-  // for (x = 0; x < gameMap.xDivisions; x++){
-  //   for (y = 0; y < gameMap.yDivisions; y++){
-  //     rect(min(highestDivisionXPosition,max(lowestDivisionXPosition, (gameMap.x + (gameMap.w/gameMap.xDivisions) * x - cam.x + cam.offsetX)/2)), min(highestDivisionYPosition,max(lowestDivisionYPosition,(gameMap.y + (gameMap.h/gameMap.yDivisions) * y - cam.y + cam.offsetY)/2)), gameMap.w/gameMap.xDivisions/2,gameMap.h/gameMap.yDivisions/2)
-  //   }
+  //parallax test
+  // for (x = max(0,floor(player.x/(gameMap.w/gameMap.xDivisions)) - 7); x < min(gameMap.xDivisions, floor(player.x/(gameMap.w/gameMap.xDivisions)) + 7); x++){
+  //   line(gameMap.x + (gameMap.w/gameMap.xDivisions) * x - cam.x + cam.offsetX, gameMap.y - cam.y + cam.offsetY, gameMap.x + (gameMap.w/gameMap.xDivisions) * x - cam.x + cam.offsetX, gameMap.y + gameMap.w - cam.y + cam.offsetY)
+  // }
+
+  // for (y = max(0,floor(player.y/(gameMap.h/gameMap.yDivisions)) - 5); y < min(gameMap.xDivisions, floor(player.y/(gameMap.h/gameMap.yDivisions)) + 5); y++){
+  //   line(gameMap.x - cam.x + cam.offsetX, gameMap.y + (gameMap.h/gameMap.yDivisions) * y - cam.y + cam.offsetY, gameMap.x - cam.x + cam.offsetX + gameMap.w,gameMap.y + (gameMap.h/gameMap.yDivisions) * y - cam.y + cam.offsetY)
   // }
 }
 
