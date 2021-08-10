@@ -8,6 +8,10 @@ player = {
   r: 0,
   g: 0,
   b: 0,
+  //the player will flash this color when at low health
+  hurtR: 200,
+  hurtG: 0,
+  hurtB: 0,
   money: 0,
   moneyCountYOffset: 6,
   friction: 0.8,

@@ -166,7 +166,10 @@ function drawPlayer(){
   noStroke();
   if (player.iFrames < 0 || (floor(player.iFrames/8) % 2) === 0){
     fill(player.r,player.g,player.b);
-  rect(player.x - cam.x + cam.offsetX,player.y - cam.y + cam.offsetY,player.w,player.h);
+    if ((player.health < player.maxHealth/4) && ((player.iFrames % 60) > -2)){
+      fill(player.hurtR,player.hurtG,player.hurtB);
+    }
+    rect(player.x - cam.x + cam.offsetX,player.y - cam.y + cam.offsetY,player.w,player.h);
   }
 }
 
