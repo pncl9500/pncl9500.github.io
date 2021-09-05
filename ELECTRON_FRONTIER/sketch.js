@@ -1,6 +1,6 @@
 dead = false;
 
-solidificationCounter = 0;
+
 
 spawnYOffset = -3;
 ghostTransparency = 150;
@@ -220,6 +220,22 @@ function draw() {
   }
   drawGrid();
   drawPieces();
+  if (menuOpen){
+    drawMenuButtons();
+  }
+  if (controlToRebind){
+    fill(255);
+    text(`Press any key to rebind control: ${controlToRebind}`, 120, 30);
+  }
+}
+
+function drawMenuButtons(){
+  stroke(255);
+  strokeWeight(1);
+  noFill();
+  for (b = 0; b < menuButtons.length; b++){
+    menuButtons[b].draw();
+  }
 }
 
 function drawPieces(){
@@ -247,37 +263,101 @@ function drawGrid() {
 
 
 function keyPressed(){
+  if (controlToRebind){
+    switch (controlToRebind) {
+      //how do i make gooder?
+      case "right":
+        controlSettings.right = keyCode;
+        break;
+      case "left":
+        controlSettings.left = keyCode;
+        break;
+      case "hardDrop":
+        controlSettings.hardDrop = keyCode;
+        break;
+      case "softDrop":
+        controlSettings.softDrop = keyCode;
+        break;
+      case "cw":
+        controlSettings.rotCW = keyCode;
+        break;
+      case "ccw":
+        controlSettings.rotCCW = keyCode;
+        break;
+      case "180":
+        controlSettings.rot180 = keyCode;
+        break;
+      case "hold":
+        controlSettings.hold = keyCode;
+        break;
+      case "reset":
+        controlSettings.reset = keyCode;
+        break;
+      default:
+        break;
+    }
+    controlToRebind = null;
+  }
+  if (keyCode === 27){
+    menuOpen = !menuOpen;
+  }
+  if (keyCode === controlSettings.reset){
+    bag = [];
+
+    piecesPlacedInBag = 0;
+    holdAvailable = false;
+    dasTimer = 0;
+    arrTimer = 0;
+    softDropTimer = 0;
+    dasActive = false;
+    piecesPlacedInBag = 0;
+    dead = false;
+    grid.tiles = [];
+    makeGrid();
+    nextQueue = [];
+    pieces = [0]
+    pieces.push(new Piece(null, holdPieceUIPositionX, holdPieceUIPositionX));
+
+    fillNextQueue();
+
+    console.log(nextQueue);
+    for (i = 0; i < previews; i++){
+      console.log(nextQueue[i]);
+      pieces.push(new Piece(nextQueue[i], nextPieceUIPositionX, nextPieceUIPositionY + nextPieceUIDistance * i));
+    }
+    spawnNewPiece(nextQueue[0],true);
+    getTileColors();
+  }
   if (!dead){
     switch (keyCode){
-      case 65:
+      case controlSettings.left:
         pieces[0].shift(-1,0);
         dasTimer = 0;
         arrTimer = 0;
         dasActive = false;
         break;
-      case 68:
+      case controlSettings.right:
         pieces[0].shift(1,0);
         dasTimer = 0;
         arrTimer = 0;
         dasActive = false;
         break;
-      case 87:
-        //pieces[0].shift(0,-1);
+      case controlSettings.hardDrop:
         doHardDrop();
         break;
-      case 83:
+      case controlSettings.softDrop:
         pieces[0].shift(0,1);
         break;
-      case 75:
+      case controlSettings.rotCW:
         pieces[0].rotate(1);
         break;
-      case 76:
+      case controlSettings.rotCCW:
         pieces[0].rotate(3);
         break;
-      case 77:
+      case controlSettings.rot180:
         pieces[0].rotate(2);
         break;
-      case 186:
+      case controlSettings.hold:
         //hold
         if (!holdAvailable){
           break;
@@ -299,7 +379,7 @@ function keyPressed(){
 }
 
 function handleHeldControls(){
-  if (keyIsDown(65)){
+  if (keyIsDown(controlSettings.left)){
     dasTimer += 1;
     arrTimer += 1;
     if (dasTimer > settings.das){
@@ -315,7 +395,7 @@ function handleHeldControls(){
     }
   }
   
-  if (keyIsDown(68)){
+  if (keyIsDown(controlSettings.right)){
     dasTimer += 1;
     arrTimer += 1;
     if (dasTimer >= settings.das){
@@ -330,7 +410,7 @@ function handleHeldControls(){
       }
     }
   }
-  if (keyIsDown(83)){
+  if (keyIsDown(controlSettings.softDrop)){
     softDropTimer += 1;
     if (softDropTimer >= settings.sdf){
       if (settings.sdf === 0){
@@ -363,7 +443,6 @@ function doHardDrop(){
 }
 
 function solidifyActivePiece(){
-  solidificationCounter += 1
   piecesPlacedInBag += 1;
   pieces[0].solidify();
   deleteActivePiece();
@@ -445,6 +524,17 @@ function moveDownRows(above){
   for (h = above; h >= 1; h--){
     for (j = 0; j < grid.tiles[h].length; j++){
       grid.tiles[h][j] = grid.tiles[h - 1][j];
+    }
+  }
+}
+
+
+function mouseClicked(){
+  if (menuOpen){
+    for (m = 0; m < menuButtons.length; m++){
+      if (menuButtons[m].checkForClick()){
+        return;
+      }
     }
   }
 }
