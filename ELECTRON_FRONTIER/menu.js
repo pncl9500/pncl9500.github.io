@@ -73,7 +73,9 @@ class EditHandlingButton extends MenuButton{constructor(x, y, w, h){super(x, y, 
     new dasUpButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 1,menuButtonWidth,menuButtonHeight),
     new dasDownButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 2,menuButtonWidth,menuButtonHeight),
     new arrUpButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 3,menuButtonWidth,menuButtonHeight),
-    new arrDownButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 4,menuButtonWidth,menuButtonHeight)];
+    new arrDownButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 4,menuButtonWidth,menuButtonHeight),
+    new sdfUpButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 5,menuButtonWidth,menuButtonHeight),
+    new sdfDownButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 6,menuButtonWidth,menuButtonHeight)];
     handlingCountersDrawn = true;
   }
 }

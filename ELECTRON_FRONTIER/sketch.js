@@ -387,6 +387,9 @@ function keyPressed(){
           spawnNewPiece(holdPieceType, false);
         }
         break;
+      // case 74:
+      //   moveUpRows(4);
+      //   break;
     }
   }
 }
@@ -538,6 +541,20 @@ function moveDownRows(above){
   for (h = above; h >= 1; h--){
     for (j = 0; j < grid.tiles[h].length; j++){
       grid.tiles[h][j] = grid.tiles[h - 1][j];
+    }
+  }
+}
+
+function moveUpRows(amount){
+  for (a = 0; a < amount; a++){
+    for (h = 0; h < grid.height; h++){
+      for (j = 0; j < grid.tiles[h].length; j++){
+        if (h + 1 >= grid.height){
+          grid.tiles[h][j] = 0;
+        } else {
+          grid.tiles[h][j] = grid.tiles[h + 1][j];
+        }
+      }
     }
   }
 }
