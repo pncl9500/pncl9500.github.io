@@ -1,3 +1,5 @@
+
+
 menuOpen = false;
 menuButtonTextPaddingX = 2;
 menuButtonTextPaddingY = 12;
@@ -62,6 +64,53 @@ class EditControlsButton extends MenuButton{constructor(x, y, w, h){super(x, y, 
     new ControlSetGuideline(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 10,menuButtonWidth,menuButtonHeight),
     new ControlSetWASD(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 11,menuButtonWidth,menuButtonHeight),
     new ControlSetPNCL(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 12,menuButtonWidth,menuButtonHeight),];
+  }
+}
+
+class EditHandlingButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "Edit Handling"}
+  doClickFunction(){
+    menuButtons = [new BackButton(menuPaddingX,menuPaddingY,menuButtonWidth,menuButtonHeight),
+    new dasUpButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 1,menuButtonWidth,menuButtonHeight),
+    new dasDownButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 2,menuButtonWidth,menuButtonHeight),
+    new arrUpButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 3,menuButtonWidth,menuButtonHeight),
+    new arrDownButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 4,menuButtonWidth,menuButtonHeight)];
+    handlingCountersDrawn = true;
+  }
+}
+
+class dasUpButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "+das"}
+  doClickFunction(){
+    settings.das += 1;
+  }
+}
+
+class dasDownButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "-das"}
+  doClickFunction(){
+    settings.das -= 1;
+  }
+}
+
+class arrUpButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "+arr"}
+  doClickFunction(){
+    settings.arr += 1;
+  }
+}
+
+class arrDownButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "-arr"}
+  doClickFunction(){
+    settings.arr -= 1;
+  }
+}
+
+class sdfUpButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "+sdf"}
+  doClickFunction(){
+    settings.sdf += 1;
+  }
+}
+
+class sdfDownButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "-sdf"}
+  doClickFunction(){
+    settings.sdf -= 1;
   }
 }
 
@@ -177,5 +226,7 @@ class ControlSetPNCL extends MenuButton{constructor(x, y, w, h){super(x, y, w, h
 resetMenuButtons();
 
 function resetMenuButtons(){
-  menuButtons = [new EditControlsButton(menuPaddingX,menuPaddingY,menuButtonWidth,menuButtonHeight)];
+  handlingCountersDrawn = false;
+  menuButtons = [new EditControlsButton(menuPaddingX,menuPaddingY,menuButtonWidth,menuButtonHeight),
+    new EditHandlingButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 1,menuButtonWidth,menuButtonHeight)];
 }

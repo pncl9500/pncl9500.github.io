@@ -27,9 +27,9 @@ grid = {
 }
 
 settings = {
-  das: 4,
-  arr: 0,
-  sdf: 0,
+  das: 10,
+  arr: 2,
+  sdf: 4,
 }
 
 dasTimer = 0;
@@ -222,11 +222,19 @@ function draw() {
   drawPieces();
   if (menuOpen){
     drawMenuButtons();
+    if (controlToRebind){
+      fill(255);
+      text(`Press any key to rebind control: ${controlToRebind}`, 120, 30);
+    }
+    if (handlingCountersDrawn){
+      fill(255);
+      text(`Current DAS ${settings.das}`, 120, 30);
+      text(`Current ARR ${settings.arr}`, 120, 50);
+      text(`Current SDF ${settings.sdf}`, 120, 70);
+      text(`All are in frames`, 120, 90);
+    }
   }
-  if (controlToRebind){
-    fill(255);
-    text(`Press any key to rebind control: ${controlToRebind}`, 120, 30);
-  }
+  
 }
 
 function drawMenuButtons(){
@@ -315,7 +323,7 @@ function keyPressed(){
     grid.tiles = [];
     makeGrid();
     nextQueue = [];
-    pieces = [0]
+    pieces = [0];
     pieces.push(new Piece(null, holdPieceUIPositionX, holdPieceUIPositionX));
 
     fillNextQueue();
@@ -416,6 +424,7 @@ function handleHeldControls(){
       if (settings.sdf === 0){
         snapShift(0,1)
       } else {
+        softDropTimer = 0;
         pieces[0].shift(0,1);
       }
     }
