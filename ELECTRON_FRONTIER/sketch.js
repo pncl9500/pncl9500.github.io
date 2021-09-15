@@ -1,6 +1,12 @@
 dead = false;
 
+garbageMessiness = 0;
+garbageQueue = [];
+garbageQueueAmount = 0;
 
+apmBotLinesPerAttack = 0;
+apmBotFramesPerAttack = 240;
+apmBotFrameTimer = 0;
 
 spawnYOffset = -3;
 ghostTransparency = 150;
@@ -174,7 +180,7 @@ function getTileColors(){
   tileColors.set(5, color(32,156,213));
   tileColors.set(6, color(36,70,195));
   tileColors.set(7, color(173,46,137));
-  tileColors.set(8, color(160,200,190));
+  tileColors.set(8, color(200,200,200));
 }
 
 
@@ -197,6 +203,8 @@ nextPieceUIPositionY = grid.height - grid.visibleHeight
 nextPieceUIDistance = 3;
 
 function setup() {
+  randomizeGarbageHole()
+
   window.addEventListener("keydown", function(e) {
     if(["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) {
         e.preventDefault();
@@ -218,12 +226,19 @@ function setup() {
 }
 
 function draw() {
+  apmBotFrameTimer += 1;
+  if (apmBotFrameTimer >= apmBotFramesPerAttack){
+    apmBotFrameTimer = 0;
+    garbageQueue.push(apmBotLinesPerAttack);
+    garbageQueueAmount += apmBotLinesPerAttack;
+  }
   background(0);
   fill(255);
   if (!dead){
     handleHeldControls();
   }
   drawGrid();
+  drawGarbageMeter();
   drawPieces();
   if (menuOpen){
     drawMenuButtons();
@@ -274,6 +289,11 @@ function drawGrid() {
   }
 }
 
+function drawGarbageMeter(){
+  fill(255,0,0);
+  rect(grid.xOffset - grid.tileWidth/2, (grid.height - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset - garbageQueueAmount * grid.tileWidth, grid.tileWidth/2, garbageQueueAmount * grid.tileWidth);
+}
+
 
 function keyPressed(){
   if (controlToRebind){
@@ -315,6 +335,10 @@ function keyPressed(){
     menuOpen = !menuOpen;
   }
   if (keyCode === controlSettings.reset){
+    apmBotFrameTimer = 0;
+
+    garbageQueue = [];
+    garbageQueueAmount = 0;
     bag = [];
 
     piecesPlacedInBag = 0;
@@ -387,11 +411,31 @@ function keyPressed(){
           spawnNewPiece(holdPieceType, false);
         }
         break;
-      // case 74:
-      //   moveUpRows(4);
-      //   break;
     }
   }
+}
+
+
+
+
+function addGarbage(amount){
+  for (a = grid.height - amount; a < grid.height; a++){
+    if (random(0,1) < garbageMessiness){
+      randomizeGarbageHole()
+    }
+    for (w = 0; w < grid.width; w++){
+      if (w === nextGarbageHole){
+        grid.tiles[a][w] = 0;
+      } else {
+        grid.tiles[a][w] = 8;
+      }
+    }
+  }
+  randomizeGarbageHole()
+}
+
+function randomizeGarbageHole(){
+  nextGarbageHole = floor(random(0,grid.width));
 }
 
 function handleHeldControls(){
@@ -463,8 +507,18 @@ function solidifyActivePiece(){
   piecesPlacedInBag += 1;
   pieces[0].solidify();
   deleteActivePiece();
-  checkForLineClears();
+  if (!checkForLineClears()){
+    solidifyGarbageMeter();
+  }
+}
 
+function solidifyGarbageMeter(){
+  garbageQueueAmount = 0;
+  for (g = 0; g < garbageQueue.length; g++){
+    moveUpRows(garbageQueue[g]);
+    addGarbage(garbageQueue[g]);
+  }
+  garbageQueue = [];
 }
 
 function snapShift(x, y){
@@ -523,6 +577,7 @@ function deleteActivePiece(){
 }
 
 function checkForLineClears(){
+  lineCleared = false;
   for (y = grid.height - 1; y >= 0; y--){
     tilesFilledInRow = 0;
     for (x = 0; x < grid.width; x++){
@@ -530,11 +585,13 @@ function checkForLineClears(){
         tilesFilledInRow += 1;
       }
       if (tilesFilledInRow >= grid.width){
+        lineCleared = true
         moveDownRows(y);
         y++;
       }
     }
   }
+  return lineCleared;
 }
 
 function moveDownRows(above){

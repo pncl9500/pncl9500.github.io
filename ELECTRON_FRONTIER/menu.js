@@ -80,6 +80,79 @@ class EditHandlingButton extends MenuButton{constructor(x, y, w, h){super(x, y, 
   }
 }
 
+class EditApmBotButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "Edit APM bot"}
+  doClickFunction(){
+    menuButtons = [new BackButton(menuPaddingX,menuPaddingY,menuButtonWidth,menuButtonHeight),
+      new DisableApmBot(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 1,menuButtonWidth,menuButtonHeight),
+      new Quad5apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 2,menuButtonWidth,menuButtonHeight),
+    new Quad10apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 3,menuButtonWidth,menuButtonHeight),
+    new Quad20apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 4,menuButtonWidth,menuButtonHeight),
+    new Quad30apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 5,menuButtonWidth,menuButtonHeight),
+    new Quad40apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 6,menuButtonWidth,menuButtonHeight),
+    new Quad50apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 7,menuButtonWidth,menuButtonHeight),
+    new Quad60apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 8,menuButtonWidth,menuButtonHeight),
+    new Quad70apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 9,menuButtonWidth,menuButtonHeight),
+    new Quad80apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 10,menuButtonWidth,menuButtonHeight),
+    new Quad90apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 11,menuButtonWidth,menuButtonHeight),
+    new Quad100apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 12,menuButtonWidth,menuButtonHeight),
+    new Quad110apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 13,menuButtonWidth,menuButtonHeight),
+    new Quad120apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 14,menuButtonWidth,menuButtonHeight),
+    new Quad130apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 15,menuButtonWidth,menuButtonHeight),
+    new Quad140apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 16,menuButtonWidth,menuButtonHeight),
+    new Quad150apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 17,menuButtonWidth,menuButtonHeight)];
+  }
+}
+
+class DisableApmBot extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "Disable APM bot"}
+  doClickFunction(){
+    apmBotLinesPerAttack = 0;
+  }
+}
+
+class Quad5apmBotButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "Set 5 APM quad bot"}doClickFunction(){apmBotLinesPerAttack = 4;
+    apmBotFramesPerAttack = 2880;}}
+    
+
+class Quad10apmBotButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "Set 10 APM quad bot"}doClickFunction(){apmBotLinesPerAttack = 4;
+  apmBotFramesPerAttack = 1440;}}
+class Quad20apmBotButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "Set 20 APM quad bot"}doClickFunction(){apmBotLinesPerAttack = 4;
+  apmBotFramesPerAttack = 720;}}
+
+class Quad30apmBotButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "Set 30 APM quad bot"}doClickFunction(){apmBotLinesPerAttack = 4;
+  apmBotFramesPerAttack = 480;}}
+
+  class Quad40apmBotButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "Set 40 APM quad bot"}doClickFunction(){apmBotLinesPerAttack = 4;
+    apmBotFramesPerAttack = 360;}}
+    
+    class Quad50apmBotButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "Set 50 APM quad bot"}doClickFunction(){apmBotLinesPerAttack = 4;
+      apmBotFramesPerAttack = 288;}}
+
+      class Quad60apmBotButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "Set 60 APM quad bot"}doClickFunction(){apmBotLinesPerAttack = 4;
+        apmBotFramesPerAttack = 240;}}
+
+        class Quad70apmBotButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "Set 70 APM quad bot"}doClickFunction(){apmBotLinesPerAttack = 4;
+          apmBotFramesPerAttack = 206;}}
+
+          class Quad80apmBotButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "Set 80 APM quad bot"}doClickFunction(){apmBotLinesPerAttack = 4;
+            apmBotFramesPerAttack = 180;}}
+
+            class Quad90apmBotButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "Set 90 APM quad bot"}doClickFunction(){apmBotLinesPerAttack = 4;
+              apmBotFramesPerAttack = 160;}}
+
+              class Quad100apmBotButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "Set 100 APM quad bot"}doClickFunction(){apmBotLinesPerAttack = 4;
+                apmBotFramesPerAttack = 144;}}
+
+                class Quad110apmBotButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "Set 110 APM quad bot"}doClickFunction(){apmBotLinesPerAttack = 4;
+                  apmBotFramesPerAttack = 131;}}
+                  class Quad120apmBotButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "Set 120 APM quad bot"}doClickFunction(){apmBotLinesPerAttack = 4;
+                    apmBotFramesPerAttack = 120;}}
+                    class Quad130apmBotButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "Set 130 APM quad bot"}doClickFunction(){apmBotLinesPerAttack = 4;
+                      apmBotFramesPerAttack = 111;}}
+                      class Quad140apmBotButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "Set 140 APM quad bot"}doClickFunction(){apmBotLinesPerAttack = 4;
+                        apmBotFramesPerAttack = 103;}}
+                        class Quad150apmBotButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "Firestorm is living in your walls"}doClickFunction(){apmBotLinesPerAttack = 4;
+                          apmBotFramesPerAttack = 96;}}
+
 class dasUpButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "+das"}
   doClickFunction(){
     settings.das += 1;
@@ -230,5 +303,6 @@ resetMenuButtons();
 function resetMenuButtons(){
   handlingCountersDrawn = false;
   menuButtons = [new EditControlsButton(menuPaddingX,menuPaddingY,menuButtonWidth,menuButtonHeight),
-    new EditHandlingButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 1,menuButtonWidth,menuButtonHeight)];
+    new EditHandlingButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 1,menuButtonWidth,menuButtonHeight),
+    new EditApmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 2,menuButtonWidth,menuButtonHeight)];
 }
