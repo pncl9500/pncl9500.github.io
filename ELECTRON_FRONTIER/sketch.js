@@ -76,6 +76,7 @@ class Piece {
     }
     this.color = pieceData[type].color;
     this.tiles = pieceData[type].tiles[0];
+    this.latestKick = 0;
   }
   draw(){
     if (this.type === null){
@@ -156,6 +157,7 @@ class Piece {
       if (!this.pieceCollidesWithTile(this.kickTable[k][0],this.kickTable[k][1] * -1)){
         this.x += this.kickTable[k][0];
         this.y += this.kickTable[k][1] * -1;
+        this.latestKick = k;
         lastSuccessfulAction = "rotate";
         return true;
       }
@@ -205,26 +207,34 @@ class Piece {
       if (lastSuccessfulAction === "rotate" && cornerCount >= 3){
         actionIsTspin = true;
         actionIsMini = false;
-        if (pieceData.t.miniTiles[this.direction].includes("a")){
-          if (a === false){
-            actionIsMini = true;
+        if (((this.latestKick === 4 && this.rot1 === 0) && this.rot2 === 1) ||
+            ((this.latestKick === 4 && this.rot1 === 0) && this.rot2 === 3) ||
+            ((this.latestKick === 4 && this.rot1 === 2) && this.rot2 === 1) ||
+            ((this.latestKick === 4 && this.rot1 === 2) && this.rot2 === 3)){
+          actionIsMini = false;
+        } else {
+          if (pieceData.t.miniTiles[this.direction].includes("a")){
+            if (a === false){
+              actionIsMini = true;
+            }
+          }
+          if (pieceData.t.miniTiles[this.direction].includes("b")){
+            if (b === false){
+              actionIsMini = true;
+            }
+          }
+          if (pieceData.t.miniTiles[this.direction].includes("c")){
+            if (c === false){
+              actionIsMini = true;
+            }
+          }
+          if (pieceData.t.miniTiles[this.direction].includes("d")){
+            if (d === false){
+              actionIsMini = true;
+            }
           }
         }
-        if (pieceData.t.miniTiles[this.direction].includes("b")){
-          if (b === false){
-            actionIsMini = true;
-          }
-        }
-        if (pieceData.t.miniTiles[this.direction].includes("c")){
-          if (c === false){
-            actionIsMini = true;
-          }
-        }
-        if (pieceData.t.miniTiles[this.direction].includes("d")){
-          if (d === false){
-            actionIsMini = true;
-          }
-        }
+        
       }
     }
 
@@ -463,9 +473,7 @@ function keyPressed(){
 
     fillNextQueue();
 
-    console.log(nextQueue);
     for (i = 0; i < previews; i++){
-      console.log(nextQueue[i]);
       pieces.push(new Piece(nextQueue[i], nextPieceUIPositionX, nextPieceUIPositionY + nextPieceUIDistance * i));
     }
     spawnNewPiece(nextQueue[0],true);
@@ -629,8 +637,12 @@ function logGrid(saidGrid){
 }
 
 function doHardDrop(){
-
+  oldpieces0x = pieces[0].x;
+  oldpieces0y = pieces[0].y;
   snapShift(0, 1)
+  if ((oldpieces0x != pieces[0].x) || (oldpieces0y != pieces[0].y)){
+    lastSuccessfulAction = "harddrop";
+  }
   solidifyActivePiece();
   spawnNewPiece(nextQueue[0], true);
 }
@@ -659,7 +671,9 @@ function solidifyGarbageMeter(){
 }
 
 function snapShift(x, y){
-  while (pieces[0].shift(x,y)){}
+  while (pieces[0].shift(x,y)){
+    
+  }
 }
 
 function spawnNewPiece(type, cyclePieces){
@@ -730,8 +744,6 @@ function checkForLineClears(){
       }
     }
   }
-  console.log(actionIsTspin);
-  console.log(linesCleared);
   if (linesCleared !== 0){
     if (linesCleared >= 4 || actionIsTspin){
       btb += 1;
