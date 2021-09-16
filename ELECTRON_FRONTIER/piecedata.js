@@ -24,6 +24,12 @@ pieceData = {
         [0,1,0],
       ]
     ],
+    miniTiles: [
+      ["a","b"],
+      ["b","c"],
+      ["c","d"],
+      ["a","d"]
+    ],
     color: 7,
     kicks: {
       //0 to 1, 0 to 2, 0 to 3 kicks

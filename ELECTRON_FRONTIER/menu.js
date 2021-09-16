@@ -150,7 +150,7 @@ class Quad30apmBotButton extends MenuButton{constructor(x, y, w, h){super(x, y, 
                       apmBotFramesPerAttack = 111;}}
                       class Quad140apmBotButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "Set 140 APM quad bot"}doClickFunction(){apmBotLinesPerAttack = 4;
                         apmBotFramesPerAttack = 103;}}
-                        class Quad150apmBotButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "Firestorm is living in your walls"}doClickFunction(){apmBotLinesPerAttack = 4;
+                        class Quad150apmBotButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "Set 150 APM quad bot"}doClickFunction(){apmBotLinesPerAttack = 4;
                           apmBotFramesPerAttack = 96;}}
 
 class dasUpButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "+das"}

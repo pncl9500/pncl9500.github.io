@@ -1,3 +1,19 @@
+actionIsTspin = false;
+actionIsMini = false;
+
+lastSuccessfulAction = "harddrop";
+
+solidificationIsTspin = false;
+
+piecesPlacedTotal = 0;
+framesPassedSinceReset = 0;
+
+mostRecentClear = "SINGLE"
+mostRecentClearAnimationTimer = 0;
+
+combo = -1;
+btb = -1;
+
 dead = false;
 
 garbageMessiness = 0;
@@ -140,6 +156,7 @@ class Piece {
       if (!this.pieceCollidesWithTile(this.kickTable[k][0],this.kickTable[k][1] * -1)){
         this.x += this.kickTable[k][0];
         this.y += this.kickTable[k][1] * -1;
+        lastSuccessfulAction = "rotate";
         return true;
       }
     }
@@ -151,11 +168,70 @@ class Piece {
   }
   //turn the piece object into blocks in the grid tiles
   solidify(){
+    if (this.type === "t"){
+      var a = false;
+      var b = false;
+      var c = false;
+      var d = false;
+      if (this.y + 2 > grid.height - 1){
+        c = true;
+        d = true;
+      }
+      if (this.x + 2 > grid.width - 1){
+        b = true;
+        c = true;
+      }
+      if (this.y < 0){
+        a = true;
+        b = true;
+      }
+      if (this.x < 0){
+        a = true;
+        d = true;
+      }
+      if (a || grid.tiles[this.y][this.x]){
+        a = true;
+      }
+      if (b || grid.tiles[this.y][this.x + 2]){
+        b = true;
+      }
+      if (c || grid.tiles[this.y + 2][this.x + 2]){
+        c = true;
+      }
+      if (d || grid.tiles[this.y + 2][this.x]){
+        d = true;
+      }
+      var cornerCount = a + b + c + d;
+      if (lastSuccessfulAction === "rotate" && cornerCount >= 3){
+        actionIsTspin = true;
+        actionIsMini = false;
+        if (pieceData.t.miniTiles[this.direction].includes("a")){
+          if (a === false){
+            actionIsMini = true;
+          }
+        }
+        if (pieceData.t.miniTiles[this.direction].includes("b")){
+          if (b === false){
+            actionIsMini = true;
+          }
+        }
+        if (pieceData.t.miniTiles[this.direction].includes("c")){
+          if (c === false){
+            actionIsMini = true;
+          }
+        }
+        if (pieceData.t.miniTiles[this.direction].includes("d")){
+          if (d === false){
+            actionIsMini = true;
+          }
+        }
+      }
+    }
+
+
     if (this.type === null){
       return;
     }
-    logGrid(grid.tiles);
-    logGrid(this.tiles);
     for (var yy = 0; yy < this.tiles.length; yy++){
       for (var xx = 0; xx < this.tiles[0].length; xx++){
         if (this.tiles[yy][xx] != 0){
@@ -163,8 +239,7 @@ class Piece {
         }
       }
     }
-    logGrid(this.tiles);
-    logGrid(grid.tiles);
+    lastSuccessfulAction = "harddrop"
   }
 }
 
@@ -213,6 +288,9 @@ function setup() {
   createCanvas(600, 600);
   makeGrid();
   getTileColors();
+  getClearTypes();
+  getTspinClearTypes();
+  getTspinMiniClearTypes();
   
   pieces[0] = 0;
   pieces.push(new Piece(null, holdPieceUIPositionX, holdPieceUIPositionX));
@@ -226,6 +304,8 @@ function setup() {
 }
 
 function draw() {
+  mostRecentClearAnimationTimer -= 1;
+  framesPassedSinceReset += 1;
   apmBotFrameTimer += 1;
   if (apmBotFrameTimer >= apmBotFramesPerAttack){
     apmBotFrameTimer = 0;
@@ -239,8 +319,11 @@ function draw() {
   }
   drawGrid();
   drawGarbageMeter();
+  drawStats();
   drawPieces();
+  
   if (menuOpen){
+    textSize(12);
     drawMenuButtons();
     if (controlToRebind){
       fill(255);
@@ -255,6 +338,19 @@ function draw() {
     }
   }
   
+}
+
+function drawStats(){
+  fill(255);
+  textSize(14);
+  pps = piecesPlacedTotal/(framesPassedSinceReset/60)
+  text(`pps - ${floor(pps*100)/100}`,grid.xOffset - grid.tileWidth/2 - 80, (grid.height - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset - 110)
+  textSize(20);
+  text(`btb - ${max(btb,0)}`,grid.xOffset - grid.tileWidth/2 - 100, (grid.height - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset - 240)
+  text(`combo - ${max(combo,0)}`,grid.xOffset - grid.tileWidth/2 - 100, (grid.height - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset - 220)
+  if (mostRecentClearAnimationTimer > 0){
+    text(mostRecentClear,grid.xOffset - grid.tileWidth/2 - 155, (grid.height - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset - 180)
+  }
 }
 
 function drawMenuButtons(){
@@ -335,6 +431,16 @@ function keyPressed(){
     menuOpen = !menuOpen;
   }
   if (keyCode === controlSettings.reset){
+
+    actionIsMini = false;
+    actionIsTspin = false;
+    combo = -1;
+    btb = -1;
+
+    lastSuccessfulAction = "harddrop";
+
+    framesPassedSinceReset = 0;
+    piecesPlacedTotal = 0;
     apmBotFrameTimer = 0;
 
     garbageQueue = [];
@@ -368,13 +474,23 @@ function keyPressed(){
   if (!dead){
     switch (keyCode){
       case controlSettings.left:
+        oldpieces0x = pieces[0].x;
+        oldpieces0y = pieces[0].y;
         pieces[0].shift(-1,0);
+        if ((oldpieces0x != pieces[0].x) || (oldpieces0y != pieces[0].y)){
+          lastSuccessfulAction = "shift";
+        }
         dasTimer = 0;
         arrTimer = 0;
         dasActive = false;
         break;
       case controlSettings.right:
+        oldpieces0x = pieces[0].x;
+        oldpieces0y = pieces[0].y;
         pieces[0].shift(1,0);
+        if ((oldpieces0x != pieces[0].x) || (oldpieces0y != pieces[0].y)){
+          lastSuccessfulAction = "shift";
+        }
         dasTimer = 0;
         arrTimer = 0;
         dasActive = false;
@@ -383,7 +499,12 @@ function keyPressed(){
         doHardDrop();
         break;
       case controlSettings.softDrop:
+        oldpieces0x = pieces[0].x;
+        oldpieces0y = pieces[0].y;
         pieces[0].shift(0,1);
+        if ((oldpieces0x != pieces[0].x) || (oldpieces0y != pieces[0].y)){
+          lastSuccessfulAction = "softdrop";
+        }
         break;
       case controlSettings.rotCW:
         pieces[0].rotate(1);
@@ -399,6 +520,7 @@ function keyPressed(){
         if (!holdAvailable){
           break;
         }
+        lastSuccessfulAction = "hold";
         holdAvailable = false;
         if (pieces[1].type === null){
           pieces[1] = new Piece(pieces[0].type, holdPieceUIPositionX, holdPieceUIPositionY);
@@ -463,21 +585,31 @@ function handleHeldControls(){
     }
     if (dasActive === true && arrTimer >= settings.arr){
       arrTimer = 0;
+      oldpieces0x = pieces[0].x;
+      oldpieces0y = pieces[0].y;
       if (settings.arr === 0){
         snapShift(1, 0)
       } else {
         pieces[0].shift(1,0);
+      }
+      if ((oldpieces0x != pieces[0].x) || (oldpieces0y != pieces[0].y)){
+        lastSuccessfulAction = "shift";
       }
     }
   }
   if (keyIsDown(controlSettings.softDrop)){
     softDropTimer += 1;
     if (softDropTimer >= settings.sdf){
+      oldpieces0x = pieces[0].x;
+      oldpieces0y = pieces[0].y;
       if (settings.sdf === 0){
         snapShift(0,1)
       } else {
         softDropTimer = 0;
         pieces[0].shift(0,1);
+      }
+      if ((oldpieces0x != pieces[0].x) || (oldpieces0y != pieces[0].y)){
+        lastSuccessfulAction = "softdrop";
       }
     }
   }
@@ -504,11 +636,16 @@ function doHardDrop(){
 }
 
 function solidifyActivePiece(){
+  solidificationIsTspin = false;
+  piecesPlacedTotal += 1;
   piecesPlacedInBag += 1;
   pieces[0].solidify();
   deleteActivePiece();
   if (!checkForLineClears()){
+    combo = -1;
     solidifyGarbageMeter();
+  } else {
+    combo += 1;
   }
 }
 
@@ -578,6 +715,7 @@ function deleteActivePiece(){
 
 function checkForLineClears(){
   lineCleared = false;
+  linesCleared = 0;
   for (y = grid.height - 1; y >= 0; y--){
     tilesFilledInRow = 0;
     for (x = 0; x < grid.width; x++){
@@ -585,14 +723,69 @@ function checkForLineClears(){
         tilesFilledInRow += 1;
       }
       if (tilesFilledInRow >= grid.width){
+        linesCleared += 1;
         lineCleared = true
         moveDownRows(y);
         y++;
       }
     }
   }
+  console.log(actionIsTspin);
+  console.log(linesCleared);
+  if (linesCleared !== 0){
+    if (linesCleared >= 4 || actionIsTspin){
+      btb += 1;
+    } else {
+      btb = -1;
+    }
+  }
+
+  if (actionIsTspin){
+    if (actionIsMini){
+      if (typeof(tSpinMiniClearTypes.get(linesCleared)) != "undefined"){
+        mostRecentClearAnimationTimer = 160;
+        mostRecentClear = tSpinMiniClearTypes.get(linesCleared);
+      }
+    } else {
+      if (typeof(tSpinClearTypes.get(linesCleared)) != "undefined"){
+        mostRecentClearAnimationTimer = 160;
+        mostRecentClear = tSpinClearTypes.get(linesCleared);
+      }
+    }
+    
+  } else {
+    if (typeof(clearTypes.get(linesCleared)) != "undefined"){
+      mostRecentClearAnimationTimer = 160;
+      mostRecentClear = clearTypes.get(linesCleared);
+    }
+  }
+
+  actionIsTspin = false;
   return lineCleared;
 }
+
+function getClearTypes(){
+  clearTypes = new Map();
+  clearTypes.set(1, "SINGLE");
+  clearTypes.set(2, "DOUBLE");
+  clearTypes.set(3, "TRIPLE");
+  clearTypes.set(4, "QUAD");
+}
+
+function getTspinClearTypes(){
+  tSpinClearTypes = new Map();
+  tSpinClearTypes.set(1, "T-SPIN SINGLE");
+  tSpinClearTypes.set(2, "T-SPIN DOUBLE");
+  tSpinClearTypes.set(3, "T-SPIN TRIPLE");
+}
+
+function getTspinMiniClearTypes(){
+  tSpinMiniClearTypes = new Map();
+  tSpinMiniClearTypes.set(1, "T-MINI SINGLE");
+  tSpinMiniClearTypes.set(2, "T-MINI DOUBLE");
+}
+
+
 
 function moveDownRows(above){
   for (h = above; h >= 1; h--){
