@@ -828,18 +828,6 @@ function checkForLineClears(){
       attackSentThisPiece += attackTable[btbLevel].clears[linesCleared][min(combo + 1,attackTable[btbLevel].clears[linesCleared].length - 1)];
     }
   }
-  attackSentTotal += attackSentThisPiece;
-  while (attackSentThisPiece > 0){
-    garbageQueue[0] -= 1;
-    garbageQueueAmount -= 1;
-    attackSentThisPiece -= 1;
-    if (garbageQueue[0] <= 1){
-      garbageQueue.splice(0,1)
-    }
-  }
-  if (garbageQueueAmount < 0){
-    garbageQueueAmount = 0;
-  }
 
   actionIsTspin = false;
   //check for pc
@@ -852,11 +840,25 @@ function checkForLineClears(){
     }
   }
   perfectClears += pcHappened;
-  attackSentTotal += pcHappened * attackTable.pcDamage;
+  attackSentThisPiece += pcHappened * attackTable.pcDamage;
   if (sprintTimerGoing && linesClearedTotal >= 40){
     sprintTimerGoing = false;
     sprintMinutes = floor(framesPassedSinceReset/60/60)
     sprintSeconds = framesPassedSinceReset/60 % 60;
+  }
+
+  attackSentTotal += attackSentThisPiece;
+
+  while (attackSentThisPiece > 0){
+    garbageQueue[0] -= 1;
+    garbageQueueAmount -= 1;
+    attackSentThisPiece -= 1;
+    if (garbageQueue[0] <= 1){
+      garbageQueue.splice(0,1)
+    }
+  }
+  if (garbageQueueAmount < 0){
+    garbageQueueAmount = 0;
   }
 
 
