@@ -80,26 +80,56 @@ class EditHandlingButton extends MenuButton{constructor(x, y, w, h){super(x, y, 
   }
 }
 
-class EditApmBotButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "Edit APM bot"}
+class EditApmBotButton extends MenuButton{constructor(x, y, w, h, text = "Edit APM bot"){super(x, y, w, h); this.text = text}
   doClickFunction(){
     menuButtons = [new BackButton(menuPaddingX,menuPaddingY,menuButtonWidth,menuButtonHeight),
       new DisableApmBot(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 1,menuButtonWidth,menuButtonHeight),
-      new Quad5apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 2,menuButtonWidth,menuButtonHeight),
-    new Quad10apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 3,menuButtonWidth,menuButtonHeight),
-    new Quad20apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 4,menuButtonWidth,menuButtonHeight),
-    new Quad30apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 5,menuButtonWidth,menuButtonHeight),
-    new Quad40apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 6,menuButtonWidth,menuButtonHeight),
-    new Quad50apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 7,menuButtonWidth,menuButtonHeight),
-    new Quad60apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 8,menuButtonWidth,menuButtonHeight),
-    new Quad70apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 9,menuButtonWidth,menuButtonHeight),
-    new Quad80apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 10,menuButtonWidth,menuButtonHeight),
-    new Quad90apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 11,menuButtonWidth,menuButtonHeight),
-    new Quad100apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 12,menuButtonWidth,menuButtonHeight),
-    new Quad110apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 13,menuButtonWidth,menuButtonHeight),
-    new Quad120apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 14,menuButtonWidth,menuButtonHeight),
-    new Quad130apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 15,menuButtonWidth,menuButtonHeight),
-    new Quad140apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 16,menuButtonWidth,menuButtonHeight),
-    new Quad150apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 17,menuButtonWidth,menuButtonHeight)];
+      new EditApmQuadBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 2,menuButtonWidth,menuButtonHeight),
+      new EditApmCheeseBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 3,menuButtonWidth,menuButtonHeight)];
+  }
+}
+
+class EditApmQuadBotButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "Quad"}
+  doClickFunction(){
+    menuButtons = [new EditApmBotButton(menuPaddingX,menuPaddingY,menuButtonWidth,menuButtonHeight, "Back"),
+      new Quad5apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 1,menuButtonWidth,menuButtonHeight),
+    new Quad10apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 2,menuButtonWidth,menuButtonHeight),
+    new Quad20apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 3,menuButtonWidth,menuButtonHeight),
+    new Quad30apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 4,menuButtonWidth,menuButtonHeight),
+    new Quad40apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 5,menuButtonWidth,menuButtonHeight),
+    new Quad50apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 6,menuButtonWidth,menuButtonHeight),
+    new Quad60apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 7,menuButtonWidth,menuButtonHeight),
+    new Quad70apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 8,menuButtonWidth,menuButtonHeight),
+    new Quad80apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 9,menuButtonWidth,menuButtonHeight),
+    new Quad90apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 10,menuButtonWidth,menuButtonHeight),
+    new Quad100apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 11,menuButtonWidth,menuButtonHeight),
+    new Quad110apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 12,menuButtonWidth,menuButtonHeight),
+    new Quad120apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 13,menuButtonWidth,menuButtonHeight),
+    new Quad130apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 14,menuButtonWidth,menuButtonHeight),
+    new Quad140apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 15,menuButtonWidth,menuButtonHeight),
+    new Quad150apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 16,menuButtonWidth,menuButtonHeight)];
+  }
+}
+
+class EditApmCheeseBotButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "Cheese"}
+  doClickFunction(){
+    menuButtons = [new EditApmBotButton(menuPaddingX,menuPaddingY,menuButtonWidth,menuButtonHeight, "Back"),
+      new Cheese5apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 1,menuButtonWidth,menuButtonHeight),
+    new Cheese10apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 2,menuButtonWidth,menuButtonHeight),
+    new Cheese20apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 3,menuButtonWidth,menuButtonHeight),
+    new Cheese30apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 4,menuButtonWidth,menuButtonHeight),
+    new Cheese40apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 5,menuButtonWidth,menuButtonHeight),
+    new Cheese50apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 6,menuButtonWidth,menuButtonHeight),
+    new Cheese60apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 7,menuButtonWidth,menuButtonHeight),
+    new Cheese70apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 8,menuButtonWidth,menuButtonHeight),
+    new Cheese80apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 9,menuButtonWidth,menuButtonHeight),
+    new Cheese90apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 10,menuButtonWidth,menuButtonHeight),
+    new Cheese100apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 11,menuButtonWidth,menuButtonHeight),
+    new Cheese110apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 12,menuButtonWidth,menuButtonHeight),
+    new Cheese120apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 13,menuButtonWidth,menuButtonHeight),
+    new Cheese130apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 14,menuButtonWidth,menuButtonHeight),
+    new Cheese140apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 15,menuButtonWidth,menuButtonHeight),
+    new Cheese150apmBotButton(menuPaddingX,menuPaddingY + (verticalSpaceBetweenMenuButtons + menuButtonHeight) * 16,menuButtonWidth,menuButtonHeight)];
   }
 }
 
@@ -152,6 +182,54 @@ class Quad30apmBotButton extends MenuButton{constructor(x, y, w, h){super(x, y, 
                         apmBotFramesPerAttack = 103;}}
                         class Quad150apmBotButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "Set 150 APM quad bot"}doClickFunction(){apmBotLinesPerAttack = 4;
                           apmBotFramesPerAttack = 96;}}
+
+
+
+
+
+  class Cheese5apmBotButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "Set 5 APM Cheese bot"}doClickFunction(){apmBotLinesPerAttack = 1;
+    apmBotFramesPerAttack = 720;}}
+    
+
+class Cheese10apmBotButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "Set 10 APM Cheese bot"}doClickFunction(){apmBotLinesPerAttack = 1;
+  apmBotFramesPerAttack = 360;}}
+class Cheese20apmBotButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "Set 20 APM Cheese bot"}doClickFunction(){apmBotLinesPerAttack = 1;
+  apmBotFramesPerAttack = 180;}}
+
+class Cheese30apmBotButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "Set 30 APM Cheese bot"}doClickFunction(){apmBotLinesPerAttack = 1;
+  apmBotFramesPerAttack = 120;}}
+
+  class Cheese40apmBotButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "Set 40 APM Cheese bot"}doClickFunction(){apmBotLinesPerAttack = 1;
+    apmBotFramesPerAttack = 90;}}
+    
+    class Cheese50apmBotButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "Set 50 APM Cheese bot"}doClickFunction(){apmBotLinesPerAttack = 1;
+      apmBotFramesPerAttack = 72;}}
+
+      class Cheese60apmBotButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "Set 60 APM Cheese bot"}doClickFunction(){apmBotLinesPerAttack = 1;
+        apmBotFramesPerAttack = 60;}}
+
+        class Cheese70apmBotButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "Set 70 APM Cheese bot"}doClickFunction(){apmBotLinesPerAttack = 1;
+          apmBotFramesPerAttack = 52;}}
+
+          class Cheese80apmBotButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "Set 80 APM Cheese bot"}doClickFunction(){apmBotLinesPerAttack = 1;
+            apmBotFramesPerAttack = 45;}}
+
+            class Cheese90apmBotButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "Set 90 APM Cheese bot"}doClickFunction(){apmBotLinesPerAttack = 1;
+              apmBotFramesPerAttack = 40;}}
+
+              class Cheese100apmBotButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "Set 100 APM Cheese bot"}doClickFunction(){apmBotLinesPerAttack = 1;
+                apmBotFramesPerAttack = 36;}}
+
+                class Cheese110apmBotButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "Set 110 APM Cheese bot"}doClickFunction(){apmBotLinesPerAttack = 1;
+                  apmBotFramesPerAttack = 33;}}
+                  class Cheese120apmBotButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "Set 120 APM Cheese bot"}doClickFunction(){apmBotLinesPerAttack = 1;
+                    apmBotFramesPerAttack = 30;}}
+                    class Cheese130apmBotButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "Set 130 APM Cheese bot"}doClickFunction(){apmBotLinesPerAttack = 1;
+                      apmBotFramesPerAttack = 28;}}
+                      class Cheese140apmBotButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "Set 140 APM Cheese bot"}doClickFunction(){apmBotLinesPerAttack = 1;
+                        apmBotFramesPerAttack = 25;}}
+                        class Cheese150apmBotButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "Set 150 APM Cheese bot"}doClickFunction(){apmBotLinesPerAttack = 1;
+                          apmBotFramesPerAttack = 24;}}
 
 class dasUpButton extends MenuButton{constructor(x, y, w, h){super(x, y, w, h); this.text = "+das"}
   doClickFunction(){

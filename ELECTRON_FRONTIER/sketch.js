@@ -1,3 +1,8 @@
+
+
+
+
+
 actionIsTspin = false;
 actionIsMini = false;
 
@@ -13,6 +18,12 @@ mostRecentClearAnimationTimer = 0;
 
 combo = -1;
 btb = -1;
+
+perfectClears = 0;
+attackSentTotal = 0;
+sprintTimerGoing = true;
+
+linesClearedTotal = 0;
 
 dead = false;
 
@@ -311,11 +322,14 @@ function setup() {
     pieces.push(new Piece(nextQueue[i], nextPieceUIPositionX, nextPieceUIPositionY + nextPieceUIDistance * i));
   }
   spawnNewPiece(nextQueue[0],true);
+
 }
 
 function draw() {
   mostRecentClearAnimationTimer -= 1;
-  framesPassedSinceReset += 1;
+  if (piecesPlacedTotal > 0 && !dead){
+    framesPassedSinceReset += 1;
+  }
   apmBotFrameTimer += 1;
   if (apmBotFrameTimer >= apmBotFramesPerAttack){
     apmBotFrameTimer = 0;
@@ -353,13 +367,35 @@ function draw() {
 function drawStats(){
   fill(255);
   textSize(14);
-  pps = piecesPlacedTotal/(framesPassedSinceReset/60)
+  pps = piecesPlacedTotal/(framesPassedSinceReset/60);
+  lpm = linesClearedTotal/(framesPassedSinceReset/60/60);
+  apm = attackSentTotal/(framesPassedSinceReset/60/60);
+  app = attackSentTotal/piecesPlacedTotal;
+  if (isNaN(pps)){
+    pps = 0;
+    lpm = 0;
+    apm = 0;
+    app = 0;
+  }
+  minutes = floor(framesPassedSinceReset/60/60)
+  seconds = framesPassedSinceReset/60 % 60;
+  text(`p - ${piecesPlacedTotal}`,grid.xOffset - grid.tileWidth/2 - 140, (grid.height - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset - 110)
   text(`pps - ${floor(pps*100)/100}`,grid.xOffset - grid.tileWidth/2 - 80, (grid.height - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset - 110)
+  text(`a - ${attackSentTotal}`,grid.xOffset - grid.tileWidth/2 - 140, (grid.height - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset - 94)
+  text(`apm - ${floor(apm*100)/100}`,grid.xOffset - grid.tileWidth/2 - 80, (grid.height - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset - 94)
+  text(`l - ${linesClearedTotal}`,grid.xOffset - grid.tileWidth/2 - 140, (grid.height - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset - 78)
+  text(`lpm - ${floor(lpm*100)/100}`,grid.xOffset - grid.tileWidth/2 - 80, (grid.height - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset - 78)
+  text(`app - ${floor(app*100)/100}`,grid.xOffset - grid.tileWidth/2 - 80, (grid.height - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset - 62)
+  text(`${minutes}:${(floor(seconds).toString().length === 1) ? `0` : ``}${floor(seconds*1000)/1000}`,grid.xOffset - grid.tileWidth/2 - 80, (grid.height - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset);
+  if (linesClearedTotal >= 40){
+    text(`40L time - ${sprintMinutes}:${(floor(sprintSeconds).toString().length === 1) ? `0` : ``}${floor(sprintSeconds*1000)/1000}`,grid.xOffset - grid.tileWidth/2 - 80, (grid.height - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset + 16);
+  }
+  text(`PCs - ${perfectClears}`,grid.xOffset - grid.tileWidth/2 - 100, (grid.height - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset - 200)
   textSize(20);
   text(`btb - ${max(btb,0)}`,grid.xOffset - grid.tileWidth/2 - 100, (grid.height - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset - 240)
   text(`combo - ${max(combo,0)}`,grid.xOffset - grid.tileWidth/2 - 100, (grid.height - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset - 220)
   if (mostRecentClearAnimationTimer > 0){
-    text(mostRecentClear,grid.xOffset - grid.tileWidth/2 - 155, (grid.height - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset - 180)
+    text(mostRecentClear,grid.xOffset - grid.tileWidth/2 - 155, (grid.height - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset - 150)
   }
 }
 
@@ -446,8 +482,16 @@ function keyPressed(){
     actionIsTspin = false;
     combo = -1;
     btb = -1;
+    perfectClears = 0;
+    linesClearedTotal = 0;
+
+    sprintTimerGoing = true;
+    sprintMinutes = 0;
+    sprintSeconds = 0;
 
     lastSuccessfulAction = "harddrop";
+
+    attackSentTotal = 0;
 
     framesPassedSinceReset = 0;
     piecesPlacedTotal = 0;
@@ -738,6 +782,7 @@ function checkForLineClears(){
       }
       if (tilesFilledInRow >= grid.width){
         linesCleared += 1;
+        linesClearedTotal += 1;
         lineCleared = true
         moveDownRows(y);
         y++;
@@ -752,16 +797,27 @@ function checkForLineClears(){
     }
   }
 
+  if (btb < 1){
+    btbLevel = 0;
+  } else if (btb < 3){
+    btbLevel = 1;
+  } else {
+    btbLevel = 2;
+  }
+  btbLevel = `level${btbLevel}`;
+  attackSentThisPiece = 0;
   if (actionIsTspin){
     if (actionIsMini){
       if (typeof(tSpinMiniClearTypes.get(linesCleared)) != "undefined"){
         mostRecentClearAnimationTimer = 160;
         mostRecentClear = tSpinMiniClearTypes.get(linesCleared);
+        attackSentThisPiece += attackTable[btbLevel].tspinminis[linesCleared][min(combo + 1,attackTable[btbLevel].tspinminis[linesCleared].length - 1)];
       }
     } else {
       if (typeof(tSpinClearTypes.get(linesCleared)) != "undefined"){
         mostRecentClearAnimationTimer = 160;
         mostRecentClear = tSpinClearTypes.get(linesCleared);
+        attackSentThisPiece += attackTable[btbLevel].tspins[linesCleared][min(combo + 1,attackTable[btbLevel].tspins[linesCleared].length - 1)];
       }
     }
     
@@ -769,12 +825,43 @@ function checkForLineClears(){
     if (typeof(clearTypes.get(linesCleared)) != "undefined"){
       mostRecentClearAnimationTimer = 160;
       mostRecentClear = clearTypes.get(linesCleared);
+      attackSentThisPiece += attackTable[btbLevel].clears[linesCleared][min(combo + 1,attackTable[btbLevel].clears[linesCleared].length - 1)];
+    }
+  }
+  attackSentTotal += attackSentThisPiece;
+  while (attackSentThisPiece > 0){
+    garbageQueue[0] -= 1;
+    garbageQueueAmount -= 1;
+    attackSentThisPiece -= 1;
+    if (garbageQueue[0] <= 1){
+      garbageQueue.splice(0,1)
     }
   }
 
   actionIsTspin = false;
+  //check for pc
+  pcHappened = true;
+  for (h = 0; h < grid.height; h++){
+    for (w = 0; w < grid.width; w++){
+      if (grid.tiles[h][w] !== 0){
+        pcHappened = false;
+      }
+    }
+  }
+  perfectClears += pcHappened;
+  attackSentTotal += pcHappened * attackTable.pcDamage;
+  if (sprintTimerGoing && linesClearedTotal >= 40){
+    sprintTimerGoing = false;
+    sprintMinutes = floor(framesPassedSinceReset/60/60)
+    sprintSeconds = framesPassedSinceReset/60 % 60;
+  }
+
+
+
   return lineCleared;
 }
+
+
 
 function getClearTypes(){
   clearTypes = new Map();
