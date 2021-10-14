@@ -837,6 +837,9 @@ function checkForLineClears(){
       garbageQueue.splice(0,1)
     }
   }
+  if (garbageQueueAmount < 0){
+    garbageQueueAmount = 0;
+  }
 
   actionIsTspin = false;
   //check for pc
