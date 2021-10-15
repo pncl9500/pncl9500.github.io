@@ -898,9 +898,9 @@ function checkForLineClears(){
     for (y = grid.height - 1; y >= grid.height - linesCleared; y--){
       for (x = 0; x < grid.width; x++){
         for (a = 0; a < 8; a++){
-          particles.push(new AdditiveParticle(x*grid.tileWidth + grid.xOffset, (y - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset,grid.tileWidth,grid.tileWidth,random(-10,10),random(-3,7),0.97,0.95,0,0.2,color(floor(random(0,255)),floor(random(0,255)),floor(random(0,255))),2000));
+          particles.push(new AdditiveParticle(x*grid.tileWidth + grid.xOffset, (y - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset,grid.tileWidth,grid.tileWidth,random(-10,10),random(-3,7),0.97,0.95,0,0.2,color(floor(random(0,255)),floor(random(0,255)),floor(random(0,255))),500));
           for (j = 0; j < 5; j++){
-            particles.push(new AdditiveParticle(x*grid.tileWidth + grid.xOffset + grid.tileWidth * 0.5, (y - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset + grid.tileWidth * 0.5,4,4,random(-10,10),random(-5,-25),0.97,1,0,random(0.25,0.4),color(floor(random(0,255)),floor(random(0,255)),floor(random(0,255))),2000));
+            particles.push(new AdditiveParticle(x*grid.tileWidth + grid.xOffset + grid.tileWidth * 0.5, (y - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset + grid.tileWidth * 0.5,4,4,random(-10,10),random(-5,-25),0.97,1,0,random(0.25,0.4),color(floor(random(0,255)),floor(random(0,255)),floor(random(0,255))),500));
           }
           
         }
