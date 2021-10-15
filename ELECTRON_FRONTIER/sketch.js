@@ -257,6 +257,7 @@ class Piece {
       for (var xx = 0; xx < this.tiles[0].length; xx++){
         if (this.tiles[yy][xx] != 0){
           grid.tiles[yy + this.y][xx + this.x] = this.color;
+          //particles.push(new Particle((xx+this.x)*grid.tileWidth + grid.xOffset, ((yy+this.y) - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset,grid.tileWidth,grid.tileWidth,0,0,0,0,0,0,color(255,255,255),3))
         }
       }
     }
@@ -345,6 +346,8 @@ function draw() {
   drawGarbageMeter();
   drawStats();
   drawPieces();
+
+  drawParticles();
   
   if (menuOpen){
     textSize(12);
@@ -363,6 +366,19 @@ function draw() {
   }
   
 }
+
+function drawParticles(){
+  for (p = 0; p < particles.length; p++){
+    particles[p].doTick();
+    if (particles[p].lifetime < 1){
+      particles[p].die();
+      particles.splice(p,1);
+      p -= 1;
+    }
+  }
+}
+
+
 
 function drawStats(){
   fill(255);
@@ -683,7 +699,7 @@ function logGrid(saidGrid){
 function doHardDrop(){
   oldpieces0x = pieces[0].x;
   oldpieces0y = pieces[0].y;
-  snapShift(0, 1)
+  snapShift(0, 1, true)
   if ((oldpieces0x != pieces[0].x) || (oldpieces0y != pieces[0].y)){
     lastSuccessfulAction = "harddrop";
   }
@@ -714,10 +730,23 @@ function solidifyGarbageMeter(){
   garbageQueue = [];
 }
 
-function snapShift(x, y){
-  while (pieces[0].shift(x,y)){
-    
+function snapShift(x, y, hardDrop = false){
+  if (hardDrop){
+    while (pieces[0].shift(x,y)){
+      for (yy = 0; yy < pieces[0].tiles.length; yy++){
+        for (xx = 0; xx < pieces[0].tiles[yy].length; xx++){
+          if (pieces[0].tiles[yy][xx] === 1){
+            particles.push(new Particle((xx+pieces[0].x)*grid.tileWidth + grid.xOffset, ((yy+pieces[0].y) - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset,grid.tileWidth,grid.tileWidth,0,0,0,0,0,0,tileColors.get(pieces[0].color),3));
+          }
+        }  
+      }
+    }
+  } else {
+    while (pieces[0].shift(x,y)){
+      
+    }
   }
+  
 }
 
 function spawnNewPiece(type, cyclePieces){
@@ -774,6 +803,7 @@ function deleteActivePiece(){
 function checkForLineClears(){
   lineCleared = false;
   linesCleared = 0;
+  yy = grid.height - 1
   for (y = grid.height - 1; y >= 0; y--){
     tilesFilledInRow = 0;
     for (x = 0; x < grid.width; x++){
@@ -784,10 +814,35 @@ function checkForLineClears(){
         linesCleared += 1;
         linesClearedTotal += 1;
         lineCleared = true
+        for (xx = 0; xx < grid.width; xx++){
+          if (actionIsTspin){
+            if (actionIsMini){
+                particles.push(new AdditiveParticle(xx*grid.tileWidth + grid.xOffset + grid.tileWidth * 0.5, (y - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset + grid.tileWidth * 0.5,2,2,random(-4,4),random(-3,-10),0.97,1,0,random(0.25,0.4),color(floor(random(0,255)),0,200),1000))
+            } else {
+              for (j = 0; j < 7; j++){
+                particles.push(new AdditiveParticle(xx*grid.tileWidth + grid.xOffset + grid.tileWidth * 0.5, (y - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset + grid.tileWidth * 0.5,5,5,random(-8,8),random(-3,-15),0.97,1,0,random(0.25,0.4),color(floor(random(0,255)),0,200),1000))
+              }
+            }
+          }
+          particles.push(new Particle(xx*grid.tileWidth + grid.xOffset, (yy - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset,grid.tileWidth,grid.tileWidth,0,0,0,0,0,0,color(255,255,255),5));
+          if (combo > 10){
+            for (j = 0; j < 4; j++){
+              particles.push(new AdditiveParticle(xx*grid.tileWidth + grid.xOffset + grid.tileWidth * 0.5, (y - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset + grid.tileWidth * 0.5,8,8,random(-10,10),random(-5,-25),0.97,1,0,random(0.25,0.4),color(floor(random(240,255)),floor(random(0,240)),0),1000))
+              particles.push(new AdditiveParticle(xx*grid.tileWidth + grid.xOffset + grid.tileWidth * 0.5, (y - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset + grid.tileWidth * 0.5,20,20,random(-10,10),random(-5,-25),0.97,1,0,random(0.25,0.4),color(floor(random(0,255)),floor(random(0,10)),0),1000))
+            }
+          } else if (combo > 5){
+            for (j = 0; j < 2; j++){
+              particles.push(new AdditiveParticle(xx*grid.tileWidth + grid.xOffset + grid.tileWidth * 0.5, (y - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset + grid.tileWidth * 0.5,6,6,random(-6,6),random(-5,-15),0.97,1,0,random(0.25,0.4),color(floor(random(125,255)),floor(random(0,50)),0),1000))
+            }
+          } else if (combo > 3){
+            particles.push(new AdditiveParticle(xx*grid.tileWidth + grid.xOffset + grid.tileWidth * 0.5, (y - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset + grid.tileWidth * 0.5,4,4,random(-3,3),random(-3,-10),0.97,1,0,random(0.25,0.4),color(floor(random(0,255)),0,0),1000))
+          }
+        }
         moveDownRows(y);
         y++;
       }
     }
+    yy--;
   }
   if (linesCleared !== 0){
     if (linesCleared >= 4 || actionIsTspin){
@@ -836,6 +891,19 @@ function checkForLineClears(){
     for (w = 0; w < grid.width; w++){
       if (grid.tiles[h][w] !== 0){
         pcHappened = false;
+      }
+    }
+  }
+  if (pcHappened){
+    for (y = grid.height - 1; y >= grid.height - linesCleared; y--){
+      for (x = 0; x < grid.width; x++){
+        for (a = 0; a < 8; a++){
+          particles.push(new AdditiveParticle(x*grid.tileWidth + grid.xOffset, (y - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset,grid.tileWidth,grid.tileWidth,random(-10,10),random(-3,7),0.97,0.95,0,0.2,color(floor(random(0,255)),floor(random(0,255)),floor(random(0,255))),2000));
+          for (j = 0; j < 5; j++){
+            particles.push(new AdditiveParticle(x*grid.tileWidth + grid.xOffset + grid.tileWidth * 0.5, (y - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset + grid.tileWidth * 0.5,4,4,random(-10,10),random(-5,-25),0.97,1,0,random(0.25,0.4),color(floor(random(0,255)),floor(random(0,255)),floor(random(0,255))),2000));
+          }
+          
+        }
       }
     }
   }
@@ -895,6 +963,7 @@ function moveDownRows(above){
   for (h = above; h >= 1; h--){
     for (j = 0; j < grid.tiles[h].length; j++){
       grid.tiles[h][j] = grid.tiles[h - 1][j];
+      
     }
   }
 }
