@@ -820,25 +820,25 @@ function checkForLineClears(){
         for (xx = 0; xx < grid.width; xx++){
           if (actionIsTspin){
             if (actionIsMini){
-                particles.push(new AdditiveParticle(xx*grid.tileWidth + grid.xOffset + grid.tileWidth * 0.5, (y - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset + grid.tileWidth * 0.5,2,2,random(-4,4),random(-3,-10),0.97,1,0,random(0.25,0.4),color(floor(random(0,255)),0,200),1000))
+                particles.push(new AdditiveParticle(xx*grid.tileWidth + grid.xOffset + grid.tileWidth * 0.5, (y - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset + grid.tileWidth * 0.5,2,2,random(-4,4),random(-3,-10),0.97,1,0,random(0.25,0.4),color(floor(random(0,255)),0,200),350))
             } else {
               for (j = 0; j < 3; j++){
-                particles.push(new AdditiveParticle(xx*grid.tileWidth + grid.xOffset + grid.tileWidth * 0.5, (y - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset + grid.tileWidth * 0.5,5,5,random(-8,8),random(-3,-15),0.97,1,0,random(0.25,0.4),color(floor(random(0,255)),0,200),1000))
+                particles.push(new AdditiveParticle(xx*grid.tileWidth + grid.xOffset + grid.tileWidth * 0.5, (y - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset + grid.tileWidth * 0.5,5,5,random(-8,8),random(-3,-15),0.97,1,0,random(0.25,0.4),color(floor(random(0,255)),0,200),350))
               }
             }
           }
           particles.push(new Particle(xx*grid.tileWidth + grid.xOffset, (yy - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset,grid.tileWidth,grid.tileWidth,0,0,0,0,0,0,color(255,255,255),5));
           if (combo > 10){
             for (j = 0; j < 4; j++){
-              particles.push(new AdditiveParticle(xx*grid.tileWidth + grid.xOffset + grid.tileWidth * 0.5, (y - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset + grid.tileWidth * 0.5,8,8,random(-10,10),random(-5,-25),0.97,1,0,random(0.25,0.4),color(floor(random(240,255)),floor(random(0,240)),0),1000))
-              particles.push(new AdditiveParticle(xx*grid.tileWidth + grid.xOffset + grid.tileWidth * 0.5, (y - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset + grid.tileWidth * 0.5,20,20,random(-10,10),random(-5,-25),0.97,1,0,random(0.25,0.4),color(floor(random(0,255)),floor(random(0,10)),0),1000))
+              particles.push(new AdditiveParticle(xx*grid.tileWidth + grid.xOffset + grid.tileWidth * 0.5, (y - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset + grid.tileWidth * 0.5,8,8,random(-10,10),random(-5,-25),0.97,1,0,random(0.25,0.4),color(floor(random(240,255)),floor(random(0,240)),0),350))
+              particles.push(new AdditiveParticle(xx*grid.tileWidth + grid.xOffset + grid.tileWidth * 0.5, (y - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset + grid.tileWidth * 0.5,20,20,random(-10,10),random(-5,-25),0.97,1,0,random(0.25,0.4),color(floor(random(0,255)),floor(random(0,10)),0),350))
             }
           } else if (combo > 5){
             for (j = 0; j < 2; j++){
-              particles.push(new AdditiveParticle(xx*grid.tileWidth + grid.xOffset + grid.tileWidth * 0.5, (y - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset + grid.tileWidth * 0.5,6,6,random(-6,6),random(-5,-15),0.97,1,0,random(0.25,0.4),color(floor(random(125,255)),floor(random(0,50)),0),1000))
+              particles.push(new AdditiveParticle(xx*grid.tileWidth + grid.xOffset + grid.tileWidth * 0.5, (y - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset + grid.tileWidth * 0.5,6,6,random(-6,6),random(-5,-15),0.97,1,0,random(0.25,0.4),color(floor(random(125,255)),floor(random(0,50)),0),350))
             }
           } else if (combo > 3){
-            particles.push(new AdditiveParticle(xx*grid.tileWidth + grid.xOffset + grid.tileWidth * 0.5, (y - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset + grid.tileWidth * 0.5,4,4,random(-3,3),random(-3,-10),0.97,1,0,random(0.25,0.4),color(floor(random(0,255)),0,0),1000))
+            particles.push(new AdditiveParticle(xx*grid.tileWidth + grid.xOffset + grid.tileWidth * 0.5, (y - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset + grid.tileWidth * 0.5,4,4,random(-3,3),random(-3,-10),0.97,1,0,random(0.25,0.4),color(floor(random(0,255)),0,0),350))
           }
         }
         moveDownRows(y);
@@ -901,10 +901,10 @@ function checkForLineClears(){
   if (pcHappened){
     for (y = grid.height - 1; y >= grid.height - linesCleared; y--){
       for (x = 0; x < grid.width; x++){
-        for (a = 0; a < 8; a++){
-          particles.push(new AdditiveParticle(x*grid.tileWidth + grid.xOffset, (y - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset,grid.tileWidth,grid.tileWidth,random(-10,10),random(-3,7),0.97,0.95,0,0.2,color(floor(random(0,255)),floor(random(0,255)),floor(random(0,255))),500));
-          for (j = 0; j < 5; j++){
-            particles.push(new AdditiveParticle(x*grid.tileWidth + grid.xOffset + grid.tileWidth * 0.5, (y - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset + grid.tileWidth * 0.5,4,4,random(-10,10),random(-5,-25),0.97,1,0,random(0.25,0.4),color(floor(random(0,255)),floor(random(0,255)),floor(random(0,255))),500));
+        for (a = 0; a < 4; a++){
+          particles.push(new AdditiveParticle(x*grid.tileWidth + grid.xOffset, (y - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset,grid.tileWidth,grid.tileWidth,random(-10,10),random(-3,7),0.97,0.95,0,0.2,color(floor(random(0,255)),floor(random(0,255)),floor(random(0,255))),350));
+          for (j = 0; j < 3; j++){
+            particles.push(new AdditiveParticle(x*grid.tileWidth + grid.xOffset + grid.tileWidth * 0.5, (y - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset + grid.tileWidth * 0.5,4,4,random(-10,10),random(-5,-25),0.97,1,0,random(0.25,0.4),color(floor(random(0,255)),floor(random(0,255)),floor(random(0,255))),350));
           }
           
         }
@@ -921,7 +921,7 @@ function checkForLineClears(){
 
   attackSentTotal += attackSentThisPiece;
   if (attackSentThisPiece > 0){
-    particles.push(new TextParticle(attackSentThisPiece, lastPieceXpos*grid.tileWidth + grid.xOffset + grid.tileWidth * 0.5, (lastClearRow - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset + grid.tileWidth * 0.5,attackSentThisPiece * 2 + 12,random(-2,2),random(-3,-5),0.99,1,0,random(0.25,0.4),color(255,255,80),1000));
+    particles.push(new TextParticle(attackSentThisPiece, lastPieceXpos*grid.tileWidth + grid.xOffset + grid.tileWidth * 0.5, (lastClearRow - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset + grid.tileWidth * 0.5,attackSentThisPiece * 2 + 12,random(-2,2),random(-3,-5),0.99,1,0,random(0.25,0.4),color(255,255,80),60));
   }
 
   while (attackSentThisPiece > 0){
