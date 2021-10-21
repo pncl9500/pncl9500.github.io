@@ -48,3 +48,16 @@ class AdditiveParticle extends Particle{
     blendMode(BLEND);
   }
 }
+
+class TextParticle extends Particle{
+  constructor(text,x,y,size,xv,yv,xfriction,yfriction,xgrav,ygrav,col,lifetime){
+    super(x,y,size,size,xv,yv,xfriction,yfriction,xgrav,ygrav,col,lifetime);
+    this.text = text;
+    this.size = size;
+  }
+  draw(){
+    fill(this.col);
+    textSize(this.size);
+    text(this.text, this.x, this.y);
+  }
+}

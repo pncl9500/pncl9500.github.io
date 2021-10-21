@@ -1,4 +1,4 @@
-
+lastPieceXpos = 0;
 
 
 
@@ -181,6 +181,7 @@ class Piece {
   }
   //turn the piece object into blocks in the grid tiles
   solidify(){
+    lastPieceXpos = this.x + this.tiles.length/2
     if (this.type === "t"){
       var a = false;
       var b = false;
@@ -369,6 +370,7 @@ function draw() {
 
 function drawParticles(){
   for (p = 0; p < particles.length; p++){
+    console.log(particles[p]);
     particles[p].doTick();
     if (particles[p].lifetime < 1){
       particles[p].die();
@@ -801,6 +803,7 @@ function deleteActivePiece(){
 }
 
 function checkForLineClears(){
+  lastClearRow = 0;
   lineCleared = false;
   linesCleared = 0;
   yy = grid.height - 1
@@ -819,7 +822,7 @@ function checkForLineClears(){
             if (actionIsMini){
                 particles.push(new AdditiveParticle(xx*grid.tileWidth + grid.xOffset + grid.tileWidth * 0.5, (y - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset + grid.tileWidth * 0.5,2,2,random(-4,4),random(-3,-10),0.97,1,0,random(0.25,0.4),color(floor(random(0,255)),0,200),1000))
             } else {
-              for (j = 0; j < 7; j++){
+              for (j = 0; j < 3; j++){
                 particles.push(new AdditiveParticle(xx*grid.tileWidth + grid.xOffset + grid.tileWidth * 0.5, (y - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset + grid.tileWidth * 0.5,5,5,random(-8,8),random(-3,-15),0.97,1,0,random(0.25,0.4),color(floor(random(0,255)),0,200),1000))
               }
             }
@@ -839,6 +842,7 @@ function checkForLineClears(){
           }
         }
         moveDownRows(y);
+        lastClearRow = y;
         y++;
       }
     }
@@ -916,6 +920,9 @@ function checkForLineClears(){
   }
 
   attackSentTotal += attackSentThisPiece;
+  if (attackSentThisPiece > 0){
+    particles.push(new TextParticle(attackSentThisPiece, lastPieceXpos*grid.tileWidth + grid.xOffset + grid.tileWidth * 0.5, (lastClearRow - (grid.height - grid.visibleHeight)) * grid.tileWidth + grid.yOffset + grid.tileWidth * 0.5,attackSentThisPiece * 2 + 12,random(-2,2),random(-3,-5),0.99,1,0,random(0.25,0.4),color(255,255,80),1000));
+  }
 
   while (attackSentThisPiece > 0){
     garbageQueue[0] -= 1;
