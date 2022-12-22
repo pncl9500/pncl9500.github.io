@@ -1,5 +1,6 @@
 
 function setup() {
+  document.body.addEventListener('touchstart', function(e){ e.preventDefault(); });
   generateName();
   //doCookieStuff();
   frameRate(60);
