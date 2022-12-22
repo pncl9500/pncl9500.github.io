@@ -870,6 +870,7 @@ inheritorList = [
   "hyperbolic paraboloids",
   "horses",
   "legend",
+  "victory",
   "creatures",
   "horrors",
   "redditors",
