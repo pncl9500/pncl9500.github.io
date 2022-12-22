@@ -76,6 +76,20 @@ class PrimitiveLineTrailParticle extends Entity{
     if (random(0, 20 > 1)){
       this.scraggliness = 0;
     }
+    this.trailP1FollowStrength = random(-0.05, 0.05);
+    this.trailP2FollowStrength = random(-0.05, 0.05);
+    if (random(0, 4) > 1){
+      this.trailP1FollowStrength *= 0.15;
+    }
+    if (random(0, 4) > 1){
+      this.trailP2FollowStrength *= 0.15;
+    }
+    if (random(0, 10) > 1){
+      this.trailP2FollowStrength = 0;
+    }
+    if (random(0, 10) > 1){
+      this.trailP1FollowStrength = 0;
+    }
   }
   //no debug draws so it doesnt clog up stuff
   drawDebug(){}
@@ -113,6 +127,12 @@ class PrimitiveLineTrailParticle extends Entity{
       this.lines[i].y1 += random(-this.shakiness, this.shakiness) * (this.lineLifetime - this.lines[i].lifetime);
       this.lines[i].x2 += random(-this.shakiness, this.shakiness) * (this.lineLifetime - this.lines[i].lifetime);
       this.lines[i].x2 += random(-this.shakiness, this.shakiness) * (this.lineLifetime - this.lines[i].lifetime);
+
+      this.lines[i].x1 += (this.lines[i].followPointX - this.lines[i].x1) * this.trailP1FollowStrength * (this.lines[i].lifetime / this.lineLifetime);
+      this.lines[i].y1 += (this.lines[i].followPointY - this.lines[i].y1) * this.trailP1FollowStrength * (this.lines[i].lifetime / this.lineLifetime);
+
+      this.lines[i].x2 += (this.lines[i].followPointX - this.lines[i].x2) * this.trailP1FollowStrength * (this.lines[i].lifetime / this.lineLifetime);
+      this.lines[i].y2 += (this.lines[i].followPointY - this.lines[i].y2) * this.trailP1FollowStrength * (this.lines[i].lifetime / this.lineLifetime);
       
 
       this.lines[i].lifetime -= 1;
@@ -156,6 +176,8 @@ class PrimitiveLineTrailParticle extends Entity{
       y1: py1 * (1 - y2scrag) + py2 * y2scrag,
       x2: px2 * (1 - x1scrag) + px1 * x1scrag,
       y2: py2 * (1 - y1scrag) + py1 * y1scrag,
+      followPointX: this.x2, 
+      followPointY: this.y2,
       lifetime: this.lineLifetime,
       col: {r: this.col.r + this.redSpeedGlow * sqrt((this.vx2 * this.vx2 + this.vy2 * this.vy2)), g: this.col.g + this.greenSpeedGlow * sqrt((this.vx2 * this.vx2 + this.vy2 * this.vy2)), b: this.col.b + this.blueSpeedGlow * sqrt((this.vx2 * this.vx2 + this.vy2 * this.vy2))},
       cv: {r: this.tcv.r, g: this.tcv.g, b: this.tcv.b},
