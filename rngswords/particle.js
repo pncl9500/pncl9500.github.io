@@ -25,6 +25,13 @@ class PrimitiveLineTrailParticle extends Entity{
     this.fadeWait = fadeWait;
     this.fadeSpeed = fadeSpeed;
 
+    if (random(0,10) < 1){
+      this.fadeSpeed *= 2
+    }
+    if (random(0,10) < 1){
+      this.fadeSpeed *= 3
+    }
+
     this.vx2 = 0
     this.vy2 = 0
 
@@ -76,20 +83,20 @@ class PrimitiveLineTrailParticle extends Entity{
     if (random(0, 20 > 1)){
       this.scraggliness = 0;
     }
-    this.trailP1FollowStrength = random(-0.05, 0.05);
-    this.trailP2FollowStrength = random(-0.05, 0.05);
+    this.trailP1StaticFollowStrength = random(-0.05, 0.05);
+    this.trailP2StaticFollowStrength = random(-0.05, 0.05);
     if (random(0, 4) > 1){
-      this.trailP1FollowStrength *= 0.15;
+      this.trailP1StaticFollowStrength *= 0.15;
     }
     if (random(0, 4) > 1){
-      this.trailP2FollowStrength *= 0.15;
+      this.trailP2StaticFollowStrength *= 0.15;
     }
-    if (random(0, 10) > 1){
-      this.trailP2FollowStrength = 0;
-    }
-    if (random(0, 10) > 1){
-      this.trailP1FollowStrength = 0;
-    }
+    // if (random(0, 9) > 1){
+    //   this.trailP2StaticFollowStrength = 0;
+    // }
+    // if (random(0, 9) > 1){
+    //   this.trailP1StaticFollowStrength = 0;
+    // }
   }
   //no debug draws so it doesnt clog up stuff
   drawDebug(){}
@@ -128,11 +135,13 @@ class PrimitiveLineTrailParticle extends Entity{
       this.lines[i].x2 += random(-this.shakiness, this.shakiness) * (this.lineLifetime - this.lines[i].lifetime);
       this.lines[i].x2 += random(-this.shakiness, this.shakiness) * (this.lineLifetime - this.lines[i].lifetime);
 
-      this.lines[i].x1 += (this.lines[i].followPointX - this.lines[i].x1) * this.trailP1FollowStrength * (this.lines[i].lifetime / this.lineLifetime);
-      this.lines[i].y1 += (this.lines[i].followPointY - this.lines[i].y1) * this.trailP1FollowStrength * (this.lines[i].lifetime / this.lineLifetime);
+      //static
+      this.lines[i].x1 += (this.lines[i].followPointX - this.lines[i].x1) * this.trailP1StaticFollowStrength * (this.lines[i].lifetime / this.lineLifetime);
+      this.lines[i].y1 += (this.lines[i].followPointY - this.lines[i].y1) * this.trailP1StaticFollowStrength * (this.lines[i].lifetime / this.lineLifetime);
 
-      this.lines[i].x2 += (this.lines[i].followPointX - this.lines[i].x2) * this.trailP1FollowStrength * (this.lines[i].lifetime / this.lineLifetime);
-      this.lines[i].y2 += (this.lines[i].followPointY - this.lines[i].y2) * this.trailP1FollowStrength * (this.lines[i].lifetime / this.lineLifetime);
+      this.lines[i].x2 += (this.lines[i].followPointX - this.lines[i].x2) * this.trailP1StaticFollowStrength * (this.lines[i].lifetime / this.lineLifetime);
+      this.lines[i].y2 += (this.lines[i].followPointY - this.lines[i].y2) * this.trailP1StaticFollowStrength * (this.lines[i].lifetime / this.lineLifetime);
+
       
 
       this.lines[i].lifetime -= 1;
