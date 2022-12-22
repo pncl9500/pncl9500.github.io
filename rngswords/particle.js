@@ -11,7 +11,7 @@ class PrimitiveLineTrailParticle extends Entity{
     this.lifetime = lifetime;
     this.lineLifetime = lineLifetime;
     this.s = s;
-    if (random(1,50) < 1){
+    if (random(0,50) < 1){
       this.s *= 1.1;
     }
     this.col = col;

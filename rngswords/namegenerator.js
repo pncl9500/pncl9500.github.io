@@ -7,9 +7,13 @@ function generateName(){
   }
 
   if (floor(random(0, 3)) === 0){
-    swordName = swordName.concat(`${prefixList[floor(random(0, prefixList.length - 1))]} `)
-    if (floor(random(0, 16)) === 0){
-      swordName = swordName.concat(`and ${prefixList[floor(random(0, prefixList.length - 1))]} `)
+    if (floor(random(0, prefixList.length)) < 1 && !hasThePrefix){
+      swordName = swordName.concat(`that `)
+    } else {
+      swordName = swordName.concat(`${prefixList[floor(random(0, prefixList.length - 1))]} `)
+      if (floor(random(0, 16)) === 0){
+        swordName = swordName.concat(`and ${prefixList[floor(random(0, prefixList.length - 1))]} `)
+      }
     }
   }
  
@@ -68,6 +72,7 @@ firstWordList = [
 "blue",
 "purple",
 "fruit",
+"glock",
 "heavy",
 "strong",
 "killing",
@@ -86,11 +91,13 @@ firstWordList = [
 "sand",
 "tempo",
 "dema",
+"de",
 "nox",
 "aurora",
 "sloom",
 "butt",
 "fart",
+"hole",
 "wire",
 "ultra",
 "warp",
@@ -106,6 +113,7 @@ firstWordList = [
 "thunder",
 "fire",
 "flame",
+"coochie",
 "wrinkle",
 "water",
 "ocean",
@@ -122,6 +130,7 @@ firstWordList = [
 "ix",
 "earth",
 "nix",
+"smog",
 "terra",
 "swift",
 "ogre",
@@ -133,6 +142,8 @@ firstWordList = [
 "random",
 "unstoppa",
 "bat",
+"jumbo",
+"quero",
 "gargantua",
 "weed",
 "wind",
@@ -197,6 +208,7 @@ firstWordList = [
 "omega",
 "abyss",
 "steel",
+"veggie",
 "iron",
 "burst",
 "micro",
@@ -285,12 +297,19 @@ firstWordList = [
 "dust",
 "mino",
 "space",
+"pee",
+"miro",
+"matter",
+"gene",
+"raw",
 "salt",
 "griffin",
 "america",
 "rick",
+"polter",
 "duck",
 "honey",
+"air",
 "crystal",
 "void",
 "solar",
@@ -301,15 +320,23 @@ secondWordList = [
 "blade",
 "knife",
 "killer",
+"gust",
 "kill",
 "abyss",
 "burger",
+"fryer",
 "blood",
 "butcher",
 "taur",
 "danger",
+"capitator",
+"pitator",
+"dog",
 "saber",
+"table",
 "anger",
+"bird",
+"glock",
 "beater",
 "deleter",
 "smoker",
@@ -350,6 +377,8 @@ secondWordList = [
 "sword",
 "axe",
 "ax",
+"hole",
+"pulse",
 "grit",
 "brand",
 "hand",
@@ -980,6 +1009,7 @@ prefixList = [
   "impending",
   "inevitable",
   "immortal",
+  "double-sided",
   "mortal",
   "hunky",
   "broad",
@@ -1016,6 +1046,7 @@ prefixList = [
   "reinforced",
   "regenerated",
   "moldy",
+  "vvizard",
   "mossy",
   "regenerating",
   "infinite",
