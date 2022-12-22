@@ -6,19 +6,42 @@ function generateName(){
     swordName = "the ";
   }
 
-  swordName = swordName.concat(firstWordList[floor(random(0, firstWordList.length - 1))])
-  swordName = swordName.concat(secondWordList[floor(random(0, secondWordList.length - 1))])
+  if (floor(random(0, 3)) === 0){
+    swordName = swordName.concat(`${prefixList[floor(random(0, prefixList.length - 1))]} `)
+    if (floor(random(0, 16)) === 0){
+      swordName = swordName.concat(`and ${prefixList[floor(random(0, prefixList.length - 1))]} `)
+    }
+  }
+ 
+
+  var remove = "none";
+  if (random(0, 27) < 1){
+    var remove = "first";
+    if (random(0, 8) < 1){
+      remove = "second";
+    }
+  }
+  if (!(remove === "first")){
+    swordName = swordName.concat(firstWordList[floor(random(0, firstWordList.length - 1))])
+  }
+  if (!(remove === "second")){
+    swordName = swordName.concat(secondWordList[floor(random(0, secondWordList.length - 1))])
+  }
+  if (random(0, 15) < 1){
+    swordName = swordName.concat(secondWordList[floor(random(0, secondWordList.length - 1))])
+  }
 
   if (!hasThePrefix && floor(random(0, 3)) === 0){
     swordName = swordName.concat(` the ${titleList[floor(random(0, titleList.length - 1))]}`)
   }
 
-  if (floor(random(0, 3))){
+
+  if (random(0, 2.5) < 1){
     swordName = swordName.concat(` of ${inheritorList[floor(random(0, inheritorList.length - 1))]}`) 
-    if (floor(random(0, 4))){
+    if (random(0, 7) < 1){
       swordName = swordName.concat(` and ${inheritorList[floor(random(0, inheritorList.length - 1))]}`) 
     } else {
-      if (floor(random(0,7)) === 0){
+      if (floor(random(0,8)) === 0){
         swordName = swordName.concat(`, ${inheritorList[floor(random(0, inheritorList.length - 1))]}`) 
         while(random(0,1.5) < 1){
           swordName = swordName.concat(`, ${inheritorList[floor(random(0, inheritorList.length - 1))]}`) 
@@ -56,6 +79,9 @@ firstWordList = [
 "goblin",
 "evil",
 "heaven",
+"extendo",
+"extempo",
+"tempo",,
 "dema",
 "nox",
 "aurora",
@@ -63,6 +89,8 @@ firstWordList = [
 "butt",
 "fart",
 "ultra",
+"warp",
+"war",
 "glog",
 "chain",
 "sludge",
@@ -72,6 +100,7 @@ firstWordList = [
 "thunder",
 "fire",
 "flame",
+"wrinkle",
 "water",
 "ocean",
 "venom",
@@ -90,6 +119,7 @@ firstWordList = [
 "swift",
 "ogre",
 "auto",
+"exo",
 "killer",
 "love",
 "chemical",
@@ -139,6 +169,7 @@ firstWordList = [
 "forest",
 "inferno",
 "gold",
+"xan",
 "silver",
 "diamond",
 "toxic",
@@ -257,12 +288,6 @@ firstWordList = [
 "void",
 "solar",
 "elf",
-"",
-"",
-"",
-"",
-"",
-"",
 ]
 
 secondWordList = [
@@ -285,6 +310,7 @@ secondWordList = [
 "slayer",
 "guide",
 "powder",
+"throngler",
 "fool",
 "berserk",
 "griffin",
@@ -295,9 +321,11 @@ secondWordList = [
 "nose",
 "burst",
 "bob",
+"blob",
 "bubble",
 "nuker",
 "nuke",
+"scroll",
 "tal",
 "sloom",
 "breaker",
@@ -308,6 +336,8 @@ secondWordList = [
 "honey",
 "slasher",
 "sword",
+"axe",
+"ax",
 "grit",
 "brand",
 "hand",
@@ -461,8 +491,6 @@ secondWordList = [
 "omatic",
 "dirt",
 "sharpener",
-"",
-"",
 ]
 
 titleList = [
@@ -822,6 +850,7 @@ inheritorList = [
   "the stars",
   "the earth",
   "the work",
+  "earth",
   "gold",
   "silver",
   "crystals",
@@ -860,6 +889,9 @@ inheritorList = [
   "grass",
   "power",
   "glowing",
+  "hopes",
+  "dreams",
+  "nightmares",
   "swords",
   "blades",
   "phantoms",
@@ -873,6 +905,7 @@ inheritorList = [
   "victory",
   "creatures",
   "horrors",
+  "death",
   "redditors",
   "the endless",
   "old gods",
@@ -886,7 +919,9 @@ inheritorList = [
   "sloppy toppy",
   "the aurora",
   "dogshit",
+  "thousands of cuts",
   "an awful day",
+  "ardor",
   "a wonderful day",
   "bees",
   "millions",
@@ -895,6 +930,7 @@ inheritorList = [
   "the iterators",
   "your computer",
   "houses",
+  "the sender",
   "judgement",
   "what we have done",
   "what we must do",
@@ -907,7 +943,84 @@ inheritorList = [
   "what we were given",
 ]
        
-       
+prefixList = [
+  "unfathomable",
+  "greasy",
+  "silly",
+  "wet",
+  "shitty",
+  "shoddy",
+  "tiny",
+  "shadow",
+  "crappy",
+  "ephemeral",
+  "impending",
+  "inevitable",
+  "immortal",
+  "mortal",
+  "hunky",
+  "broad",
+  "shimmering",
+  "bloody",
+  "electronic",
+  "great",
+  "unstoppable",
+  "masterful",
+  "swift",
+  "decapitating",
+  "sloomed",
+  "wonderful",
+  "insane",
+  "unreasonable",
+  "berserk",
+  "dead man's",
+  "dead",
+  "skeleton",
+  "ethereal",
+  "unperceptable",
+  "pirate",
+  "invisible",
+  "impressive",
+  "flaming",
+  "electrified",
+  "venomous",
+  "poisonous",
+  "dripping",
+  "treacherous",
+  "irradiated",
+  "radioactive",
+  "reinforced",
+  "regenerated",
+  "reinvented",
+  "concept of",
+  "heavenly",
+  "holy",
+  "unholy",
+  "channeled",
+  "shit",
+  "penis",
+  "fuck",
+  "ass",
+  "demon",
+  "kitchen",
+  "DIY",
+  "assembled",
+  "collected",
+  "sought-after",
+  "legendary",
+  "tired",
+  "unbreakable",
+  "fragile",
+  "breakable",
+  "curved",
+  "malleable",
+  "false",
+  "true",
+  "evolved",
+  "fungal",
+  "chosen",
+  "important",
+]
        
        
        
