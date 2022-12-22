@@ -43,7 +43,7 @@ function generateName(){
     } else {
       if (floor(random(0,8)) === 0){
         swordName = swordName.concat(`, ${inheritorList[floor(random(0, inheritorList.length - 1))]}`) 
-        while(random(0,1.5) < 1){
+        while(random(0,2.5) < 1){
           swordName = swordName.concat(`, ${inheritorList[floor(random(0, inheritorList.length - 1))]}`) 
         }
         if (random(0,100) < 1){
@@ -928,6 +928,7 @@ inheritorList = [
   "dogshit",
   "thousands of cuts",
   "an awful day",
+  "regeneration",
   "ardor",
   "a wonderful day",
   "bees",
@@ -938,6 +939,9 @@ inheritorList = [
   "your computer",
   "houses",
   "the sender",
+  "decay",
+  "mold",
+  "moss",
   "judgement",
   "what we have done",
   "what we must do",
@@ -998,6 +1002,9 @@ prefixList = [
   "radioactive",
   "reinforced",
   "regenerated",
+  "moldy",
+  "mossy",
+  "regenerating",
   "reinvented",
   "concept of",
   "heavenly",
@@ -1015,6 +1022,8 @@ prefixList = [
   "collected",
   "sought-after",
   "legendary",
+  "rotting",
+  "juicy",
   "tired",
   "unbreakable",
   "fragile",
@@ -1024,6 +1033,10 @@ prefixList = [
   "false",
   "true",
   "evolved",
+  "exciting",
+  "frugal",
+  "fleeting",
+  "decaying",
   "fungal",
   "chosen",
   "important",
