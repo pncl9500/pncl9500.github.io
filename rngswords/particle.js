@@ -21,6 +21,15 @@ class PrimitiveLineTrailParticle extends Entity{
     this.tcv = tcv;
     this.tcf = tcf;
     this.tcg = tcg;
+    if (random(0,3) > 1){
+      this.tcf.r = 1;
+    }
+    if (random(0,3) > 1){
+      this.tcf.g = 1;
+    }
+    if (random(0,3) > 1){
+      this.tcf.b = 1;
+    }
     this.alpha = alpha;
     this.fadeWait = fadeWait;
     this.fadeSpeed = fadeSpeed;
