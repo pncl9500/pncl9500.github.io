@@ -334,6 +334,8 @@ firstWordList = [
 "solar",
 "hive",
 "elf",
+"skibidi",
+"g-"
 ]
 
 secondWordList = [
@@ -577,6 +579,7 @@ secondWordList = [
 "omatic",
 "dirt",
 "sharpener",
+"skibidi"
 ]
 
 titleList = [
@@ -789,6 +792,7 @@ titleList = [
 "mean",
 "demon",
 "rusted",
+"skibidi",
 ]
        
        
@@ -1051,6 +1055,9 @@ inheritorList = [
   "what we deserve",
   "what we require",
   "what we were given",
+  "skibidi toilets",
+  "skibidi toilet",
+  "the skibidi toilet",
 ]
        
 prefixList = [
@@ -1156,6 +1163,7 @@ prefixList = [
   "chosen",
   "ascended",
   "important",
+  "skibidi",
 ]
        
        
