@@ -1,7 +1,9 @@
 UIscale = 1;
 showFps = false;
 
-
+function getLink(){
+  return `https://pncl9500.github.io/rngswords/?seed=${randSeed}`
+}
 
 
 /**
@@ -27,6 +29,7 @@ function drawUI(){
   fill(255, 255, 255);
   text(`sword name: ${swordName}`, 5, 10);
   text(`reload the page if you want a new one`, 5, 25);
+  text(`seed: ${randSeed}`, 5, 40);
 }
 
 class UIcontainer{

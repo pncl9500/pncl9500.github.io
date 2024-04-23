@@ -1,6 +1,28 @@
 
 function setup() {
   document.body.addEventListener('touchstart', function(e){ e.preventDefault(); });
+  randSeed = floor(random(0, 999999999999));
+  //separate url into each parameter
+  var urlParams = window.location.search.split("?");
+  //remove empty first parameter
+  urlParams.shift();
+  for (var i = 0; i < urlParams.length; i++){
+    //split each parameter into its key and value
+    var pair = urlParams[i].split("=");
+    var param = pair[0];
+    var val = pair[1];
+    //do stuff with each parameter
+    switch (param) {
+      case "seed":
+        randSeed = val;
+        break;
+      default:
+        break;
+    }
+  }
+  //randSeed = 0;
+  randomSeed(randSeed);
+
   generateName();
   //doCookieStuff();
   frameRate(60);

@@ -383,6 +383,8 @@ firstWordList = [
 "tseg",
 "rosa",
 "rose",
+"dimma",
+"dim",
 ]
 
 secondWordList = [
@@ -635,7 +637,8 @@ secondWordList = [
 "shake",
 "stome",
 "wome",
-"removel"
+"removel",
+"dim",
 ]
 
 titleList = [
