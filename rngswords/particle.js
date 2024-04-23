@@ -112,6 +112,12 @@ class PrimitiveLineTrailParticle extends Entity{
       this.oscillationAmp1 = 0;
       this.oscillationAmp2 = 0;
     }
+    this.strokeWeight = 1;
+    for (var i = 0; i < 3; i++){
+      if (random() < 0.006){
+        this.strokeWeight *= random(1, 5); 
+      }
+    }
   }
   //no debug draws so it doesnt clog up stuff
   drawDebug(){}
@@ -132,7 +138,7 @@ class PrimitiveLineTrailParticle extends Entity{
         break;
     }
     //strokeweight of 1 is weird but gaps would appear in between each segment otherwise
-    strokeWeight(1);
+    strokeWeight(this.strokeWeight);
     for (var i = 0; i < this.lines.length; i++){
       fill(this.lines[i].col.r, this.lines[i].col.g, this.lines[i].col.b, this.lines[i].alpha);
       stroke(this.lines[i].col.r, this.lines[i].col.g, this.lines[i].col.b, this.lines[i].alpha);

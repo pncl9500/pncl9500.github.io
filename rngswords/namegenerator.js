@@ -335,7 +335,18 @@ firstWordList = [
 "hive",
 "elf",
 "skibidi",
-"g-"
+"g-",
+"schlu",
+"dexo",
+"von",
+"vork",
+"bulch",
+"infini",
+"penta",
+"dodeca",
+"gallo",
+"acrid",
+"snake",
 ]
 
 secondWordList = [
@@ -793,6 +804,9 @@ titleList = [
 "demon",
 "rusted",
 "skibidi",
+"superfucking",
+"L",
+"W",
 ]
        
        
