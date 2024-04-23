@@ -6,7 +6,7 @@ function generateName(){
     swordName = "the ";
   }
 
-  if (floor(random(0, 3)) === 0){
+  if (floor(random(0, 4)) === 0){
     if (floor(random(0, prefixList.length)) < 1 && !hasThePrefix){
       swordName = swordName.concat(`that `)
     } else {
@@ -40,12 +40,12 @@ function generateName(){
   }
 
 
-  if (random(0, 2.5) < 1){
+  if (random(0, 4.5) < 1){
     swordName = swordName.concat(` of ${inheritorList[floor(random(0, inheritorList.length - 1))]}`) 
-    if (random(0, 7) < 1){
+    if (random(0, 8) < 1){
       swordName = swordName.concat(` and ${inheritorList[floor(random(0, inheritorList.length - 1))]}`) 
     } else {
-      if (floor(random(0,8)) === 0){
+      if (floor(random(0,9)) === 0){
         swordName = swordName.concat(`, ${inheritorList[floor(random(0, inheritorList.length - 1))]}`) 
         while(random(0,2.5) < 1){
           swordName = swordName.concat(`, ${inheritorList[floor(random(0, inheritorList.length - 1))]}`) 
