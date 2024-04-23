@@ -347,6 +347,42 @@ firstWordList = [
 "gallo",
 "acrid",
 "snake",
+"lighto",
+"dono",
+"spobble",
+"riff",
+"raff",
+"bolsto",
+"bion",
+"cy",
+"fi",
+"wa",
+"ai",
+"ea",
+"ic",
+"el",
+"da",
+"li",
+"pl",
+"me",
+"X-",
+"fringe",
+"cliff",
+"boldore",
+"snore",
+"sloomer",
+"ligament",
+"time",
+"gorgon",
+"morfe",
+"rime",
+"necro",
+"anto",
+"patho",
+"drum",
+"tseg",
+"rosa",
+"rose",
 ]
 
 secondWordList = [
@@ -590,7 +626,15 @@ secondWordList = [
 "omatic",
 "dirt",
 "sharpener",
-"skibidi"
+"skibidi",
+"bot",
+"market",
+"freeman",
+"beat",
+"X",
+"shake",
+"stome",
+"wome",
 ]
 
 titleList = [
@@ -807,6 +851,11 @@ titleList = [
 "superfucking",
 "L",
 "W",
+"glunky",
+"watermarked",
+"transparent",
+"rasterized",
+"forgetful",
 ]
        
        
@@ -1178,6 +1227,14 @@ prefixList = [
   "ascended",
   "important",
   "skibidi",
+  "superfucking",
+  "L",
+  "W",
+  "glunky",
+  "watermarked",
+  "transparent",
+  "rasterized",
+  "forgetful",
 ]
        
        
