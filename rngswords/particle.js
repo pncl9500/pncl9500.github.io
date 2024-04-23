@@ -1,7 +1,7 @@
 
 
 class PrimitiveLineTrailParticle extends Entity{
-  constructor(x1, y1, x2, y2, z, lifetime, lineLifetime, s, col, mcv, mcf, mcg, tcv, tcf, tcg, alpha, fadeWait, fadeSpeed){
+  constructor(x1, y1, x2, y2, z, lifetime, lineLifetime, s, col, mcv, mcf, mcg, tcv, tcf, tcg, alpha, fadeWait, fadeSpeed, blendMode){
     super((x1 + x2) * 0.5, (y1 + y2) * 0.5, 50, 50, 0, [new HitboxWrapper(0, 0, new RectHitbox(40, 40))], new RectHitbox(40, 40), 40, []);
     this.x1 = x1;
     this.y1 = y1;
@@ -11,6 +11,7 @@ class PrimitiveLineTrailParticle extends Entity{
     this.lifetime = lifetime;
     this.lineLifetime = lineLifetime;
     this.s = s;
+    this.blendMode = blendMode;
     if (random(0,50) < 1){
       this.s *= 1.1;
     }
@@ -105,6 +106,19 @@ class PrimitiveLineTrailParticle extends Entity{
   drawHoveredDebug(){}
   drawSelectedDebug(){}
   draw(){
+    switch (this.blendMode) {
+      case "ADD": blendMode(ADD); break;
+      case "LIGHTEST": blendMode(LIGHTEST); break;
+      case "DIFFERENCE": blendMode(DIFFERENCE); break;
+      case "EXCLUSION": blendMode(EXCLUSION); break;
+      case "SCREEN": blendMode(SCREEN); break;
+      case "REPLACE": blendMode(REPLACE); break;
+      case "HARD_LIGHT": blendMode(HARD_LIGHT); break;
+    
+      default:
+        blendMode(BLEND);
+        break;
+    }
     //strokeweight of 1 is weird but gaps would appear in between each segment otherwise
     strokeWeight(1);
     for (var i = 0; i < this.lines.length; i++){
@@ -157,6 +171,7 @@ class PrimitiveLineTrailParticle extends Entity{
       }
 
     }
+    blendMode(BLEND);
   }
   doAction(){
     this.targx2 = screenToGameX(mouseX); 
