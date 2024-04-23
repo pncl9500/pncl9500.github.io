@@ -94,12 +94,24 @@ class PrimitiveLineTrailParticle extends Entity{
     if (random(0, 4) > 1){
       this.trailP2StaticFollowStrength *= 0.15;
     }
-    // if (random(0, 9) > 1){
-    //   this.trailP2StaticFollowStrength = 0;
-    // }
-    // if (random(0, 9) > 1){
-    //   this.trailP1StaticFollowStrength = 0;
-    // }
+    this.oscillationAmp1 = random(-0.08, 0.08);
+    if (random() < 0.2){
+      this.oscillationAmp1 *= 5;
+    }
+    this.oscillationAmp2 = random(-0.08, 0.08);
+    if (random() < 0.2){
+      this.oscillationAmp2 *= 5;
+    }
+    this.oscillationFreq1 = random(0,6);
+    this.oscillationFreq2 = random(0,6);
+    if (random() < 0.8){
+      this.oscillationFreq1 = this.oscillationFreq2;
+      this.oscillationAmp1 = this.oscillationAmp2;
+    }
+    if (random() < 0.98){
+      this.oscillationAmp1 = 0;
+      this.oscillationAmp2 = 0;
+    }
   }
   //no debug draws so it doesnt clog up stuff
   drawDebug(){}
@@ -150,6 +162,10 @@ class PrimitiveLineTrailParticle extends Entity{
       this.lines[i].y1 += random(-this.shakiness, this.shakiness) * (this.lineLifetime - this.lines[i].lifetime);
       this.lines[i].x2 += random(-this.shakiness, this.shakiness) * (this.lineLifetime - this.lines[i].lifetime);
       this.lines[i].x2 += random(-this.shakiness, this.shakiness) * (this.lineLifetime - this.lines[i].lifetime);
+      this.lines[i].x1 += cos(this.oscillationFreq1 * frameCount) * this.oscillationAmp1 * (this.lines.length - i);
+      this.lines[i].y1 += sin(this.oscillationFreq1 * frameCount) * this.oscillationAmp1 * (this.lines.length - i);
+      this.lines[i].x2 += cos(this.oscillationFreq2 * frameCount) * this.oscillationAmp2 * (this.lines.length - i);
+      this.lines[i].y2 += sin(this.oscillationFreq2 * frameCount) * this.oscillationAmp2 * (this.lines.length - i);
 
       //static
       this.lines[i].x1 += (this.lines[i].followPointX - this.lines[i].x1) * this.trailP1StaticFollowStrength * (this.lines[i].lifetime / this.lineLifetime);
@@ -178,12 +194,12 @@ class PrimitiveLineTrailParticle extends Entity{
     this.targy2 = screenToGameY(mouseY);
     this.vx2 += (this.targx2 - this.x2) * this.followStrength;
     this.vy2 += (this.targy2 - this.y2) * this.followStrength;
-    this.x2 += this.vx2
-    this.y2 += this.vy2
+    this.x2 += this.vx2;
+    this.y2 += this.vy2;
     this.vx2 *= this.friction;
     this.vy2 *= this.friction;
-    //cam.shakeX += this.vx2;
-    //cam.shakeY += this.vy2;
+    // this.vx2 += cos(this.oscillationFreq * frameCount) * this.oscillationAmp;
+    // this.vy2 += sin(this.oscillationFreq * frameCount) * this.oscillationAmp;
   }
   update(){
     if (this.updatedThisFrame){return;}
