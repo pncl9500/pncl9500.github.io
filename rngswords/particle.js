@@ -198,6 +198,18 @@ class PrimitiveLineTrailParticle extends Entity{
   doAction(){
     this.targx2 = screenToGameX(mouseX); 
     this.targy2 = screenToGameY(mouseY);
+    if (keyIsDown(LEFT_ARROW)){
+      this.targx2 -= 350;
+    }
+    if (keyIsDown(RIGHT_ARROW)){
+      this.targx2 += 350;
+    }
+    if (keyIsDown(UP_ARROW)){
+      this.targy2 -= 350;
+    }
+    if (keyIsDown(DOWN_ARROW)){
+      this.targy2 += 350;
+    }
     this.vx2 += (this.targx2 - this.x2) * this.followStrength;
     this.vy2 += (this.targy2 - this.y2) * this.followStrength;
     this.x2 += this.vx2;
