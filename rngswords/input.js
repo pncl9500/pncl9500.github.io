@@ -1,4 +1,6 @@
 keyBinds = {
+  newSword: [82],
+
   uiLeftClick: [0],
   uiRightClick: [1],
 

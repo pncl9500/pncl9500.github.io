@@ -1,7 +1,29 @@
 
 function setup() {
+  mouseX = windowWidth / 2;
+  mouseY = windowHeight / 2;
+  //doCookieStuff();
+  frameRate(60);
+  //disable right click menu
+  window.addEventListener('contextmenu', function (e) {e.preventDefault(); }, false);
   document.body.addEventListener('touchstart', function(e){ e.preventDefault(); });
-  randSeed = floor(random(0, 999999999999));
+  makeSword();
+
+  angleMode(DEGREES);
+  rectMode(CENTER);
+  createCanvas(windowWidth, windowHeight);
+
+  UIright = windowWidth;
+  UIleft = 0;
+  UIbottom = windowHeight;
+  UItop = 0;
+
+  mousePointerEntity = new IndiscColliderEntity(0, 0, 1, 1, 0, [new HitboxWrapper(0, 0, new RectHitbox(1, 1))], new RectHitbox(1, 1), 0, []);
+  background(0, 0, 0);
+}
+
+function makeSword(){
+  randSeed = floor(random(0, Number.MAX_SAFE_INTEGER));
   //separate url into each parameter
   var urlParams = window.location.search.split("?");
   //remove empty first parameter
@@ -24,14 +46,7 @@ function setup() {
   randomSeed(randSeed);
 
   generateName();
-  //doCookieStuff();
-  frameRate(60);
-  //disable right click menu
-  window.addEventListener('contextmenu', function (e) {e.preventDefault(); }, false);
 
-  angleMode(DEGREES);
-  rectMode(CENTER);
-  createCanvas(windowWidth, windowHeight);
 
   cam = new Cam(focusScreenPositionX = windowWidth/2, focusScreenPositionY = windowHeight/2, x = 0, y = 0, targetX = 0, targetY = 0, targetAngle = 0, targetZoom = 1, angle = 0, zoom = 1, smoothingX = 0.95, smoothingY = 0.95, zoomSmoothing = 0.05, angleSmoothing = 0.05)
   windowAspectRatio = windowWidth/windowHeight;
@@ -39,14 +54,6 @@ function setup() {
 
   getWindowChunkDimensions();
   generateMap();
-
-  UIright = windowWidth;
-  UIleft = 0;
-  UIbottom = windowHeight;
-  UItop = 0;
-
-  mousePointerEntity = new IndiscColliderEntity(0, 0, 1, 1, 0, [new HitboxWrapper(0, 0, new RectHitbox(1, 1))], new RectHitbox(1, 1), 0, []);
-  background(0, 0, 0);
 }
 
 
